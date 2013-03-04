@@ -7,13 +7,13 @@ public class Recipe
 {
 
 	private String recipeName;
-	private String[] ingredients;
+	private ArrayList<String> ingredients;
 	private String cookingInstruction;
 	private String author;
 	private boolean isPublished;
 	
 	// Recipe constructor
-	public Recipe(String recipeName, String[] ingredients, String instruction, String author) {
+	public Recipe(String recipeName, ArrayList<String> ingredients, String instruction, String author) {
 		this.recipeName = recipeName;
 		this.ingredients = ingredients;
 		this.cookingInstruction = instruction;
@@ -28,7 +28,7 @@ public class Recipe
 		return this.author;
 	}
 	
-	public String[] showIngredients() {
+	public ArrayList<String> showIngredients() {
 		return this.ingredients;
 	}
 	
@@ -36,11 +36,15 @@ public class Recipe
 		return this.cookingInstruction;
 	}
 	
-	/*
+
 	public Photo[] getPhotos() {
-		
+		return null;
 	}
-	*/
+	
+	public void addPhotos(Photo photo) {
+	
+	}
+
 	public boolean publishRecipe() {
 		return false;
 	}
