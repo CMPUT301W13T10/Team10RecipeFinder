@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name="name">Name:</string>
+        <string name="nameTextField">Enter the name of your recipe</string>
+        <string name="ingredients">Ingredients:</string>
+        <string name="instructions">Instructions:</string>
+        <string name="instructionsTextField">Enter the instructions for your
+             Recipe</string>
+        <string name="doneButton">Done</string>
+</resources>
