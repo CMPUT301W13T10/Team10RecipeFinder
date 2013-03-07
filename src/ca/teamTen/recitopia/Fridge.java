@@ -7,24 +7,40 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import android.content.Context;
 import android.util.Log;
 
+/**
+ * Fridge class stores a set of ingredients, loads/saves
+ * from a file. Duplicate ingredients are ignored.
+ */
 public class Fridge{
 
-	private ArrayList<String> ingredients;
+	private Set<String> ingredients;
 	
 	public Fridge() {
-		ingredients = new ArrayList();
+		ingredients = new HashSet<String>();
 	}
 	
-	public void addIngredient(String ingredient) {
-		ingredients.add(ingredient);
+	public boolean addIngredient(String ingredient) {
+		return ingredients.add(ingredient);
 	}
 	
-	public void removeIngredient(int index) {
-		ingredients.remove(index);
+	public void removeIngredient(String ingredient) {
+		ingredients.remove(ingredient);
+	}
+	
+	public Collection<String> getIngredients()
+	{
+		return new ArrayList<String>(ingredients);
+	}	
+
+	public int countIngredients() {
+		return ingredients.size();
 	}
 	
 	public void saveFridgeInfo(String fileName, Context ctx) {
@@ -45,7 +61,7 @@ public class Fridge{
 		try {  
 			FileInputStream fis = ctx.openFileInput(fileName);
 			ObjectInputStream in = new ObjectInputStream(fis);  
-			this.ingredients = (ArrayList<String>) in.readObject();
+			this.ingredients = (Set<String>) in.readObject();
 			Log.v("Read", "Read");
 			in.close();
 		} 
