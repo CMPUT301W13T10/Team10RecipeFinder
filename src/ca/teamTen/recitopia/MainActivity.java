@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void toMyRecipes(View view) {
-		Intent intent = new Intent(this, MyRecipeActivity.class);
+		Intent intent = new Intent(this, RecipeListActivity.class);
 		startActivity(intent);
 	}
 	

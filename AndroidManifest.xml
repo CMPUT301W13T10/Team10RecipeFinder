@@ -34,8 +34,16 @@
             android:label="@string/title_activity_fridge" >
         </activity>
         <activity
-            android:name="ca.teamTen.recitopia.MyRecipeActivity"
+            android:name="ca.teamTen.recitopia.RecipeListActivity"
             android:label="@string/title_activity_my_recipe" >
+        </activity>
+        <activity
+            android:name="ca.teamTen.recitopia.TakePhotoActivity"
+            android:label="@string/title_activity_take_photo" >
+        </activity>
+        <activity
+            android:name="ca.teamTen.recitopia.RecipeViewActivity"
+            android:label="@string/title_activity_recipe_view" >
         </activity>
     </application>
 

@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ShareActionProvider;
 
-public class MyRecipeActivity extends Activity {
+public class RecipeListActivity extends Activity {
 
 	private ShareActionProvider mShareActionProvider;
 	@Override
