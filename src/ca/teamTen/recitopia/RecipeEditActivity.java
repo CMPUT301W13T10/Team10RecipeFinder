@@ -5,7 +5,7 @@ import android.app.Activity;
 import android.view.Menu;
 
 
-public class EditRecipe extends Activity {
+public class RecipeEditActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

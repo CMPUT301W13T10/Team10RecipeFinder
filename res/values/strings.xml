@@ -1,8 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">Recitopia</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_edit_recipe">EditRecipe</string>
+    <string name="title_activity_main">Recitopia</string>
+    <string name="title_activity_create_edit">Create Or Edit A Recipe</string>
+    <string name="title_activity_search">Search Recipes</string>
+    <string name="search_hint">Type to search recipes</string>
+    <string name="title_activity_fridge">My Fridge</string>
+    <string name="title_activity_my_recipe">My Recipes</string>
 
 </resources>

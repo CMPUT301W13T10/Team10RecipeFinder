@@ -42,7 +42,7 @@ public class Recipe
 	}
 	
 	public void addPhotos(Photo photo) {
-	
+		
 	}
 
 	public boolean publishRecipe() {
