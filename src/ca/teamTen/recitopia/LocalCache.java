@@ -7,14 +7,25 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Queue;
 
 import android.content.Context;
 
-// This class stores a limited number of recipes that are not created by current user
+
+/**
+ *  This class stores a limited number of recipes that are not created by current user
+ * 
+ */
 public class LocalCache implements RecipeBook{
 
-	private Queue<Recipe> recipeQueue;
+	private Queue<Recipe>	recipeQueue;
+	private int			maxEntries;
+	
+	public LocalCache(int maxEntries) {
+		recipeQueue = new LinkedList<Recipe>();
+		this.maxEntries = maxEntries;
+	}
 	
 	@Override
 	public Recipe[] query(String[] ingredients, String title, String user) {
