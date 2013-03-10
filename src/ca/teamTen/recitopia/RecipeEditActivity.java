@@ -7,9 +7,11 @@ import java.util.Observer;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -103,6 +105,21 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_edit_recipe, menu);
+        
+        MenuItem item = menu.findItem(R.id.menu_item_photo);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener()
+        {
+            
+            @Override
+            public boolean onMenuItemClick(MenuItem item)
+            {
+            Intent intent = new Intent();
+            intent.setClass(getBaseContext(), TakePhotoActivity.class);
+            startActivity(intent);
+            return false;
+            }
+        });
+        
         return true;
     }
 
