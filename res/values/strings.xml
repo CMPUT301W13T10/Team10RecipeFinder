@@ -13,5 +13,6 @@
     <string name="title_activity_my_recipe">My Recipes</string>
     <string name="title_activity_take_photo">TakePhotoActivity</string>
     <string name="title_activity_recipe_view">RecipeViewActivity</string>
+    <string name="editRecipe">Edit Recipe</string>
 
 </resources>

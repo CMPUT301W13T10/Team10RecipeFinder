@@ -49,6 +49,13 @@ public class RecipeViewActivity extends Activity {
 		return true;
 	}
 
+	public void editRecipe() {
+		Intent viewIntent = new Intent(this, RecipeEditActivity.class);
+		viewIntent.putExtra("RECIPE", recipe);
+		
+		startActivity(viewIntent);
+		// TODO: startActivityForResult
+	}
 	
 	// Call to update the share intent
 	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -57,6 +64,7 @@ public class RecipeViewActivity extends Activity {
 	        mShareActionProvider.setShareIntent(shareIntent);
 	    }
 	}
+	
 	public void shareRecipe() {
 
         Intent sendIntent = new Intent();
