@@ -20,26 +20,16 @@ public class RecipeListActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recipelist);
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
 		
-		this.recipes = new Recipe[] {
-		new Recipe("Spiky Melon Salad",
-			new ArrayList<String>(Arrays.asList("spiky melon", "lettuce", "cucumber")),
-			"Cube the melon, chop the lettuce and cumbers. Mix in bowl and enjoy",
-			"alex@test.com"),
-		new Recipe("Spiky Melon Soup",
-			new ArrayList<String>(Arrays.asList("spiky melon", "cream", "spices")),
-			"mix, heat and enjoy",
-			"zhexin@test.com"),
-		new Recipe("Spiky Melon Shake",
-			new ArrayList<String>(Arrays.asList("spiky melon", "cream", "sugar")),
-			"mix, blend and enjoy",
-			"osipovas@test.com"),
-		new Recipe("Spiky Melon Fries",
-			new ArrayList<String>(Arrays.asList("spiky melon", "salt", "cooking oil")),
-			"chop, fry, eat",
-			"zou@test.com")
-		};
-			
+		// Refresh list contents, as they may have changed.
+		// TODO: be more sophisticated
+		recipes = ApplicationManager.getInstance().getUserRecipeBook(this).query("");
+		
 		ListAdapter adapter = new ArrayAdapter<String>(
 				this,
 				android.R.layout.simple_list_item_activated_1,

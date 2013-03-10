@@ -97,10 +97,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
                 addIngredient();                
             }
         });
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -123,7 +120,6 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
         return true;
     }
 
-
     @Override
     public void ingredientDeleted(int location)
     {
@@ -145,17 +141,10 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
         return new Recipe(name, ingredients, instructions, author);
     }
 
-
-
-
-
-
     /*
      * TODO Create a Custom View Ingredients String
      * http://developer.android.com/guide/topics/ui/layout/listview.html
      * http://www.survivingwithandroid.com/2012/10/android-listview-custom-adapter-and.html
      * http://developer.android.com/training/improving-layouts/smooth-scrolling.html
      */
-
-
 }
