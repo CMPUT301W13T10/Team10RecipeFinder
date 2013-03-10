@@ -16,11 +16,11 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
 public class IngredientAdapter extends ArrayAdapter<String> {
-    
+
     interface Callbacks{
         public void ingredientDeleted(int location);
     }
-    
+
     private List<String> ingredients;
     private Context context;
     private Callbacks callbacks;
@@ -35,15 +35,15 @@ public class IngredientAdapter extends ArrayAdapter<String> {
     public void addIngredient(String string){
         ingredients.add(string);
     }
-    
+
     public void removeIngredient(int location){
         ingredients.remove(location);
         callbacks.ingredientDeleted(location);
     }
 
-    
-   
-    
+
+
+
     public View getView(int position, View convertView, ViewGroup parent){
         if(convertView == null){
             // This a new view we inflate the new layout
@@ -79,17 +79,27 @@ public class IngredientAdapter extends ArrayAdapter<String> {
                     Integer position = (Integer) (name.getTag());     
                     String s = name.getText().toString();
                     ingredients.set(position, s);
-                    
+
+                } else if (actionId == KeyEvent.KEYCODE_ENTER && 
+                        event.getAction() == KeyEvent.ACTION_DOWN){
+                    //So that the application can handle software keypresses
+                    editName.setVisibility(View.GONE);
+                    name.setText(editName.getText());
+                    name.setVisibility(View.VISIBLE);
+                    Integer position = (Integer) (name.getTag());     
+                    String s = name.getText().toString();
+                    ingredients.set(position, s);
+
                 }
                 return true;
             }
         });
-        
+
         /*
          * TODO When the Delete button is pressed the ingredient is removed from the
          * Recipe
          */
-        
+
         final Button deleteIngredient = (Button) convertView.findViewById(R.id.deleteIngredient);
         deleteIngredient.setTag(position);
         deleteIngredient.setOnClickListener(new OnClickListener() {
@@ -97,7 +107,7 @@ public class IngredientAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 IngredientAdapter.this.removeIngredient((Integer) deleteIngredient.getTag());
-                
+
             }
         });
         return convertView;

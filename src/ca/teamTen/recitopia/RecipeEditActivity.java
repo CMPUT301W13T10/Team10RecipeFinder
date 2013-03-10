@@ -21,7 +21,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
     private Recipe recipe;
     private LinearLayout ingredientLayout;
     private IngredientAdapter ingredientAdapter;
-    
+
     /*
      * Used for Testing Purpose/Porpoises
      */
@@ -44,18 +44,18 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
         }
 
     }
+    
     public void addIngredient(){
         ingredientAdapter.addIngredient("");
         drawIngredients();
-        
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_recipe);
-//        initList();
-        
+
         /*
          * Getting the Intent
          */
@@ -67,32 +67,32 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
             ApplicationManager appMgr = ApplicationManager.getInstance();
             recipe = new Recipe("Test Name", ingredientList, "Test Instructions", appMgr.getUserID());
         }
-        
-        
+
+
         ingredientLayout = (LinearLayout) findViewById(R.id.ingredientList);
-        
-        EditText editRecipeName = (EditText)findViewById(R.id.editTextRecipeName);
+
+        EditText editRecipeName = (EditText)findViewB   yId(R.id.editTextRecipeName);
         editRecipeName.setText(recipe.getRecipeName());
-        
+
         EditText editInstructions = (EditText) findViewById(R.id.editTextInstructions);
         editInstructions.setText(recipe.showCookingInstructions());
-        
-        
+
+
         ingredientAdapter = new IngredientAdapter(this, this, recipe.showIngredients());
         drawIngredients();
-   
+
         Button addIngredient = (Button) findViewById(R.id.addIngredient);      
         addIngredient.setOnClickListener(new View.OnClickListener()
         {
-            
+
             @Override
             public void onClick(View v)
             {
                 addIngredient();                
             }
         });
-        
-        
+
+
     }
 
 
@@ -109,15 +109,15 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
         drawIngredients();
     }
 
-   public void userFinished(){
-       Intent intent = new Intent();    
-       intent.putExtra("RECIPE", recipe);
-       this.setResult(RESULT_OK,intent);
-       finish();
-   }
+    public void userFinished(){
+        Intent intent = new Intent();    
+        intent.putExtra("RECIPE", recipe);
+        this.setResult(RESULT_OK,intent);
+        finish();
+    }
 
- 
-   
+
+
 
 
 
