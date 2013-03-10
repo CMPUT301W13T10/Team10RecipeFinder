@@ -11,6 +11,7 @@ public class Recipe
 	private String cookingInstruction;
 	private String author;
 	private boolean isPublished;
+	private ArrayList<Photo> photos;
 	
 	// Recipe constructor
 	public Recipe(String recipeName, ArrayList<String> ingredients, String instruction, String author) {
@@ -18,6 +19,7 @@ public class Recipe
 		this.ingredients = ingredients;
 		this.cookingInstruction = instruction;
 		this.author = author;
+		this.photos = new ArrayList<Photo>();
 	}
 	
 	public String getRecipeName() {
@@ -38,11 +40,11 @@ public class Recipe
 	
 
 	public Photo[] getPhotos() {
-		return null;
+		return (Photo[]) this.photos.toArray(new Photo[photos.size()]);
 	}
 	
 	public void addPhotos(Photo photo) {
-		
+		this.photos.add(photo);
 	}
 
 	public boolean publishRecipe() {
