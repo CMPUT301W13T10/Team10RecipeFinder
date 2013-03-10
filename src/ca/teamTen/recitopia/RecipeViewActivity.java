@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 public class RecipeViewActivity extends Activity {
 	
+	private static final int RECIPE_EDITED_RESULT = 1;
 	private ShareActionProvider mShareActionProvider;
 	private Recipe recipe;
 	
@@ -27,11 +28,16 @@ public class RecipeViewActivity extends Activity {
 		if (getIntent().hasExtra("RECIPE")) {
 			recipe = (Recipe)getIntent().getSerializableExtra("RECIPE");
 			
-			TextView contentView = (TextView)findViewById(R.id.content);
-			contentView.setText(recipe.toString());
+			updateContentView();
 		} else {
 			finish();
 		}
+	}
+
+	private void updateContentView()
+	{
+		TextView contentView = (TextView)findViewById(R.id.content);
+		contentView.setText(recipe.toString());
 	}
 
 	@SuppressLint("NewApi")
@@ -54,8 +60,14 @@ public class RecipeViewActivity extends Activity {
 		Intent viewIntent = new Intent(this, RecipeEditActivity.class);
 		viewIntent.putExtra("RECIPE", recipe);
 		
-		startActivity(viewIntent);
-		// TODO: startActivityForResult
+		startActivityForResult(viewIntent, RECIPE_EDITED_RESULT);
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == RECIPE_EDITED_RESULT && resultCode == RESULT_OK) {
+			recipe = (Recipe)data.getSerializableExtra("RECIPE");
+			updateContentView();
+		}
 	}
 	
 	// Call to update the share intent
