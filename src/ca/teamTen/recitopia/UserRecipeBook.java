@@ -16,7 +16,7 @@ public class UserRecipeBook implements RecipeBook{
 	private ArrayList<Recipe> recipeCollection;
 	
 	@Override
-	public Recipe[] query(String[] ingredients, String title, String user) {
+	public Recipe[] query(String searchTerms) {
 		// TODO Auto-generated method stub
 		return null;
 	}

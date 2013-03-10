@@ -4,7 +4,7 @@ import android.content.Context;
 
 public interface RecipeBook {
 
-	public Recipe[] query(String[] ingredients, String title, String user);
+	public Recipe[] query(String searchTerms);
 	
 	public void addRecipe(Recipe recipe);
 	
