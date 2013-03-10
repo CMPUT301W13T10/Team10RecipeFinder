@@ -22,6 +22,10 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
     private LinearLayout ingredientLayout;
     private IngredientAdapter ingredientAdapter;
 
+    private EditText editRecipeName;
+    private EditText editInstructions;
+    
+    
     /*
      * Used for Testing Purpose/Porpoises
      */
@@ -71,7 +75,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 
         ingredientLayout = (LinearLayout) findViewById(R.id.ingredientList);
 
-        EditText editRecipeName = (EditText)findViewB   yId(R.id.editTextRecipeName);
+        editRecipeName = (EditText)findViewById(R.id.editTextRecipeName);
         editRecipeName.setText(recipe.getRecipeName());
 
         EditText editInstructions = (EditText) findViewById(R.id.editTextInstructions);
@@ -109,11 +113,19 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
         drawIngredients();
     }
 
-    public void userFinished(){
+    public void userFinished(View v){
         Intent intent = new Intent();    
-        intent.putExtra("RECIPE", recipe);
+        intent.putExtra("RECIPE", createRecipe());
         this.setResult(RESULT_OK,intent);
         finish();
+    }
+    
+    public Recipe createRecipe(){
+        String name = editRecipeName.getText().toString();
+        String instructions = editRecipeName.getText().toString();
+        String author = recipe.showAuthor();
+        ArrayList<String> ingredients = ingredientAdapter.getIngredients();
+        return new Recipe(name, ingredients, instructions, author);
     }
 
 

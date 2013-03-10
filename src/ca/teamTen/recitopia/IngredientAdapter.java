@@ -1,5 +1,6 @@
 package ca.teamTen.recitopia;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -21,16 +22,19 @@ public class IngredientAdapter extends ArrayAdapter<String> {
         public void ingredientDeleted(int location);
     }
 
-    private List<String> ingredients;
+    private ArrayList<String> ingredients;
     private Context context;
     private Callbacks callbacks;
-    public IngredientAdapter(Context context, Callbacks callbacks, List<String> objects) {
+    public IngredientAdapter(Context context, Callbacks callbacks, ArrayList<String> objects) {
         super(context, R.layout.ingredient_layout, objects);
         this.ingredients = objects;
         this.context = context;
         this.callbacks = callbacks;
     }
-
+    
+    public ArrayList<String> getIngredients(){
+        return ingredients;
+    }
 
     public void addIngredient(String string){
         ingredients.add(string);
