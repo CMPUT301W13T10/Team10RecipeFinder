@@ -1,5 +1,6 @@
 package ca.teamTen.recitopia;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,7 +8,7 @@ import java.util.Set;
 import android.util.Log;
 
 
-public class Recipe
+public class Recipe implements Serializable
 {
 	private String recipeName;
 	private ArrayList<String> ingredients;
