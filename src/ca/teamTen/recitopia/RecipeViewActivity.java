@@ -61,7 +61,7 @@ public class RecipeViewActivity extends Activity {
 
         Intent sendIntent = new Intent();
     	sendIntent.setAction(Intent.ACTION_SEND);
-    	sendIntent.putExtra(Intent.EXTRA_TEXT, "Actual text to send");
+    	sendIntent.putExtra(Intent.EXTRA_TEXT, recipe.toString());
     	sendIntent.setType("text/plain");
     	setShareIntent(sendIntent);
 
