@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-        <string name="name">Name:</string>
-        <string name="nameTextField">Enter the name of your recipe</string>
-        <string name="ingredients">Ingredients:</string>
-        <string name="instructions">Instructions:</string>
-        <string name="instructionsTextField">Enter the instructions for your
+
+    <string name="name">Name:</string>
+    <string name="nameTextField">Enter the name of your recipe</string>
+    <string name="ingredients">Ingredients:</string>
+    <string name="instructions">Instructions:</string>
+    <string name="instructionsTextField">Enter the instructions for your
              Recipe</string>
-        <string name="doneButton">Done</string>
-        
-<!--         Ingredient Layout  -->
-		<string name="deleteButton">Delete</string>
-		<string name="enterIngredient">Enter ingredient</string>
+    <string name="doneButton">Done</string>
+
+    <!-- Ingredient Layout -->
+    <string name="deleteButton">Delete</string>
+    <string name="enterIngredient">Enter ingredient</string>
+    <string name="addIngredient">Add Ingredient</string>
+
 </resources>
