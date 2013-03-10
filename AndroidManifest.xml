@@ -45,6 +45,10 @@
             android:name="ca.teamTen.recitopia.RecipeViewActivity"
             android:label="@string/title_activity_recipe_view" >
         </activity>
+        <activity
+            android:name="ca.teamTen.recitopia.RecipeEditActivity"
+            android:label="@string/title_activity_edit_recipe" >
+        </activity>
     </application>
 
 </manifest>
