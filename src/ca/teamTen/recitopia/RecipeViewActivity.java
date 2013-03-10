@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
@@ -49,7 +50,7 @@ public class RecipeViewActivity extends Activity {
 		return true;
 	}
 
-	public void editRecipe() {
+	public void editRecipe(View v) {
 		Intent viewIntent = new Intent(this, RecipeEditActivity.class);
 		viewIntent.putExtra("RECIPE", recipe);
 		
