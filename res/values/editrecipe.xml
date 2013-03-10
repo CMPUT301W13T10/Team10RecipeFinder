@@ -7,4 +7,8 @@
         <string name="instructionsTextField">Enter the instructions for your
              Recipe</string>
         <string name="doneButton">Done</string>
+        
+<!--         Ingredient Layout  -->
+		<string name="deleteButton">Delete</string>
+		<string name="enterIngredient">Enter ingredient</string>
 </resources>
