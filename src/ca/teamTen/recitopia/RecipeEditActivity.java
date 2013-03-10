@@ -78,7 +78,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
         editRecipeName = (EditText)findViewById(R.id.editTextRecipeName);
         editRecipeName.setText(recipe.getRecipeName());
 
-        EditText editInstructions = (EditText) findViewById(R.id.editTextInstructions);
+        editInstructions = (EditText) findViewById(R.id.editTextInstructions);
         editInstructions.setText(recipe.showCookingInstructions());
 
 
@@ -122,7 +122,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
     
     public Recipe createRecipe(){
         String name = editRecipeName.getText().toString();
-        String instructions = editRecipeName.getText().toString();
+        String instructions = editInstructions.getText().toString();
         String author = recipe.showAuthor();
         ArrayList<String> ingredients = ingredientAdapter.getIngredients();
         return new Recipe(name, ingredients, instructions, author);
