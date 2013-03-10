@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import android.util.Log;
+
 
 public class Recipe
 {
@@ -77,5 +79,21 @@ public class Recipe
 				&& (isPublished == other.isPublished)
 				;
 		// TODO: check photos?
+	}
+	
+	// toString() method converts a Recipe object into a string for sharing purpose
+	public String toString() {
+		String ingredientsString  = new String();
+		for(int i = 0; i < ingredients.size(); i++) {
+			if(i == (ingredients.size()-1))
+				ingredientsString = ingredientsString.concat(ingredients.get(i)).concat("\n");
+			else
+				ingredientsString = ingredientsString.concat(ingredients.get(i)).concat(", ");
+		}
+		
+		return "Recipe Name: " + getRecipeName() + "\n" + "\n"
+		+ "Author: " + author + "\n" + "\n"
+		+ "Ingredients: " + ingredientsString + "\n" + "\n"
+		+ "Cooking Instructions: " + cookingInstruction;
 	}
 }
