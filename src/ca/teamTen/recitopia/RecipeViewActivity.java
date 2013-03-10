@@ -1,5 +1,7 @@
 package ca.teamTen.recitopia;
 
+import java.io.Serializable;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
@@ -9,14 +11,26 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ShareActionProvider;
+import android.widget.TextView;
 
 public class RecipeViewActivity extends Activity {
 	
 	private ShareActionProvider mShareActionProvider;
+	private Recipe recipe;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recipe_view);
+		
+		if (getIntent().hasExtra("RECIPE")) {
+			recipe = (Recipe)getIntent().getSerializableExtra("RECIPE");
+			
+			TextView contentView = (TextView)findViewById(R.id.content);
+			contentView.setText(recipe.toString());
+		} else {
+			finish();
+		}
 	}
 
 	@SuppressLint("NewApi")
