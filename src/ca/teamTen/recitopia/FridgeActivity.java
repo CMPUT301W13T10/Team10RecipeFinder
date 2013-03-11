@@ -10,9 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+/**
+ * An activity that allows the user to add/edit/remove ingredients from their fridge.
+ *
+ */
 public class FridgeActivity extends Activity implements IngredientAdapter.Callbacks{
-
-    
     private LinearLayout ingredientLayout;
     private IngredientAdapter ingredientAdapter;
     
@@ -29,7 +31,6 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
         drawIngredients();
 
     }
-    
     
     /*
      * Used for Testing Purpose/Porpoises
@@ -66,12 +67,6 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
                 addIngredient();                
             }
         });
-
-
-
-
-
-
     }
 
     @Override
@@ -86,5 +81,4 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
     {
         drawIngredients();        
     }
-
 }

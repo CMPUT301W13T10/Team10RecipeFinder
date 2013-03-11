@@ -9,10 +9,19 @@ package ca.teamTen.recitopia;
 public class LocalCache extends RecipeBookBase {
 	private int	maxEntries;
 	
+	/**
+	 * Create a LocalCache that holds the maxEntries most-
+	 * recently added Recipes.
+	 * @param maxEntries
+	 */
 	public LocalCache(int maxEntries) {
 		this.maxEntries = maxEntries;
 	}
-
+	
+	/**
+	 * Ensures size constraint is not violated
+	 * after recipe add.
+	 */
 	@Override
 	protected void recipeAdded(Recipe recipe) {
 		if (recipes.size() > maxEntries) {

@@ -7,7 +7,15 @@ import java.util.Set;
 
 import android.util.Log;
 
-
+/**
+ * A Recipe with a name, ingredients, instructions, photos
+ * and an author. Recipes can be published (stored on the server)
+ * or not (stored on the phone).
+ * 
+ * Recipe instances are somewhat immutable.
+ * 
+ * @see RecipeBook
+ */
 public class Recipe implements Serializable
 {
 	private String recipeName;
@@ -17,7 +25,13 @@ public class Recipe implements Serializable
 	private boolean isPublished;
 	private ArrayList<Photo> photos;
 	
-	// Recipe constructor
+	/**
+	 * Create a new Recipe
+	 * @param recipeName name of the recipe
+	 * @param ingredients an array of ingredients
+	 * @param instruction a string containing the instructions
+	 * @param author the userid (email) of the author of this recipe
+	 */
 	public Recipe(String recipeName, ArrayList<String> ingredients, String instruction, String author) {
 		this.recipeName = recipeName;
 		if (ingredients != null) {
@@ -30,30 +44,58 @@ public class Recipe implements Serializable
 		this.photos = new ArrayList<Photo>();
 	}
 	
+	/**
+	 * Get the name/title of the recipe
+	 * @return the name
+	 */
 	public String getRecipeName() {
 		return this.recipeName;
 	}
 	
+	/**
+	 * Get the recipe author's userid (email)
+	 * @return the author
+	 */
 	public String showAuthor() {
 		return this.author;
 	}
 	
+	/**
+	 * Get the recipe ingredients
+	 * @return the ingredients
+	 */
 	public ArrayList<String> showIngredients() {
 		return this.ingredients;
 	}
 	
+	/**
+	 * Get the recipe instructions
+	 * @return instructions
+	 */
 	public String showCookingInstructions() {
 		return this.cookingInstruction;
 	}
 
+	/**
+	 * Gets the photos associated with this recipe
+	 * @return an array of photos associated with this recipe
+	 */
 	public Photo[] getPhotos() {
 		return (Photo[]) this.photos.toArray(new Photo[photos.size()]);
 	}
 	
+	/**
+	 * Adds a photo to the recipe.
+	 * @param photo
+	 */
 	public void addPhotos(Photo photo) {
 		this.photos.add(photo);
 	}
 
+	/**
+	 * Gets whether the recipe has been published
+	 * @return true if the recipe is published
+	 */
 	public boolean publishRecipe() {
 		return false;
 	}
@@ -82,7 +124,9 @@ public class Recipe implements Serializable
 		// TODO: check photos?
 	}
 	
-	// toString() method converts a Recipe object into a string for sharing purpose
+	/**
+	 *  toString() method converts a Recipe object into a string for sharing/display purposes
+	 */
 	public String toString() {
 		String ingredientsString  = new String();
 		for(int i = 0; i < ingredients.size(); i++) {

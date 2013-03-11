@@ -22,27 +22,50 @@ public class Fridge{
 
 	private Set<String> ingredients;
 	
+	/**
+	 * Build an empty fridge.
+	 */
 	public Fridge() {
 		ingredients = new HashSet<String>();
 	}
 	
+	/**
+	 * Add a new ingredient to the fridge.
+	 * @return true if the ingredient was added (not a duplicate).
+	 */
 	public boolean addIngredient(String ingredient) {
 		return ingredients.add(ingredient);
 	}
 	
+	/**
+	 * Remove ingredient from the fridge.
+	 */
 	public void removeIngredient(String ingredient) {
 		ingredients.remove(ingredient);
 	}
 	
+	/**
+	 * Get a collection of all ingredients in the fridge
+	 * @return A new Collection with the ingredients
+	 */
 	public Collection<String> getIngredients()
 	{
 		return new ArrayList<String>(ingredients);
 	}	
 
+	/**
+	 * get the number of ingredients in the fridge
+	 * @return the number of ingredients
+	 */
 	public int countIngredients() {
 		return ingredients.size();
 	}
 	
+	/**
+	 * Save the fridge to a file.
+	 * @param fileName the file to save to
+	 * @param ctx an Android Context used for io
+	 */
 	public void saveFridgeInfo(String fileName, Context ctx) {
 		try {  
 			FileOutputStream fos = ctx.openFileOutput(fileName,Context.MODE_PRIVATE);
@@ -57,6 +80,12 @@ public class Fridge{
 		}  
 	}
 	
+	/**
+	 * Load fridge contents from file.
+	 * 
+	 * @param fileName the file to read from
+	 * @param ctx an Android Context used for io
+	 */
 	public void loadFridgeInfo(String fileName, Context ctx) {
 		try {  
 			FileInputStream fis = ctx.openFileInput(fileName);

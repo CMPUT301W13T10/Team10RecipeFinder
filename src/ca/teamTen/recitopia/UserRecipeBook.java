@@ -1,6 +1,9 @@
 package ca.teamTen.recitopia;
 
-
+/**
+ * RecipeBook that stores the user's own recipes, whether
+ * they are published or unpublished.
+ */
 public class UserRecipeBook extends RecipeBookBase {
 
 	@Override

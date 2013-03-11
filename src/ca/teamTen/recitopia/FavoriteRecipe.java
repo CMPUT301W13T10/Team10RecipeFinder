@@ -1,6 +1,9 @@
 package ca.teamTen.recitopia;
 
-
+/**
+ * A collection of recipes which the user has saved for
+ * offline access.
+ */
 public class FavoriteRecipe extends RecipeBookBase {
 
 	@Override

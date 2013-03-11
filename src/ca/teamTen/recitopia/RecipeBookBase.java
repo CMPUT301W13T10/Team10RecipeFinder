@@ -10,11 +10,20 @@ import java.util.ArrayList;
 
 import android.content.Context;
 
-
+/**
+ * Implements common routines for RecipeBook implementers.
+ * Child classes implement hook methods to ensure the recipe
+ * book can satisfy their constraints.
+ * 
+ * @see RecipeBook
+ */
 public abstract class RecipeBookBase implements RecipeBook
 {
 	protected ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 
+	/**
+	 * Implement Google-style searching of recipes, with no indexing.
+	 */
 	@Override
 	public Recipe[] query(String searchTerms)
 	{
@@ -99,6 +108,11 @@ public abstract class RecipeBookBase implements RecipeBook
 		return false;
 	}
 
+	/**
+	 * Saves recipes to the local filesystem
+	 * @param fileName file to save to
+	 * @param ctx Android Context used for io
+	 */
 	public void save(String fileName, Context ctx) {
 		try {  
 			FileOutputStream fos = ctx.openFileOutput(fileName,Context.MODE_PRIVATE);
@@ -113,6 +127,11 @@ public abstract class RecipeBookBase implements RecipeBook
 		}  
 	}
 
+	/**
+	 * Loads recipes from the local filesystem
+	 * @param fileName file to load from
+	 * @param ctx Android Context used for io
+	 */
 	public void load(String fileName, Context ctx) {
 		try {  
 			FileInputStream fis = ctx.openFileInput(fileName);
