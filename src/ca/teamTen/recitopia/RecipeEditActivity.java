@@ -65,7 +65,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
         else {
         	//No recipe was sent - therefore create a new one
             ApplicationManager appMgr = ApplicationManager.getInstance();
-            recipe = new Recipe("Test Name", ingredientList, "Test Instructions", appMgr.getUserID());
+            recipe = new Recipe("", ingredientList, "", appMgr.getUserID());
         }
 
 

@@ -15,6 +15,8 @@ import android.view.View;
  */
 public class MainActivity extends Activity {
 
+	private static final int RECIPE_CREATED_RESULT = 1;
+	private Recipe recipe;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,7 +32,8 @@ public class MainActivity extends Activity {
 	
 	public void toCreate(View view) {
 		Intent intent = new Intent(this, RecipeEditActivity.class);
-		startActivity(intent);
+		intent.putExtra("Recipe", recipe);
+		startActivityForResult(intent, RECIPE_CREATED_RESULT);
 	}
 	
 	public void toSearch(View view) {
@@ -46,6 +49,14 @@ public class MainActivity extends Activity {
 	public void toMyRecipes(View view) {
 		Intent intent = new Intent(this, RecipeListActivity.class);
 		startActivity(intent);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == RECIPE_CREATED_RESULT && resultCode == RESULT_OK) {
+			recipe = (Recipe)data.getSerializableExtra("RECIPE");
+			ApplicationManager.getInstance().getUserRecipeBook(this).addRecipe(recipe);
+		}
 	}
 	
 
