@@ -8,6 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+/**
+ * Displays a list of recipes. Selecting a recipe
+ * will open it in RecipeViewActivity.
+ * 
+ * The list is refreshed every time the activity is resumed.
+ *
+ */
 public class RecipeListActivity extends ListActivity {
 
 	Recipe recipes[];

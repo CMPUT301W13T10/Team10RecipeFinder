@@ -10,6 +10,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
+
+/**
+ * Assists the user in taking and reviewing pictures which will
+ * be attached to a Recipe.
+ *
+ */
 public class TakePhotoActivity extends Activity {
 
 	private static final int CAMERA_PIC_REQUEST = 2500;

@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 
+/*
+ * Basic searching activity.
+ */
 public class SearchActivity extends Activity {
 
 	@Override

@@ -12,6 +12,11 @@ import android.view.View;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
+
+/**
+ * Displays a simple view of a recipe. (Without pictures, for now).
+ * From here, a user can launch the edit activity for the recipe.
+ */
 public class RecipeViewActivity extends Activity {
 	
 	private static final int RECIPE_EDITED_RESULT = 1;
