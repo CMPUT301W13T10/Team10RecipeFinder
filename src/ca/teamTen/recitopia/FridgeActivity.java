@@ -11,13 +11,17 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 /**
- * An activity that allows the user to add/edit/remove ingredients from their fridge.
- *
+ * An activity that allows the user to add/edit/remove ingredients from their fridge
  */
 public class FridgeActivity extends Activity implements IngredientAdapter.Callbacks{
     private LinearLayout ingredientLayout;
     private IngredientAdapter ingredientAdapter;
     
+    /**
+     * This method is called to redraw the LinearLayout that contains the list of
+     * items in the Fridge
+     */
+ 
     private void drawIngredients(){
         ingredientLayout.removeAllViews();      
         for (int i = 0; i < ingredientAdapter.getCount(); i++){

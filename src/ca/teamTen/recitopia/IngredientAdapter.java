@@ -89,6 +89,9 @@ public class IngredientAdapter extends ArrayAdapter<String> {
         //Setting the name of the ingredient
         name.setText(ingredientName);
 
+        //Setting the tag for the name
+        name.setTag(position);
+        
         name.setOnClickListener(new OnClickListener() {
 
             @Override
