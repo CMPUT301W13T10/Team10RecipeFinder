@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import android.util.Log;
-
 /**
  * A Recipe with a name, ingredients, instructions, photos
  * and an author. Recipes can be published (stored on the server)
@@ -18,6 +16,11 @@ import android.util.Log;
  */
 public class Recipe implements Serializable
 {
+	/**
+	 * Serializable version id.
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String recipeName;
 	private ArrayList<String> ingredients;
 	private String cookingInstruction;
