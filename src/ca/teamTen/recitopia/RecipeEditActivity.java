@@ -102,17 +102,17 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
         MenuItem item = menu.findItem(R.id.menu_item_photo);
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener()
         {
-            
-            @Override
-            public boolean onMenuItemClick(MenuItem item)
-            {
-            //Launching the TakePhotoActivity class
-            //TODO Implement startActivityWithResult and handle the photo that was taken
-            Intent intent = new Intent();
-            intent.setClass(getBaseContext(), TakePhotoActivity.class);
-            startActivity(intent);
-            return false;
-            }
+
+        	@Override
+        	public boolean onMenuItemClick(MenuItem item)
+        	{
+        		//Launching the TakePhotoActivity class
+        		//TODO Implement startActivityWithResult and handle the photo that was taken
+        		Intent intent = new Intent();
+        		intent.setClass(getBaseContext(), TakePhotoActivity.class);
+        		startActivity(intent);
+        		return false;
+        	}
         });
         
         return true;
