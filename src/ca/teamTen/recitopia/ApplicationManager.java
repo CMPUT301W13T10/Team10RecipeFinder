@@ -65,5 +65,10 @@ public class ApplicationManager {
 		@Override
 		protected void recipeUpdated(Recipe recipe, int i) {
 		}
+
+		@Override
+		public void save() {
+			// unimplemented
+		}
 	}
 }

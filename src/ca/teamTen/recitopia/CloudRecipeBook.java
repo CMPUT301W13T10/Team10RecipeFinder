@@ -1,6 +1,5 @@
 package ca.teamTen.recitopia;
 
-import android.content.Context;
 
 // Interface to ElasticSearch recipe service
 public class CloudRecipeBook implements RecipeBook{
@@ -16,17 +15,13 @@ public class CloudRecipeBook implements RecipeBook{
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void save(String url, Context ctx) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public boolean isAvailable() {
 		return false;
 	}
 
-
-
+	@Override
+	public void save() {
+		// TODO Auto-generated method stub
+	}
 }
