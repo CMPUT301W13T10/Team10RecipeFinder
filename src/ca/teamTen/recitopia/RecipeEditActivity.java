@@ -61,8 +61,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
         if(intent.hasExtra("RECIPE")){
         	//An existing recipe was sent
             recipe = (Recipe) intent.getSerializableExtra("RECIPE");
-        }
-        else {
+        } else {
         	//No recipe was sent - therefore create a new one
             ApplicationManager appMgr = ApplicationManager.getInstance();
             recipe = new Recipe("", ingredientList, "", appMgr.getUserID());

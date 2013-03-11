@@ -7,6 +7,7 @@
     <string name="title_activity_edit_recipe">EditRecipe</string>
     <string name="title_activity_main">Recitopia</string>
     <string name="title_activity_create_edit">Create Or Edit A Recipe</string>
+    <string name="title_activity_create">Create A Recipe</string>
     <string name="title_activity_search">Search Recipes</string>
     <string name="search_hint">Type to search recipes</string>
     <string name="title_activity_fridge">My Fridge</string>

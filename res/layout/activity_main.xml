@@ -12,7 +12,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/to_search"
         android:onClick="toCreate"
-        android:text="@string/title_activity_create_edit" />
+        android:text="@string/title_activity_create" />
 
     <Button
         android:id="@+id/to_search"
