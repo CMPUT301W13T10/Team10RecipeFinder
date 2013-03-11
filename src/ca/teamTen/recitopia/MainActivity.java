@@ -7,6 +7,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
+/**
+ * Launch activity, lets the user launch different activites.
+ * 
+ * From here, the user can: create a recipe, view their recipes,
+ * search for recipes, or manage their fridge.
+ */
 public class MainActivity extends Activity {
 
 	@Override
