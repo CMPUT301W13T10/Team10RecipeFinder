@@ -1,8 +1,6 @@
 package ca.teamTen.recitopia;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -16,8 +14,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
+
+/**
+ * The IngredientAdapter handles inflating the layout of ingredients
+ * within the FridgeActivity and RecipeEditActivity classes.
+ */
 public class IngredientAdapter extends ArrayAdapter<String> {
 
+	
     interface Callbacks{
         public void ingredientDeleted(int location);
     }
@@ -25,6 +29,8 @@ public class IngredientAdapter extends ArrayAdapter<String> {
     private ArrayList<String> ingredients;
     private Context context;
     private Callbacks callbacks;
+    
+    
     public IngredientAdapter(Context context, Callbacks callbacks, ArrayList<String> objects) {
         super(context, R.layout.ingredient_layout, objects);
         this.ingredients = objects;
@@ -32,14 +38,26 @@ public class IngredientAdapter extends ArrayAdapter<String> {
         this.callbacks = callbacks;
     }
     
+    /**
+     * @return the current list of Ingredients
+     */
     public ArrayList<String> getIngredients(){
         return ingredients;
     }
 
+    /**
+     * 
+     * @param the ingredient you would like to add
+     */
     public void addIngredient(String string){
         ingredients.add(string);
     }
 
+    /**
+     * 
+     * @param the location of the ingredient within the list
+     * 
+     */
     public void removeIngredient(int location){
         ingredients.remove(location);
         callbacks.ingredientDeleted(location);
@@ -47,7 +65,13 @@ public class IngredientAdapter extends ArrayAdapter<String> {
 
 
 
-
+    /**
+     * 
+     * @param position representing the ingredient within the list
+     * @param convertView 
+     * @param parent of the current View
+     * @return a view inflated within the layout of an ingredient
+     */
     public View getView(int position, View convertView, ViewGroup parent){
         if(convertView == null){
             // This a new view we inflate the new layout
@@ -55,28 +79,35 @@ public class IngredientAdapter extends ArrayAdapter<String> {
             convertView = inflater.inflate(R.layout.ingredient_layout, parent, false);
         }
 
+       
         final TextView name = (TextView) convertView.findViewById(R.id.enterIngredient);
         final EditText editName = (EditText) convertView.findViewById(R.id.editIngredient);
-        String s = ingredients.get(position);
-        name.setText(s);
-        editName.setText(s, BufferType.EDITABLE);
-        name.setTag(position);
+        final Button deleteIngredient = (Button) convertView.findViewById(R.id.deleteIngredient);
+        final String ingredientName = ingredients.get(position);
+
+        
+        //Setting the name of the ingredient
+        name.setText(ingredientName);
 
         name.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
+            	//Setting the text that the EditText will use
+                editName.setText(ingredientName, BufferType.EDITABLE);
+                //The TextView is now invisible
                 name.setVisibility(View.GONE);
+                //The EditText is now visible
                 editName.setVisibility(View.VISIBLE);
-                //				editName.requestFocus();
             }
         });
 
         editName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                // TODO Auto-generated method stub
+            	
                 if(actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN){
+                	//Handling hardware input of the 'Enter' key
                     editName.setVisibility(View.GONE);
                     name.setText(editName.getText());
                     name.setVisibility(View.VISIBLE);
@@ -84,9 +115,8 @@ public class IngredientAdapter extends ArrayAdapter<String> {
                     String s = name.getText().toString();
                     ingredients.set(position, s);
 
-                } else if (actionId == KeyEvent.KEYCODE_ENTER && 
-                        event.getAction() == KeyEvent.ACTION_DOWN){
-                    //So that the application can handle software keypresses
+                } else if (actionId == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN){
+                    //Handling software input of the 'Enter' key
                     editName.setVisibility(View.GONE);
                     name.setText(editName.getText());
                     name.setVisibility(View.VISIBLE);
@@ -98,18 +128,14 @@ public class IngredientAdapter extends ArrayAdapter<String> {
                 return true;
             }
         });
-
-        /*
-         * TODO When the Delete button is pressed the ingredient is removed from the
-         * Recipe
-         */
-
-        final Button deleteIngredient = (Button) convertView.findViewById(R.id.deleteIngredient);
+        
+        //Setting a tag associated with the position of the ingredient
         deleteIngredient.setTag(position);
         deleteIngredient.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
+            	//Call the removeIngredient method
                 IngredientAdapter.this.removeIngredient((Integer) deleteIngredient.getTag());
 
             }

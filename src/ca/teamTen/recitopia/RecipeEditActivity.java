@@ -1,15 +1,9 @@
 package ca.teamTen.recitopia;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,32 +11,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-
+/**
+ * This activity loads or creates an activity when launched. When the activity
+ * finishes it returns the modified or created recipe.
+ */
 public class RecipeEditActivity extends Activity implements IngredientAdapter.Callbacks{
 
     private Recipe recipe;
     private LinearLayout ingredientLayout;
     private IngredientAdapter ingredientAdapter;
-
     private EditText editRecipeName;
     private EditText editInstructions;
-    
-    
-    /*
-     * Used for Testing Purpose/Porpoises
-     */
     private ArrayList<String> ingredientList = new ArrayList<String>();
-    private void initList(){
-        ingredientList.add("Bacon");
-        ingredientList.add("Spikey Melon");
-        ingredientList.add("Milk");
-        ingredientList.add("Salmon");
-        ingredientList.add("Meat (not horse meat)");
-        ingredientList.add("Lettuce");
-        ingredientList.add("Mustard");
+	private Button addIngredient;
 
-    }
-
+    /**
+     * This method is called to redraw the LinearLayout that contains the list of Ingredients
+     * 
+     */
     private void drawIngredients(){
         ingredientLayout.removeAllViews();      
         for (int i = 0; i < ingredientAdapter.getCount(); i++){
@@ -51,58 +37,69 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 
     }
     
-    public void addIngredient(){
-        ingredientAdapter.addIngredient("");
-        drawIngredients();
-
+    /**
+     *   
+     * @param A string representing the Ingredient
+     * 
+     * Adds a new ingredient to the list of of ingredients within the adapter.
+     */
+    public void addIngredient(String ingredient){
+    	//Add an ingredient to the ingredientAdapter
+        ingredientAdapter.addIngredient(ingredient);
     }
 
+    /**
+     * @param a Bundle from the activity that called this activity
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_recipe);
 
-        /*
-         * Getting the Intent
-         */
+        //Getting the intent
         Intent intent = getIntent();
         if(intent.hasExtra("RECIPE")){
+        	//An existing recipe was sent
             recipe = (Recipe) intent.getSerializableExtra("RECIPE");
         }
         else {
+        	//No recipe was sent - therefore create a new one
             ApplicationManager appMgr = ApplicationManager.getInstance();
             recipe = new Recipe("Test Name", ingredientList, "Test Instructions", appMgr.getUserID());
         }
 
 
         ingredientLayout = (LinearLayout) findViewById(R.id.ingredientList);
-
         editRecipeName = (EditText)findViewById(R.id.editTextRecipeName);
-        editRecipeName.setText(recipe.getRecipeName());
-
         editInstructions = (EditText) findViewById(R.id.editTextInstructions);
+        addIngredient = (Button) findViewById(R.id.addIngredient); 
+        
+        editRecipeName.setText(recipe.getRecipeName());
         editInstructions.setText(recipe.showCookingInstructions());
 
-
+        //Setting the ingredient adapter
         ingredientAdapter = new IngredientAdapter(this, this, recipe.showIngredients());
-        drawIngredients();
-
-        Button addIngredient = (Button) findViewById(R.id.addIngredient);      
+      
         addIngredient.setOnClickListener(new View.OnClickListener()
         {
 
             @Override
             public void onClick(View v)
             {
-                addIngredient();                
+                addIngredient(new String(""));
+                drawIngredients();
             }
         });
+        
+        //Drawing the ingredients
+        drawIngredients();
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_edit_recipe, menu);
-        
+        //Adding a photo button to the menu
         MenuItem item = menu.findItem(R.id.menu_item_photo);
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener()
         {
@@ -110,6 +107,8 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
             @Override
             public boolean onMenuItemClick(MenuItem item)
             {
+            //Launching the TakePhotoActivity class
+            //TODO Implement startActivityWithResult and handle the photo that was taken
             Intent intent = new Intent();
             intent.setClass(getBaseContext(), TakePhotoActivity.class);
             startActivity(intent);
@@ -120,12 +119,19 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
         return true;
     }
 
+    /**
+     * @param redrawing the list of ingredients when a ingredient has been deleted
+     */
     @Override
     public void ingredientDeleted(int location)
     {
         drawIngredients();
     }
 
+    /**
+     * 
+     * When the user is finished return the Recipe
+     */
     public void userFinished(View v){
         Intent intent = new Intent();    
         intent.putExtra("RECIPE", createRecipe());
@@ -133,6 +139,9 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
         finish();
     }
     
+    /**
+     * @return a Recipe object representing the current Recipe
+     */
     public Recipe createRecipe(){
         String name = editRecipeName.getText().toString();
         String instructions = editInstructions.getText().toString();
@@ -140,11 +149,4 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
         ArrayList<String> ingredients = ingredientAdapter.getIngredients();
         return new Recipe(name, ingredients, instructions, author);
     }
-
-    /*
-     * TODO Create a Custom View Ingredients String
-     * http://developer.android.com/guide/topics/ui/layout/listview.html
-     * http://www.survivingwithandroid.com/2012/10/android-listview-custom-adapter-and.html
-     * http://developer.android.com/training/improving-layouts/smooth-scrolling.html
-     */
 }
