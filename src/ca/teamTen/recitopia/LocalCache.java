@@ -17,56 +17,23 @@ import android.content.Context;
  *  This class stores a limited number of recipes that are not created by current user
  * 
  */
-public class LocalCache implements RecipeBook{
-
-	private Queue<Recipe>	recipeQueue;
-	private int			maxEntries;
+public class LocalCache extends RecipeBookBase {
+	private int	maxEntries;
 	
 	public LocalCache(int maxEntries) {
-		recipeQueue = new LinkedList<Recipe>();
 		this.maxEntries = maxEntries;
 	}
-	
-	@Override
-	public Recipe[] query(String searchTerms) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
-	public void addRecipe(Recipe recipe) {
-		// TODO Auto-generated method stub
-		
+	protected void recipeAdded(Recipe recipe) {
+		if (recipes.size() > maxEntries) {
+			recipes.remove(0);
+		}
+		// TODO save?
 	}
 
 	@Override
-	public void save(String fileName, Context ctx) {
-		// TODO Auto-generated method stub
-		try {  
-			FileOutputStream fos = ctx.openFileOutput(fileName,Context.MODE_PRIVATE);
-			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(recipeQueue);
-			out.close();  
-		} catch (FileNotFoundException e) {  
-			e.printStackTrace();  
-
-		} catch (IOException e) {  
-			e.printStackTrace();  
-		}  
+	protected void recipeUpdated(Recipe recipe, int i) {
+		// TODO save?
 	}
-	
-	public void load(String fileName, Context ctx) {
-		try {  
-			FileInputStream fis = ctx.openFileInput(fileName);
-			ObjectInputStream in = new ObjectInputStream(fis);  
-			this.recipeQueue = (Queue<Recipe>) in.readObject();
-			in.close();
-		} 
-		catch (IOException e) {  
-			e.printStackTrace();  
-		} catch (ClassNotFoundException e) {  
-			e.printStackTrace();  
-		}  
-	}
-
 }

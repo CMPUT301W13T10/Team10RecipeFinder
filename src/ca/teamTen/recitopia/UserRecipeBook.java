@@ -11,50 +11,15 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.util.Log;
 
-public class UserRecipeBook implements RecipeBook{
+public class UserRecipeBook extends RecipeBookBase {
 
-	private ArrayList<Recipe> recipeCollection;
-	
 	@Override
-	public Recipe[] query(String searchTerms) {
-		// TODO Auto-generated method stub
-		return null;
+	protected void recipeAdded(Recipe recipe) {
+		// TODO: save?
 	}
 
 	@Override
-	public void addRecipe(Recipe recipe) {
-		// TODO Auto-generated method stub
-		
+	protected void recipeUpdated(Recipe recipe, int i) {
+		// TODO: save?
 	}
-
-	@Override
-	public void save(String fileName, Context ctx) {
-		try {  
-			FileOutputStream fos = ctx.openFileOutput(fileName,Context.MODE_PRIVATE);
-			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(recipeCollection);
-			out.close();  
-		} catch (FileNotFoundException e) {  
-			e.printStackTrace();  
-
-		} catch (IOException e) {  
-			e.printStackTrace();  
-		}  
-		
-	}
-	
-	public void load(String fileName, Context ctx) {
-		try {  
-			FileInputStream fis = ctx.openFileInput(fileName);
-			ObjectInputStream in = new ObjectInputStream(fis);  
-			this.recipeCollection = (ArrayList<Recipe>) in.readObject();
-			in.close();
-		} 
-		catch (IOException e) {  
-			e.printStackTrace();  
-		} catch (ClassNotFoundException e) {  
-			e.printStackTrace();  
-		}  
-	}
-
 }

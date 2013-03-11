@@ -7,20 +7,27 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import android.content.Context;
 
 
 public abstract class RecipeBookBase implements RecipeBook
 {
-	private ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-	
+	protected ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+
 	@Override
 	public Recipe[] query(String searchTerms)
 	{
-		Recipe[] result = new Recipe[recipes.size()];
-		return recipes.toArray(result);
+		String[] queryTerms = searchTerms.split("\\s+");
+			// split query into tokens by whitespace
+		ArrayList<Recipe> results = new ArrayList<Recipe>();
+		for (Recipe recipe: recipes) {
+			if (recipeMatchesQuery(recipe, queryTerms)) {
+				results.add(recipe);
+			}
+		}
+		Recipe[] resultArray = new Recipe[results.size()];
+		return results.toArray(resultArray);
 	}
 
 	/**
@@ -36,20 +43,53 @@ public abstract class RecipeBookBase implements RecipeBook
 			Recipe current = recipes.get(i);
 			if (current.getRecipeName().equals(recipe.getRecipeName()) && current.showAuthor().equals(recipe.showAuthor())) {
 				recipes.set(i, recipe);
+				this.recipeUpdated(recipe, i);
 				return;
 			}
 		}
 		recipes.add(recipe);
+		this.recipeAdded(recipe);
 	}
-	
+
+	/**
+	 * Hook method called when a new Recipe is added.
+	 * @param recipe which was added at index recipes.size() - 1
+	 */
+	abstract protected void recipeAdded(Recipe recipe);
+
+	/**
+	 * Hook method called when a Recipe is updated.
+	 * 
+	 * @param recipe the new value of the recipe
+	 * @param i the index of the recipe
+	 */
+	abstract protected void recipeUpdated(Recipe recipe, int i);
+
+	/**
+	 * Checks whether recipe matches any terms from query. All text fields
+	 * (author, title, instructions, ingredients) of the recipe are searched.
+	 * @param recipe
+	 * @param query An array of search terms. These need no special formatting.
+	 * @return
+	 */
 	protected boolean recipeMatchesQuery(Recipe recipe, String[] query) {
+		// for an empty query, everything matches
+		if (query.length == 1 && query.equals("")) {
+			return true;
+		}
+
 		for (String term: query) {
+			if (query.equals("")) {
+				continue;
+				// if we have multiple terms, we should ignore empty ones.
+			}
+
 			if (recipe.showAuthor().contains(term)
 					|| recipe.getRecipeName().contains(term)
 					|| recipe.showCookingInstructions().contains(term)) {
 				return true;
 			}
-			
+
 			for (String ingredient: recipe.showIngredients()) {
 				if (ingredient.contains(term)) {
 					return true;
@@ -59,7 +99,7 @@ public abstract class RecipeBookBase implements RecipeBook
 		return false;
 	}
 
-	protected void save(String fileName, Context ctx, Collection<Recipe> recipes) {
+	public void save(String fileName, Context ctx) {
 		try {  
 			FileOutputStream fos = ctx.openFileOutput(fileName,Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
@@ -72,21 +112,18 @@ public abstract class RecipeBookBase implements RecipeBook
 			e.printStackTrace();  
 		}  
 	}
-	
-	protected ArrayList<Recipe> load(String fileName, Context ctx) {
-		ArrayList<Recipe> recipes;
+
+	public void load(String fileName, Context ctx) {
 		try {  
 			FileInputStream fis = ctx.openFileInput(fileName);
 			ObjectInputStream in = new ObjectInputStream(fis);  
 			recipes = (ArrayList<Recipe>) in.readObject();
 			in.close();
-			return recipes;
 		} 
 		catch (IOException e) {  
 			e.printStackTrace();  
 		} catch (ClassNotFoundException e) {  
 			e.printStackTrace();  
 		}
-		return null;
 	}
 }

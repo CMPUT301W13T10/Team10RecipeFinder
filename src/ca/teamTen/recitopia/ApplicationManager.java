@@ -59,9 +59,11 @@ public class ApplicationManager {
 		}
 
 		@Override
-		public void save(String fileName, Context ctx)
-		{
-			// TODO Auto-generated method stub	
+		protected void recipeAdded(Recipe recipe) {			
+		}
+
+		@Override
+		protected void recipeUpdated(Recipe recipe, int i) {
 		}
 	}
 }
