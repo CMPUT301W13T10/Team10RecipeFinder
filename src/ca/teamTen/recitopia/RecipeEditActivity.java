@@ -23,7 +23,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
     private EditText editRecipeName;
     private EditText editInstructions;
     private ArrayList<String> ingredientList = new ArrayList<String>();
-	private Button addIngredient;
+    private Button addIngredient;
 
     /**
      * This method is called to redraw the LinearLayout that contains the list of Ingredients
@@ -85,6 +85,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
             @Override
             public void onClick(View v)
             {
+                addIngredient.requestFocusFromTouch();
                 addIngredient(new String(""));
                 drawIngredients();
             }

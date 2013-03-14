@@ -18,10 +18,14 @@ import android.widget.TextView.BufferType;
 /**
  * The IngredientAdapter handles inflating the layout of ingredients
  * within the FridgeActivity and RecipeEditActivity classes.
+ * 
+ * TODO Modify the listener so that if the user presses add ingredient after
+ * already editing an ingredientthat the current one is saved.
+ * TODO Modify the Adapter to not save empty ingredients
  */
 public class IngredientAdapter extends ArrayAdapter<String> {
 
-	
+
     interface Callbacks{
         public void ingredientDeleted(int location);
     }
@@ -29,15 +33,15 @@ public class IngredientAdapter extends ArrayAdapter<String> {
     private ArrayList<String> ingredients;
     private Context context;
     private Callbacks callbacks;
-    
-    
+
+
     public IngredientAdapter(Context context, Callbacks callbacks, ArrayList<String> objects) {
         super(context, R.layout.ingredient_layout, objects);
         this.ingredients = objects;
         this.context = context;
         this.callbacks = callbacks;
     }
-    
+
     /**
      * @return the current list of Ingredients
      */
@@ -79,38 +83,39 @@ public class IngredientAdapter extends ArrayAdapter<String> {
             convertView = inflater.inflate(R.layout.ingredient_layout, parent, false);
         }
 
-       
+
         final TextView name = (TextView) convertView.findViewById(R.id.enterIngredient);
         final EditText editName = (EditText) convertView.findViewById(R.id.editIngredient);
         final Button deleteIngredient = (Button) convertView.findViewById(R.id.deleteIngredient);
         final String ingredientName = ingredients.get(position);
 
-        
+
         //Setting the name of the ingredient
         name.setText(ingredientName);
 
         //Setting the tag for the name
         name.setTag(position);
-        
+
         name.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-            	//Setting the text that the EditText will use
-                editName.setText(ingredientName, BufferType.EDITABLE);
+                //Setting the text that the EditText will use
+                editName.setText(name.getText(), BufferType.EDITABLE);
                 //The TextView is now invisible
                 name.setVisibility(View.GONE);
                 //The EditText is now visible
                 editName.setVisibility(View.VISIBLE);
+                v.setPressed(true);
             }
         });
 
         editName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-            	
+
                 if(actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN){
-                	//Handling hardware input of the 'Enter' key
+                    //Handling hardware input of the 'Enter' key
                     editName.setVisibility(View.GONE);
                     name.setText(editName.getText());
                     name.setVisibility(View.VISIBLE);
@@ -131,14 +136,40 @@ public class IngredientAdapter extends ArrayAdapter<String> {
                 return true;
             }
         });
-        
+
+        editName.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
+
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (!hasFocus){
+                    //Save the text if the editText has lost focus.
+                    editName.setVisibility(View.GONE);
+                    name.setText(editName.getText());
+                    name.setVisibility(View.VISIBLE);
+                    Integer position = (Integer) (name.getTag());     
+                    String s = name.getText().toString();
+                    ingredients.set(position, s); 
+                }
+                else {
+                    name.setText(editName.getText());
+                    Integer position = (Integer) (name.getTag());
+                    String s = name.getText().toString();
+                    ingredients.set(position, s); 
+                }
+
+
+            }
+        });
+
         //Setting a tag associated with the position of the ingredient
         deleteIngredient.setTag(position);
         deleteIngredient.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-            	//Call the removeIngredient method
+                //Call the removeIngredient method
+                deleteIngredient.requestFocusFromTouch();
                 IngredientAdapter.this.removeIngredient((Integer) deleteIngredient.getTag());
 
             }

@@ -11,7 +11,9 @@
         android:layout_weight="1"
         android:ems="10"
         android:visibility="gone"
-        android:inputType="text">
+        android:inputType="text"
+        android:duplicateParentState="true"	
+       >
     </EditText>
 
     <TextView
@@ -30,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/deleteButton"
+        android:focusable="true"
          />
 
 </LinearLayout>
