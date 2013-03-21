@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,7 +28,7 @@ public class TakePhotoActivity extends Activity {
 		Button b = (Button)findViewById(R.id.Button01);
         b.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                  startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
             }
         });

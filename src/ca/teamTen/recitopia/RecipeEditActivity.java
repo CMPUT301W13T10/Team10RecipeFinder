@@ -2,13 +2,16 @@ package ca.teamTen.recitopia;
 
 import java.util.ArrayList;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 /**
@@ -24,6 +27,10 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
     private EditText editInstructions;
     private ArrayList<String> ingredientList = new ArrayList<String>();
     private Button addIngredient;
+    
+    private static final int CAMERA_PIC_REQUEST = 2500;
+	private ImageView mImageView;
+	private Bitmap mImageBitmap;
 
     /**
      * This method is called to redraw the LinearLayout that contains the list of Ingredients
@@ -109,9 +116,14 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
         	{
         		//Launching the TakePhotoActivity class
         		//TODO Implement startActivityWithResult and handle the photo that was taken
-        		Intent intent = new Intent();
-        		intent.setClass(getBaseContext(), TakePhotoActivity.class);
-        		startActivity(intent);
+        		//Intent intent = new Intent();
+        		//intent.setClass(getBaseContext(), TakePhotoActivity.class);
+        		//startActivity(intent);
+
+        		
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
+                
         		return false;
         	}
         });
@@ -119,6 +131,28 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
         return true;
     }
 
+    private void handleSmallCameraPhoto(Intent intent) {
+        Bundle extras = intent.getExtras();
+        mImageBitmap = (Bitmap) extras.get("data");
+        mImageView.setImageBitmap(mImageBitmap);
+    }
+    
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAMERA_PIC_REQUEST) {
+        	if(resultCode == RESULT_OK) {
+        		Bitmap image = (Bitmap) data.getExtras().get("data");
+                ImageView imageview = (ImageView) findViewById(R.id.imageView1);
+                imageview.setImageBitmap(image);
+        	}
+        	else if (resultCode == RESULT_CANCELED) {
+                // User cancelled the image capture
+            } else {
+                // Image capture failed, advise user
+            }
+              
+        }
+        
+    }
     /**
      * @param redrawing the list of ingredients when a ingredient has been deleted
      */
