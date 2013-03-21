@@ -1,5 +1,27 @@
 package ca.teamTen.recitopia;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 
 /**
  * RecipeBook interface to ElasticSearch recipe service.
@@ -7,15 +29,43 @@ package ca.teamTen.recitopia;
  * implementation.
  */
 public class CloudRecipeBook implements RecipeBook{
+	
+	private final String RECIPE_INDEX_URL = "http://cmput301.softwareprocess.es:8080/cmput301w13t10/recipe/";
 
+	private HttpClient httpClient = new DefaultHttpClient();
+	private Gson gson = new Gson();
+	
 	/**
 	 * Create an ElasticSearch query command object, serialize to
 	 * JSON and use HTTP to send query.
+	 * 
+	 * See http://www.elasticsearch.org/guide/reference/api/
 	 */
 	@Override
 	public Recipe[] query(String searchTerms) {
-		// TODO Auto-generated method stub
-		return null;
+		String searchUrlParam;
+		try {
+			searchUrlParam = URLEncoder.encode(new QueryRequest(searchTerms).toJSON(gson), "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			return null;
+		}
+		
+		HttpGet getRequest = new HttpGet(RECIPE_INDEX_URL + "_search?source=" + searchUrlParam);
+		
+		HttpResponse response;
+		String resultBody;
+		try {
+			response = httpClient.execute(getRequest);
+			resultBody = readInputStreamToString(response.getEntity().getContent());
+		} catch (ClientProtocolException e) {
+			return null;
+		} catch (IOException e) {
+			return null;
+		}
+		
+		// TODO: what if response is not 200 OK?
+		
+		return gson.fromJson(resultBody, QueryResult.class).getResults();
 	}
 
 	/**
@@ -27,8 +77,29 @@ public class CloudRecipeBook implements RecipeBook{
 	 */
 	@Override
 	public void addRecipe(Recipe recipe) {
-		// TODO Auto-generated method stub
+		HttpResponse response = null;
+		try	{
+			String url = buildRecipeURL(recipe) + "/_update";
 		
+			HttpPost postRequest = new HttpPost(url);
+			String postBody = gson.toJson(new UpdateInsertRequest(recipe));
+			
+			postRequest.setHeader("Accept", "application/json");
+			postRequest.setEntity(new StringEntity(postBody));
+			
+			response = httpClient.execute(postRequest);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		// status 200 = ok
+		if (response != null && response.getStatusLine().getStatusCode() != 200) {
+			// TODO
+		}
 	}
 	
 	/**
@@ -45,5 +116,121 @@ public class CloudRecipeBook implements RecipeBook{
 	@Override
 	public void save() {
 		// TODO Auto-generated method stub
+	}
+	
+	/**
+	 * Public for testing purposes.
+	 * @param recipe the recipe for which to build the URL
+	 * @return a URL for the recipe's entry in ElasticSearch
+	 * @throws UnsupportedEncodingException 
+	 */
+	public String buildRecipeURL(Recipe recipe) throws UnsupportedEncodingException {
+		return RECIPE_INDEX_URL + URLEncoder.encode(recipe.showAuthor()
+				+ "/" + recipe.getRecipeName(), "UTF-8");
+	}
+	
+	/*
+	 * Class to be serialized into an ElasticSearch update request.
+	 * 
+	 * Since we regard update/insert as basically the same thing, we
+	 * use a bit of a hack to achieve this with ElasticSearch.
+	 * 
+	 * If the record already exists, ES will update it with fields from
+	 * the doc member. If it does not exist, it will first create the
+	 * record using the upsert member.
+	 */
+	private static class UpdateInsertRequest {
+		public Recipe doc;
+		public Recipe upsert;
+		
+		UpdateInsertRequest(Recipe recipe) {
+			doc = recipe;
+			upsert = recipe;
+		}
+		
+		public String toJSON(Gson gson) {
+			return gson.toJson(this);
+		}
+	}
+	
+	/*
+	 * ElasticSearch query object.
+	 * Creates an ElasticSearch match-type query that queries all
+	 * fields.
+	 * 
+	 * See http://www.elasticsearch.org/guide/reference/query-dsl/match-query.html
+	 * 
+	 * 
+	 * 
+	 * query: {
+	 * 		query_string {
+	 * 			query: bla
+	 * 		}
+	 * }
+	 */
+	private static class QueryRequest {
+		private static class Query {
+			Map<String, String> query_string;
+			
+			Query(String query) {
+				query_string = new HashMap<String, String>();
+				query_string.put("query", query);
+			}
+		}
+		
+		Query query;
+		
+		public QueryRequest(String query) {
+			this.query = new Query(query);
+		}
+		
+		public String toJSON(Gson gson) {
+			return gson.toJson(this);
+		}
+	}
+	
+	/*
+	 * Class for reading query results.
+	 */
+	private static class QueryResult {
+		public static class QueryHitData {
+			int total;
+			double max_score;
+			QueryHit[] hits;
+		}
+		
+		public static class QueryHit {
+			Recipe _source;
+		}
+		
+		public QueryHitData hits;
+		
+		public Recipe[] getResults() {
+			if (hits == null) {
+				return null;
+			}
+			
+			ArrayList<Recipe> results = new ArrayList<Recipe>();
+			for (QueryHit hit: hits.hits) {
+				results.add(hit._source);
+			}
+			
+			Recipe asArray[] = new Recipe[results.size()];
+			results.toArray(asArray);
+			// TODO: set is published
+			return asArray;
+		}
+	}
+	
+	/*
+	 * Ridiculous hack to get a string from an InputStream, from
+	 * StackOverflow. Reads the InputStream, splitting by the "\\A"
+	 * regexp, which only occurs once - at the beginning of the stream.
+	 * 
+	 * http://stackoverflow.com/questions/309424/read-convert-an-inputstream-to-a-string
+	 */
+	private String readInputStreamToString(InputStream input) {
+		java.util.Scanner s = new java.util.Scanner(input).useDelimiter("\\A");
+	    return s.hasNext() ? s.next() : "";
 	}
 }
