@@ -25,8 +25,15 @@ public class Recipe implements Serializable
 	private ArrayList<String> ingredients;
 	private String cookingInstruction;
 	private String author;
-	private boolean isPublished;
+	private transient boolean isPublished;
 	private ArrayList<Photo> photos;
+	
+	/**
+	 * niladic constructor required for GSON.
+	 */
+	public Recipe() {
+		
+	}
 	
 	/**
 	 * Create a new Recipe
