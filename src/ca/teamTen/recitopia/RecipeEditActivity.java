@@ -6,6 +6,7 @@ import android.provider.MediaStore;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -141,8 +142,10 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
         if (requestCode == CAMERA_PIC_REQUEST) {
         	if(resultCode == RESULT_OK) {
         		Bitmap image = (Bitmap) data.getExtras().get("data");
+        		Photo photo = new Photo(image);
+        		//Photo testPhoto = new Photo(photo.toByteArray());
                 ImageView imageview = (ImageView) findViewById(R.id.imageView1);
-                imageview.setImageBitmap(image);
+                imageview.setImageBitmap(BitmapFactory.decodeByteArray(photo.toByteArray() , 0, photo.toByteArray().length));
         	}
         	else if (resultCode == RESULT_CANCELED) {
                 // User cancelled the image capture
