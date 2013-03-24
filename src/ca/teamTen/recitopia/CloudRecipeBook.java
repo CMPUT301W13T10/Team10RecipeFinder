@@ -37,9 +37,11 @@ public class CloudRecipeBook implements RecipeBook{
 
 	private HttpClient httpClient;
 	private Gson gson;
+	private RecipeBook cache;
 	
-	public CloudRecipeBook() {
+	public CloudRecipeBook(RecipeBook cache) {
 		httpClient = new DefaultHttpClient();
+		this.cache = cache;
 		
 		// create Gson object that will always build published recipes
 		gson = new GsonBuilder()
@@ -81,7 +83,16 @@ public class CloudRecipeBook implements RecipeBook{
 		
 		// TODO: what if response is not 200 OK?
 		
-		return gson.fromJson(resultBody, QueryResult.class).getResults();
+		Recipe[] results = gson.fromJson(resultBody, QueryResult.class).getResults();
+		addRecipesToCache(results);
+		return results;
+	}
+
+	private void addRecipesToCache(Recipe[] recipes) {
+		for (Recipe recipe: recipes) {
+			this.cache.addRecipe(recipe);
+		}
+		// TODO: call cache.save here?
 	}
 
 	/**
