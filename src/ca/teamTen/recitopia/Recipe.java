@@ -113,6 +113,10 @@ public class Recipe implements Serializable
 	
 	/**
 	 * Checks for equality of all members.
+	 * 
+	 * isPublished is not checked, as this is meta-data, not
+	 * data.
+	 * 
 	 * @return true if all members are equal
 	 */
 	public boolean equalData(Recipe other) {
@@ -130,7 +134,6 @@ public class Recipe implements Serializable
 		return recipeName.equals(other.recipeName)
 				&& cookingInstruction.equals(other.cookingInstruction)
 				&& author.equals(other.author)
-				&& (isPublished == other.isPublished)
 				;
 		// TODO: check photos?
 	}
