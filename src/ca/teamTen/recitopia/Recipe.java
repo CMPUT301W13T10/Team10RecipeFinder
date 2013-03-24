@@ -29,10 +29,11 @@ public class Recipe implements Serializable
 	private ArrayList<Photo> photos;
 	
 	/**
-	 * niladic constructor required for GSON.
+	 * simple constructor for use with GSon
+	 * @param published 
 	 */
-	public Recipe() {
-		
+	public Recipe(boolean published) {
+		isPublished = published;
 	}
 	
 	/**

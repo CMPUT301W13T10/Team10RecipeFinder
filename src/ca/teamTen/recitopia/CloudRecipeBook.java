@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,8 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.InstanceCreator;
 import com.google.gson.JsonObject;
 
 
@@ -32,8 +35,21 @@ public class CloudRecipeBook implements RecipeBook{
 	
 	private final String RECIPE_INDEX_URL = "http://cmput301.softwareprocess.es:8080/cmput301w13t10/recipe/";
 
-	private HttpClient httpClient = new DefaultHttpClient();
-	private Gson gson = new Gson();
+	private HttpClient httpClient;
+	private Gson gson;
+	
+	public CloudRecipeBook() {
+		httpClient = new DefaultHttpClient();
+		
+		// create Gson object that will always build published recipes
+		gson = new GsonBuilder()
+			.registerTypeAdapter(Recipe.class, new InstanceCreator<Recipe>() {
+				public Recipe createInstance(Type type) {
+					return new Recipe(true);
+						// create a new, published recipe.
+				}
+			}).create();
+	}
 	
 	/**
 	 * Create an ElasticSearch query command object, serialize to
@@ -217,7 +233,6 @@ public class CloudRecipeBook implements RecipeBook{
 			
 			Recipe asArray[] = new Recipe[results.size()];
 			results.toArray(asArray);
-			// TODO: set is published
 			return asArray;
 		}
 	}
