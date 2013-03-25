@@ -67,7 +67,7 @@ public class Recipe implements Serializable
 	 * Get the recipe author's userid (email)
 	 * @return the author
 	 */
-	public String showAuthor() {
+	public String getAuthor() {
 		return this.author;
 	}
 	
@@ -75,7 +75,7 @@ public class Recipe implements Serializable
 	 * Get the recipe ingredients
 	 * @return the ingredients
 	 */
-	public ArrayList<String> showIngredients() {
+	public ArrayList<String> getIngredients() {
 		return this.ingredients;
 	}
 	
@@ -83,7 +83,7 @@ public class Recipe implements Serializable
 	 * Get the recipe instructions
 	 * @return instructions
 	 */
-	public String showCookingInstructions() {
+	public String getCookingInstructions() {
 		return this.cookingInstruction;
 	}
 
@@ -99,7 +99,7 @@ public class Recipe implements Serializable
 	 * Adds a photo to the recipe.
 	 * @param photo
 	 */
-	public void addPhotos(Photo photo) {
+	public void addPhoto(Photo photo) {
 		this.photos.add(photo);
 	}
 

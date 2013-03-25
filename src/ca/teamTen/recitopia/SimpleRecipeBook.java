@@ -91,7 +91,7 @@ public class SimpleRecipeBook implements RecipeBook
 	{
 		for (int i = 0; i < recipes.size(); i++) {
 			Recipe current = recipes.get(i);
-			if (current.getRecipeName().equals(recipe.getRecipeName()) && current.showAuthor().equals(recipe.showAuthor())) {
+			if (current.getRecipeName().equals(recipe.getRecipeName()) && current.getAuthor().equals(recipe.getAuthor())) {
 				recipes.set(i, recipe);
 				this.recipeUpdated(recipe, i);
 				return;
@@ -136,13 +136,13 @@ public class SimpleRecipeBook implements RecipeBook
 				// if we have multiple terms, we should ignore empty ones.
 			}
 
-			if (recipe.showAuthor().contains(term)
+			if (recipe.getAuthor().contains(term)
 					|| recipe.getRecipeName().contains(term)
-					|| recipe.showCookingInstructions().contains(term)) {
+					|| recipe.getCookingInstructions().contains(term)) {
 				return true;
 			}
 
-			for (String ingredient: recipe.showIngredients()) {
+			for (String ingredient: recipe.getIngredients()) {
 				if (ingredient.contains(term)) {
 					return true;
 				}

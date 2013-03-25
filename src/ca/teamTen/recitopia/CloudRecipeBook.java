@@ -152,7 +152,7 @@ public class CloudRecipeBook implements RecipeBook{
 	 * @throws UnsupportedEncodingException 
 	 */
 	public String buildRecipeURL(Recipe recipe) throws UnsupportedEncodingException {
-		return RECIPE_INDEX_URL + URLEncoder.encode(recipe.showAuthor()
+		return RECIPE_INDEX_URL + URLEncoder.encode(recipe.getAuthor()
 				+ "/" + recipe.getRecipeName(), "UTF-8");
 	}
 	

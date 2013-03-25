@@ -11,45 +11,50 @@ import android.util.Log;
 /**
  * Stores a Photo and handles encoding/scaling/etc.
  * 
- * not yet implemented.
+ * 
  */
 public class Photo {
 
-	private Bitmap mImageBitmap;
+	private Bitmap bitmap;
 	
 	
-	public Bitmap getmImageBitmap()
+	public Bitmap getImageBitmap()
 	{
 	
-		return mImageBitmap;
+		return bitmap;
 	}
 
 	
-	public void setmImageBitmap(Bitmap mImageBitmap)
+	public void setImageBitmap(Bitmap bitmap)
 	{
 	
-		this.mImageBitmap = mImageBitmap;
+		this.bitmap = bitmap;
 	}
 
-	public Photo(Bitmap pic) {
-		this.mImageBitmap = pic;
+	/**
+	 * @param a constructor that uses a Bitmap to construct a Photo Object
+	 */
+	public Photo(Bitmap picture) {
+		this.bitmap = picture;
 		
 	}
-	
+	/**
+	 * @param a byte array that represents the photo
+	 * @return a Photo object that represents the byte array
+	 */
 	public Photo(byte[] photoByteArray) {
-		this.mImageBitmap = BitmapFactory.decodeByteArray(photoByteArray , 0, photoByteArray.length);
+		this.bitmap = BitmapFactory.decodeByteArray(photoByteArray , 0, photoByteArray.length);
 	}
-	/*
-	public void compressPhoto() {
-		this.mImageBitmap = Bitmap.createScaledBitmap(this.mImageBitmap, this.mImageBitmap.getWidth()/5, this.mImageBitmap.getHeight()/5, false);
-	}
-	*/
+	
+	/**
+	 * Called to turn a Photo object into byte arrays so that they can be stored on Elastic Search
+	 * @return a byte array representing a Photo
+	 */
 	public byte[] toByteArray() {
 
-		int size = mImageBitmap.getWidth() * mImageBitmap.getHeight();
-		Log.v("filesize", new Integer(size).toString());
+		int size = bitmap.getWidth() * bitmap.getHeight();
 		ByteArrayOutputStream out = new ByteArrayOutputStream(size);
-		mImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);   
+		bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);   
 		return out.toByteArray();
 	}
 	

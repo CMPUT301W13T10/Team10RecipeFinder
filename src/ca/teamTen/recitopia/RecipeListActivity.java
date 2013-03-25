@@ -57,7 +57,7 @@ public class RecipeListActivity extends ListActivity {
 		String[] result = new String[recipes.length];
 		
 		for (int i = 0; i < recipes.length; i++) {
-			result[i] = recipes[i].getRecipeName() + "\n" + recipes[i].showAuthor();
+			result[i] = recipes[i].getRecipeName() + "\n" + recipes[i].getAuthor();
 		}
 		return result;
 	}
