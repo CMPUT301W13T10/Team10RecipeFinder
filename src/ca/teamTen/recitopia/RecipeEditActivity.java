@@ -123,7 +123,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 			Photo[] photos = recipe.getPhotos();
 			for (int i = 0; i < photos.length; i++){
 				ImageView iv = new ImageView(this);
-				iv.setImageBitmap(photos[i].getImageBitmap());
+				iv.setImageBitmap(photos[i].getBitmap());
 				photoContainer.addView(iv,i);
 			}
 		}

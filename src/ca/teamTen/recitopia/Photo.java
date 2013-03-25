@@ -1,64 +1,68 @@
 package ca.teamTen.recitopia;
 
 import java.io.ByteArrayOutputStream;
-import java.nio.ByteBuffer;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
-
 
 /**
  * Stores a Photo and handles encoding/scaling/etc.
  * 
- * 
+ * TODO Saving this class
  */
-public class Photo {
+public class Photo implements Serializable{
 
-	private Bitmap bitmap;
-	
-	
-	public Bitmap getImageBitmap()
-	{
-	
-		return bitmap;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4043280211171951668L;
+	private byte[] byteImage;
+
+	/**
+	 * Overriding the writeObject method
+	 */
+	private void writeObject(ObjectOutputStream out) throws IOException{
+		out.write(this.byteImage);
 	}
 
-	
-	public void setImageBitmap(Bitmap bitmap)
-	{
-	
-		this.bitmap = bitmap;
+	/**
+	 * 
+	 * @return
+	 */
+	private void readObject(ObjectInputStream in) throws IOException,ClassNotFoundException{
+		this.byteImage = (byte[])in.readObject();
 	}
 
 	/**
 	 * @param a constructor that uses a Bitmap to construct a Photo Object
 	 */
 	public Photo(Bitmap picture) {
-		this.bitmap = picture;
 		
+		int size = picture.getWidth() * picture.getHeight();
+		ByteArrayOutputStream out = new ByteArrayOutputStream(size);
+		picture.compress(Bitmap.CompressFormat.PNG, 100, out);   
+		this.byteImage = out.toByteArray();
+	}
+	
+	public Bitmap getBitmap(){
+		return BitmapFactory.decodeByteArray(this.byteImage , 0, this.byteImage.length);
+
 	}
 	/**
 	 * @param a byte array that represents the photo
 	 * @return a Photo object that represents the byte array
 	 */
 	public Photo(byte[] photoByteArray) {
-		this.bitmap = BitmapFactory.decodeByteArray(photoByteArray , 0, photoByteArray.length);
+		this.byteImage = photoByteArray;
 	}
-	
-	/**
-	 * Called to turn a Photo object into byte arrays so that they can be stored on Elastic Search
-	 * @return a byte array representing a Photo
-	 */
-	public byte[] toByteArray() {
 
-		int size = bitmap.getWidth() * bitmap.getHeight();
-		ByteArrayOutputStream out = new ByteArrayOutputStream(size);
-		bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);   
-		return out.toByteArray();
-	}
-	
-	
-	
-	
+
+
+
+
 }
+
