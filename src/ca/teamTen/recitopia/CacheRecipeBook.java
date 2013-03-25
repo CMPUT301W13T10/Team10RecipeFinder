@@ -6,7 +6,7 @@ package ca.teamTen.recitopia;
  *  This class stores a limited number of recipes that are not created by current user
  * 
  */
-public class LocalCache extends RecipeBookBase {
+public class CacheRecipeBook extends SimpleRecipeBook {
 	private int	maxEntries;
 	
 	/**
@@ -14,11 +14,11 @@ public class LocalCache extends RecipeBookBase {
 	 * recently added Recipes.
 	 * @param maxEntries
 	 */
-	public LocalCache(int maxEntries) {
+	public CacheRecipeBook(int maxEntries) {
 		this.maxEntries = maxEntries;
 	}
 	
-	public LocalCache(int maxEntries, IOFactory ioFactory) {
+	public CacheRecipeBook(int maxEntries, IOFactory ioFactory) {
 		super(ioFactory);
 		this.maxEntries = maxEntries;
 	}
@@ -32,11 +32,6 @@ public class LocalCache extends RecipeBookBase {
 		if (recipes.size() > maxEntries) {
 			recipes.remove(0);
 		}
-		// TODO save?
-	}
-
-	@Override
-	protected void recipeUpdated(Recipe recipe, int i) {
 		// TODO save?
 	}
 }

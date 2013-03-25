@@ -9,13 +9,18 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 /**
- * Implements common routines for RecipeBook implementers.
- * Child classes implement hook methods to ensure the recipe
- * book can satisfy their constraints.
+ * RecipeBook class which can be used to store, query recipes
+ * without interacting with (many) external systems.
+ * 
+ * Good for storing recipes locally on the filesystem, for
+ * instance.
+ * 
+ * Child classes can implement hook methods to ensure the
+ * recipe book can satisfy their constraints.
  * 
  * @see RecipeBook
  */
-public abstract class RecipeBookBase implements RecipeBook
+public class SimpleRecipeBook implements RecipeBook
 {
 	/**
 	 * Factory that creates input/output streams used for
@@ -49,11 +54,11 @@ public abstract class RecipeBookBase implements RecipeBook
 	protected ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 	private IOFactory ioFactory;
 	
-	public RecipeBookBase(IOFactory io) {
+	public SimpleRecipeBook(IOFactory io) {
 		ioFactory = io;
 	}
 	
-	public RecipeBookBase() {
+	public SimpleRecipeBook() {
 		ioFactory = new NullIOFactory();
 	}
 
@@ -100,7 +105,8 @@ public abstract class RecipeBookBase implements RecipeBook
 	 * Hook method called when a new Recipe is added.
 	 * @param recipe which was added at index recipes.size() - 1
 	 */
-	abstract protected void recipeAdded(Recipe recipe);
+	protected void recipeAdded(Recipe recipe) {
+	}
 
 	/**
 	 * Hook method called when a Recipe is updated.
@@ -108,7 +114,8 @@ public abstract class RecipeBookBase implements RecipeBook
 	 * @param recipe the new value of the recipe
 	 * @param i the index of the recipe
 	 */
-	abstract protected void recipeUpdated(Recipe recipe, int i);
+	protected void recipeUpdated(Recipe recipe, int i) {
+	}
 
 	/**
 	 * Checks whether recipe matches any terms from query. All text fields

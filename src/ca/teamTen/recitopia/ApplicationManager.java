@@ -25,10 +25,12 @@ public class ApplicationManager {
 
 	private Context appContext;
 	private String userid;	
-	private UserRecipeBook userRecipeBook = null;
-	private FavoriteRecipe favoriteRecipesBook = null;
+	private SimpleRecipeBook userRecipeBook = null;
+		// userRecipeBook stores the user's recipes
+	private SimpleRecipeBook favoriteRecipesBook = null;
+		// favoriteRecipesBook stores other users' recipes offline
 	private CloudRecipeBook cloudRecipeBook = null;
-	private LocalCache cacheRecipeBook = null;
+	private CacheRecipeBook cacheRecipeBook = null;
 
 	public ApplicationManager(Application application) {
 		this.userid = "test@test.com";
@@ -60,7 +62,7 @@ public class ApplicationManager {
 	 */
 	public RecipeBook getUserRecipeBook() {
 		if (userRecipeBook == null) {
-			userRecipeBook = new UserRecipeBook(new FileSystemIOFactory(USER_RECIPEBOOK_PATH));
+			userRecipeBook = new SimpleRecipeBook(new FileSystemIOFactory(USER_RECIPEBOOK_PATH));
 			userRecipeBook.load();
 		}
 		return userRecipeBook;
@@ -68,7 +70,7 @@ public class ApplicationManager {
 
 	public RecipeBook getFavoriteRecipesBook() {
 		if (favoriteRecipesBook == null) {
-			favoriteRecipesBook = new FavoriteRecipe(new FileSystemIOFactory(FAVORITES_RECIPEBOOK_PATH));
+			favoriteRecipesBook = new SimpleRecipeBook(new FileSystemIOFactory(FAVORITES_RECIPEBOOK_PATH));
 			favoriteRecipesBook.load();
 		}
 		return favoriteRecipesBook;
@@ -83,7 +85,7 @@ public class ApplicationManager {
 
 	public RecipeBook getCacheRecipeBook() {
 		if (cacheRecipeBook == null) {
-			cacheRecipeBook = new LocalCache(CACHE_RECIPEBOOK_SIZE,
+			cacheRecipeBook = new CacheRecipeBook(CACHE_RECIPEBOOK_SIZE,
 					new FileSystemIOFactory(CACHE_RECIPEBOOK_PATH));
 			cacheRecipeBook.load();
 		}
@@ -102,7 +104,7 @@ public class ApplicationManager {
 		return appMgr;
 	}
 	
-	private class FileSystemIOFactory implements RecipeBookBase.IOFactory {
+	private class FileSystemIOFactory implements SimpleRecipeBook.IOFactory {
 		private String filePath;
 
 		public FileSystemIOFactory(String filePath) {
