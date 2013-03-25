@@ -31,7 +31,8 @@ public class RecipeListActivity extends ListActivity {
 		
 		// Refresh list contents, as they may have changed.
 		// TODO: be more sophisticated
-		recipes = ApplicationManager.getInstance().getUserRecipeBook(this).query("");
+		recipes = ApplicationManager.getInstance(getApplication())
+				.getUserRecipeBook().query("");
 		
 		ListAdapter adapter = new ArrayAdapter<String>(
 				this,

@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.View;
 
 /**
- * Launch activity, lets the user launch different activites.
+ * Launch activity, lets the user launch different activities.
  * 
  * From here, the user can: create a recipe, view their recipes,
  * search for recipes, or manage their fridge.
@@ -54,7 +54,8 @@ public class MainActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == RECIPE_CREATED_RESULT && resultCode == RESULT_OK) {
 			Recipe recipe = (Recipe)data.getSerializableExtra("RECIPE");
-			ApplicationManager.getInstance().getUserRecipeBook(this).addRecipe(recipe);
+			ApplicationManager.getInstance(getApplication())
+				.getUserRecipeBook().addRecipe(recipe);
 		}
 	}
 }

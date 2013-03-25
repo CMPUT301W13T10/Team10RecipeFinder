@@ -1,8 +1,10 @@
 package ca.teamTen.recitopia;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
+import android.app.Application;
 import android.content.Context;
 
 /**
@@ -13,13 +15,25 @@ import android.content.Context;
  * class.
  */
 public class ApplicationManager {
+	private final static int CACHE_RECIPEBOOK_SIZE = 40;
+
+	private static final String USER_RECIPEBOOK_PATH = "myRecipes.dat";
+	private static final String FAVORITES_RECIPEBOOK_PATH = "myFavoriteRecipes.dat";
+	private static final String CACHE_RECIPEBOOK_PATH = "cachedRecipes.dat";
+
 	private static ApplicationManager appMgr;
 
+	private Context appContext;
 	private String userid;	
-	private RecipeBook userRecipeBook = null;
+	private UserRecipeBook userRecipeBook = null;
+	private FavoriteRecipe favoriteRecipesBook = null;
+	private CloudRecipeBook cloudRecipeBook = null;
+	private LocalCache cacheRecipeBook = null;
 
-	public ApplicationManager(String user) {
-		this.userid = user;
+	public ApplicationManager(Application application) {
+		this.userid = "test@test.com";
+		// dummy id thing, to be removed when #24 is closed
+		appContext = application.getApplicationContext();
 	}
 
 	/**
@@ -44,57 +58,65 @@ public class ApplicationManager {
 	 * @param Context an Android Context for file io
 	 * @return user RecipeBook
 	 */
-	public RecipeBook getUserRecipeBook(Context context) {
+	public RecipeBook getUserRecipeBook() {
 		if (userRecipeBook == null) {
-			userRecipeBook = new PrototypeRecipeBook();
+			userRecipeBook = new UserRecipeBook(new FileSystemIOFactory(USER_RECIPEBOOK_PATH));
+			userRecipeBook.load();
 		}
 		return userRecipeBook;
+	}
+
+	public RecipeBook getFavoriteRecipesBook() {
+		if (favoriteRecipesBook == null) {
+			favoriteRecipesBook = new FavoriteRecipe(new FileSystemIOFactory(FAVORITES_RECIPEBOOK_PATH));
+			favoriteRecipesBook.load();
+		}
+		return favoriteRecipesBook;
+	}
+
+	public RecipeBook getCloudRecipeBook() {
+		if (cloudRecipeBook == null) {
+			cloudRecipeBook = new CloudRecipeBook(getCacheRecipeBook());
+		}
+		return cloudRecipeBook;
+	}
+
+	public RecipeBook getCacheRecipeBook() {
+		if (cacheRecipeBook == null) {
+			cacheRecipeBook = new LocalCache(CACHE_RECIPEBOOK_SIZE,
+					new FileSystemIOFactory(CACHE_RECIPEBOOK_PATH));
+			cacheRecipeBook.load();
+		}
+		return cacheRecipeBook;
 	}
 
 	/**
 	 * Singleton-pattern getter
 	 * @return The instance of ApplicationManager
 	 */
-	public static ApplicationManager getInstance(){
+	public static ApplicationManager getInstance(Application application) {
 		if (appMgr == null){
-			appMgr = new ApplicationManager("test@test.com");
+			appMgr = new ApplicationManager(application);
 		}
 
 		return appMgr;
 	}
+	
+	private class FileSystemIOFactory implements RecipeBookBase.IOFactory {
+		private String filePath;
 
-	// simple stubbed out RecipeBook for prototype
-	private class PrototypeRecipeBook extends RecipeBookBase {		
-		public PrototypeRecipeBook() {
-			addRecipe(new Recipe("Spiky Melon Salad",
-					new ArrayList<String>(Arrays.asList("spiky melon", "lettuce", "cucumber")),
-					"Cube the melon, chop the lettuce and cumbers. Mix in bowl and enjoy",
-					"alex@test.com"));
-			addRecipe(new Recipe("Spiky Melon Soup",
-					new ArrayList<String>(Arrays.asList("spiky melon", "cream", "spices")),
-					"mix, heat and enjoy",
-					"zhexin@test.com"));
-			addRecipe(new Recipe("Spiky Melon Shake",
-					new ArrayList<String>(Arrays.asList("spiky melon", "cream", "sugar")),
-					"mix, blend and enjoy",
-					"osipovas@test.com"));
-			addRecipe(new Recipe("Spiky Melon Fries",
-					new ArrayList<String>(Arrays.asList("spiky melon", "salt", "cooking oil")),
-					"chop, fry, eat",
-					"zou@test.com"));
+		public FileSystemIOFactory(String filePath) {
+			this.filePath = filePath;
 		}
 
 		@Override
-		protected void recipeAdded(Recipe recipe) {			
+		public InputStream getInputStream() throws IOException {
+			return appContext.openFileInput(filePath);
 		}
 
 		@Override
-		protected void recipeUpdated(Recipe recipe, int i) {
-		}
-
-		@Override
-		public void save() {
-			// unimplemented
+		public OutputStream getOutputStream() throws IOException {
+			return appContext.openFileOutput(filePath, Context.MODE_PRIVATE);
 		}
 	}
 }

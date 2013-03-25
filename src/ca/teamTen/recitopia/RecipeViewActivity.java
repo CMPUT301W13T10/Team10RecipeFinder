@@ -69,7 +69,10 @@ public class RecipeViewActivity extends Activity {
         if (requestCode == RECIPE_EDITED_RESULT && resultCode == RESULT_OK) {
             recipe = (Recipe)data.getSerializableExtra("RECIPE");
             updateContentView();
-            ApplicationManager.getInstance().getUserRecipeBook(this).addRecipe(recipe);
+            RecipeBook recipeBook = ApplicationManager.getInstance(getApplication())
+            		.getUserRecipeBook();
+            recipeBook.addRecipe(recipe);
+            recipeBook.save();
         }
     }
 
