@@ -18,6 +18,11 @@ public class LocalCache extends RecipeBookBase {
 		this.maxEntries = maxEntries;
 	}
 	
+	public LocalCache(int maxEntries, IOFactory ioFactory) {
+		super(ioFactory);
+		this.maxEntries = maxEntries;
+	}
+
 	/**
 	 * Ensures size constraint is not violated
 	 * after recipe add.
@@ -33,10 +38,5 @@ public class LocalCache extends RecipeBookBase {
 	@Override
 	protected void recipeUpdated(Recipe recipe, int i) {
 		// TODO save?
-	}
-
-	@Override
-	public void save() {
-		// TODO Auto-generated method stub
 	}
 }

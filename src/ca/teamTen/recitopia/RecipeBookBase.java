@@ -1,14 +1,12 @@
 package ca.teamTen.recitopia;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
-
-import android.content.Context;
 
 /**
  * Implements common routines for RecipeBook implementers.
@@ -19,7 +17,45 @@ import android.content.Context;
  */
 public abstract class RecipeBookBase implements RecipeBook
 {
+	/**
+	 * Factory that creates input/output streams used for
+	 * loading/saving (respectively).
+	 * 
+	 * If either method returns null, the load/save is not
+	 * executed.
+	 */
+	public interface IOFactory {
+		InputStream getInputStream() throws IOException;
+		OutputStream getOutputStream() throws IOException;
+	}
+	
+	/**
+	 * Simple IOFactory implementation that always returns
+	 * null.
+	 */
+	public static class NullIOFactory implements IOFactory {
+		@Override
+		public InputStream getInputStream() throws IOException {
+			return null;
+		}
+
+		@Override
+		public OutputStream getOutputStream() throws IOException {
+			return null;
+		}
+		
+	}
+	
 	protected ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+	private IOFactory ioFactory;
+	
+	public RecipeBookBase(IOFactory io) {
+		ioFactory = io;
+	}
+	
+	public RecipeBookBase() {
+		ioFactory = new NullIOFactory();
+	}
 
 	/**
 	 * Implement Google-style searching of recipes, with no indexing.
@@ -109,14 +145,16 @@ public abstract class RecipeBookBase implements RecipeBook
 	}
 
 	/**
-	 * Saves recipes to the local filesystem
-	 * @param fileName file to save to
-	 * @param ctx Android Context used for io
+	 * Saves recipes to the loutput stream returned by the IOFactory.
 	 */
-	public void save(String fileName, Context ctx) {
+	public void save() {
 		try {  
-			FileOutputStream fos = ctx.openFileOutput(fileName,Context.MODE_PRIVATE);
-			ObjectOutputStream out = new ObjectOutputStream(fos);
+			OutputStream rawOutputStream = ioFactory.getOutputStream();
+			if (rawOutputStream == null) {
+				return;
+			}
+			
+			ObjectOutputStream out = new ObjectOutputStream(rawOutputStream);
 			out.writeObject(recipes);
 			out.close();  
 		} catch (FileNotFoundException e) {  
@@ -128,14 +166,16 @@ public abstract class RecipeBookBase implements RecipeBook
 	}
 
 	/**
-	 * Loads recipes from the local filesystem
-	 * @param fileName file to load from
-	 * @param ctx Android Context used for io
+	 * Loads recipes from an InputStream returned by the
+	 * IOFactory.
 	 */
-	public void load(String fileName, Context ctx) {
-		try {  
-			FileInputStream fis = ctx.openFileInput(fileName);
-			ObjectInputStream in = new ObjectInputStream(fis);  
+	public void load() {
+		try {
+			InputStream rawStream = ioFactory.getInputStream();
+			if (rawStream == null) {
+				return;
+			}
+			ObjectInputStream in = new ObjectInputStream(rawStream);  
 			recipes = (ArrayList<Recipe>) in.readObject();
 			in.close();
 		} 

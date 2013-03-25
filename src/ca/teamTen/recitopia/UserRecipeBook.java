@@ -6,6 +6,13 @@ package ca.teamTen.recitopia;
  */
 public class UserRecipeBook extends RecipeBookBase {
 
+	public UserRecipeBook(IOFactory ioFactory) {
+		super(ioFactory);
+	}
+
+	public UserRecipeBook() {
+	}
+
 	@Override
 	protected void recipeAdded(Recipe recipe) {
 		// TODO: save?
@@ -14,10 +21,5 @@ public class UserRecipeBook extends RecipeBookBase {
 	@Override
 	protected void recipeUpdated(Recipe recipe, int i) {
 		// TODO: save?
-	}
-
-	@Override
-	public void save() {
-		// TODO Auto-generated method stub
 	}
 }
