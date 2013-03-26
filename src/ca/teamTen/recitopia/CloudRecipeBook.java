@@ -14,6 +14,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -131,10 +132,18 @@ public class CloudRecipeBook implements RecipeBook{
 	
 	/**
 	 * Check whether a connection can be made to the server.
+	 * 
+	 * Implemented by attempting a HEAD request on RECIPE_INDEX_URL
 	 * @return true if ElasticSearch server can be reached.
 	 */
 	public boolean isAvailable() {
-		return false;
+		try {
+			HttpHead headRequest = new HttpHead(RECIPE_INDEX_URL);
+			HttpResponse response = httpClient.execute(headRequest);
+			return response.getStatusLine().getStatusCode() == 200;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	/**
