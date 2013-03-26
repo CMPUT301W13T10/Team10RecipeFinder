@@ -6,7 +6,7 @@
     tools:context=".SearchActivity" >
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/searchField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -14,9 +14,21 @@
     </EditText>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/searchButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/search" />
+        android:text="@string/search"
+        android:onClick="onSearch" />
+
+    <ListView
+        android:id="@+id/resultsList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    </ListView>
     
+    <TextView android:id="@+id/placeholder"
+        		android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:text="@string/no_search_results"/>
 </LinearLayout>
