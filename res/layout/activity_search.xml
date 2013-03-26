@@ -17,18 +17,20 @@
         android:id="@+id/searchButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/search"
-        android:onClick="onSearch" />
+        android:onClick="onSearch"
+        android:text="@string/search" />
+
+    <TextView
+        android:id="@+id/placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/no_search_results" />
 
     <ListView
         android:id="@+id/resultsList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content" >
     </ListView>
-    
-    <TextView android:id="@+id/placeholder"
-        		android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:text="@string/no_search_results"/>
+
 </LinearLayout>
