@@ -120,6 +120,9 @@ public class SimpleRecipeBook implements RecipeBook
 	/**
 	 * Checks whether recipe matches any terms from query. All text fields
 	 * (author, title, instructions, ingredients) of the recipe are searched.
+	 * 
+	 * Uses case-insensitive searching.
+	 * 
 	 * @param recipe
 	 * @param query An array of search terms. These need no special formatting.
 	 * @return
@@ -136,14 +139,14 @@ public class SimpleRecipeBook implements RecipeBook
 				// if we have multiple terms, we should ignore empty ones.
 			}
 
-			if (recipe.getAuthor().contains(term)
-					|| recipe.getRecipeName().contains(term)
-					|| recipe.getCookingInstructions().contains(term)) {
+			if (recipe.getAuthor().toLowerCase().contains(term)
+					|| recipe.getRecipeName().toLowerCase().contains(term)
+					|| recipe.getCookingInstructions().toLowerCase().contains(term)) {
 				return true;
 			}
 
 			for (String ingredient: recipe.getIngredients()) {
-				if (ingredient.contains(term)) {
+				if (ingredient.toLowerCase().contains(term)) {
 					return true;
 				}
 			}
