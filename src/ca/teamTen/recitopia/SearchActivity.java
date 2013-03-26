@@ -16,12 +16,16 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 /**
- * Basic searching activity.
+ * Basic searching activity. Displays search form and results list.
+ * 
+ * If this activity is launched with a string in the "QUERY" extra, it will
+ * launch a query with the provided string immediately upon starting.
+ * 
+ * Queries are executed asynchronously using AsyncTask.
  */
 public class SearchActivity extends Activity implements OnItemClickListener {
 
 	private Recipe[] recipes;
-	private String query;
 	private ListView recipeListView;
 	private EditText searchField;
 
@@ -34,27 +38,37 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 		recipeListView.setEmptyView(findViewById(R.id.placeholder));
 		searchField = (EditText)findViewById(R.id.searchField);
 		
-		// TODO: check for some message in our intent and laucnh a search
 		// TODO: add progress spinner or something
+
+		// check for query extra, launch query if it is present
+		Intent intent = getIntent();
+		if (intent.hasExtra("QUERY")) {
+			String query = intent.getStringExtra("QUERY");
+			searchField.setText(query);
+			executeQuery(query);
+		}
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_search, menu);
-		return true;
-	}
-
+	/**
+	 * Called when the search button is pressed
+	 * @param button
+	 */
 	public void onSearch(View button) {
-		query = searchField.getText().toString();
-		executeQuery();
+		executeQuery(searchField.getText().toString());
 	}
 	
-	private void executeQuery() {
+	/**
+	 * Executes a query asynchronously
+	 * @param query
+	 */
+	private void executeQuery(String query) {
 		new QueryTask(ApplicationManager.getInstance(getApplication()))
 			.execute(query);
 	}
 	
+	/**
+	 * Updates list view with new query results.
+	 */
 	private void displayQueryResults(Recipe[] recipes) {
 		ListAdapter adapter = new ArrayAdapter<String>(
 				this,
@@ -65,6 +79,9 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 		recipeListView.setAdapter(adapter);
 	}
 
+	/**
+	 * Launches RecipeViewActivity when a recipe is clicked.
+	 */
 	@Override
 	public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
 		Recipe recipe = this.recipes[position];
@@ -75,6 +92,9 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 		startActivity(viewIntent);
 	}
 
+	/*
+	 * Makes an array of strings for displaying the given recipes.
+	 */
 	private String[] makeListItems(Recipe[] recipes) {
 		String[] result = new String[recipes.length];
 
@@ -84,6 +104,9 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 		return result;
 	}
 	
+	/*
+	 * AsyncTask for running search queries.
+	 */
 	private class QueryTask extends AsyncTask<String, Void, Recipe[]> {
 		ApplicationManager appMgr;
 		
