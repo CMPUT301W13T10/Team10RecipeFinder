@@ -85,6 +85,9 @@ public class CloudRecipeBook implements RecipeBook{
 		// TODO: what if response is not 200 OK?
 		
 		Recipe[] results = gson.fromJson(resultBody, QueryResult.class).getResults();
+		if (results == null) {
+			results = new Recipe[0];
+		}
 		addRecipesToCache(results);
 		return results;
 	}
@@ -93,7 +96,7 @@ public class CloudRecipeBook implements RecipeBook{
 		for (Recipe recipe: recipes) {
 			this.cache.addRecipe(recipe);
 		}
-		// TODO: call cache.save here?
+		this.cache.save();
 	}
 
 	/**
