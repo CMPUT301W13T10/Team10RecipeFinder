@@ -54,8 +54,10 @@ public class MainActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == RECIPE_CREATED_RESULT && resultCode == RESULT_OK) {
 			Recipe recipe = (Recipe)data.getSerializableExtra("RECIPE");
-			ApplicationManager.getInstance(getApplication())
-				.getUserRecipeBook().addRecipe(recipe);
+			RecipeBook userRecipeBook = ApplicationManager.getInstance(getApplication())
+				.getUserRecipeBook();
+			userRecipeBook.addRecipe(recipe);
+			userRecipeBook.save();
 		}
 	}
 }
