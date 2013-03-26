@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * A Recipe with a name, ingredients, instructions, photos
  * and an author. Recipes can be published (stored on the server)
@@ -25,8 +27,11 @@ public class Recipe implements Serializable
 	private ArrayList<String> ingredients;
 	private String cookingInstruction;
 	private String author;
-	private transient boolean isPublished;
 	private ArrayList<Photo> photos;
+	
+	// this field should not be sent to ElasticSearch
+	@Expose(serialize = false, deserialize = false)
+	private boolean isPublished;
 	
 	/**
 	 * simple constructor for use with GSon
