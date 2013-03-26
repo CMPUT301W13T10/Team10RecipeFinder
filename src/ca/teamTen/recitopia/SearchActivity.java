@@ -67,9 +67,10 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 	}
 	
 	/**
-	 * Updates list view with new query results.
+	 * Handles new query results.
 	 */
-	private void displayQueryResults(Recipe[] recipes) {
+	private void queryResultsReceived(Recipe[] recipes) {
+		this.recipes = recipes;
 		ListAdapter adapter = new ArrayAdapter<String>(
 				this,
 				android.R.layout.simple_list_item_activated_1,
@@ -126,7 +127,7 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 		
 		@Override
 		protected void onPostExecute(Recipe[] result) {
-			displayQueryResults(result);
+			queryResultsReceived(result);
 		}
 		
 		/*
@@ -166,8 +167,10 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 			
 			for (RecipeBook book: books) {
 				Recipe[] recipes = book.query(searchTerms);
-				totalCount += recipes.length;
-				results.add(recipes);
+				if (recipes != null) {
+					totalCount += recipes.length;
+					results.add(recipes);
+				}
 			}
 			Recipe[] allRecipes = new Recipe[totalCount];
 			int recipesAdded = 0;
