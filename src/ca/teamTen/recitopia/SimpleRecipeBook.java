@@ -138,6 +138,8 @@ public class SimpleRecipeBook implements RecipeBook
 				continue;
 				// if we have multiple terms, we should ignore empty ones.
 			}
+			
+			term = term.toLowerCase();
 
 			if (recipe.getAuthor().toLowerCase().contains(term)
 					|| recipe.getRecipeName().toLowerCase().contains(term)
