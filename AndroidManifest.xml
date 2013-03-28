@@ -15,10 +15,12 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+         >
         <activity
             android:name="ca.teamTen.recitopia.MainActivity"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,35 +29,44 @@
         </activity>
         <activity
             android:name="ca.teamTen.recitopia.CreateEditActivity"
-            android:label="@string/title_activity_create_edit" >
+            android:label="@string/title_activity_create_edit"
+            android:screenOrientation="portrait"
+            >
         </activity>
         <activity
             android:name="ca.teamTen.recitopia.SearchActivity"
-            android:label="@string/title_activity_search" >
+            android:label="@string/title_activity_search"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="ca.teamTen.recitopia.FridgeActivity"
-            android:label="@string/title_activity_fridge" >
+            android:label="@string/title_activity_fridge"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="ca.teamTen.recitopia.RecipeListActivity"
-            android:label="@string/title_activity_my_recipe" >
+            android:label="@string/title_activity_my_recipe"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="ca.teamTen.recitopia.TakePhotoActivity"
-            android:label="@string/title_activity_take_photo" >
+            android:label="@string/title_activity_take_photo"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="ca.teamTen.recitopia.RecipeViewActivity"
-            android:label="@string/title_activity_recipe_view" >
+            android:label="@string/title_activity_recipe_view"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="ca.teamTen.recitopia.RecipeEditActivity"
-            android:label="@string/title_activity_edit_recipe" >
+            android:label="@string/title_activity_edit_recipe"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="ca.teamTen.recitopia.SearchByIngredientActivity"
-            android:label="@string/title_activity_search_by_ingredient" >
+            android:label="@string/title_activity_search_by_ingredient"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

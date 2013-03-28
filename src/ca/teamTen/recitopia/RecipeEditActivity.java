@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 /**
  * This activity loads or creates an activity when launched. When the activity
  * finishes it returns the modified or created recipe.
- * TODO Fix Activity Lifecycle - Need to Save Changes on 'Back' Button
  */
 public class RecipeEditActivity extends Activity implements IngredientAdapter.Callbacks{
 
@@ -202,6 +201,9 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 		String instructions = editInstructions.getText().toString();
 		String author = recipe.getAuthor();
 		ArrayList<String> ingredients = ingredientAdapter.getIngredients();
+		while(ingredients.remove(new String(""))){
+			ingredients.remove(new String(""));
+		}
 		Photo[] photos = recipe.getPhotos();
 
 		Recipe currentRecipe = new Recipe(name, ingredients, instructions, author);

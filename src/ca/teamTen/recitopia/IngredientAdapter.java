@@ -18,8 +18,6 @@ import android.widget.TextView.BufferType;
 /**
  * The IngredientAdapter handles inflating the layout of ingredients
  * within the FridgeActivity and RecipeEditActivity classes.
- * 
- * TODO Modify the Adapter to not save empty ingredients
  */
 public class IngredientAdapter extends ArrayAdapter<String> {
 
