@@ -44,5 +44,15 @@
         android:layout_below="@id/to_fridge"
         android:onClick="toMyRecipes"
         android:text="My Recipes" />
+    
+    <Button
+        android:id="@+id/to_myFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/to_myRecipes"
+        android:onClick="toMyFavorite"
+        android:text="My Favorite Recipes" />
 
 </RelativeLayout>

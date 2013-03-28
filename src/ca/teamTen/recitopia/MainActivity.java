@@ -47,6 +47,13 @@ public class MainActivity extends Activity {
 	
 	public void toMyRecipes(View view) {
 		Intent intent = new Intent(this, RecipeListActivity.class);
+		intent.putExtra("type", "My Recipes");
+		startActivity(intent);
+	}
+	
+	public void toMyFavorite(View view) {
+		Intent intent = new Intent(this, RecipeListActivity.class);
+		intent.putExtra("type", "My Favorite");
 		startActivity(intent);
 	}
 	
