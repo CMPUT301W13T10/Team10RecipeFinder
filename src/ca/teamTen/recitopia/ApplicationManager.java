@@ -114,7 +114,7 @@ public class ApplicationManager {
 		return appMgr;
 	}
 	
-	private class FileSystemIOFactory implements SimpleRecipeBook.IOFactory {
+	private class FileSystemIOFactory implements IOFactory {
 		private String filePath;
 
 		public FileSystemIOFactory(String filePath) {
