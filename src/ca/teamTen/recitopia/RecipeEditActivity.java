@@ -98,7 +98,9 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 				addIngredient.requestFocusFromTouch();
 				addIngredient(new String(""));
 				drawIngredients();
-			}
+//				ingredientLayout.getChildAt(ingredientLayout.getChildCount()-1).requestFocus();
+				
+						}
 		});
 
 		//Drawing the ingredients
@@ -137,10 +139,8 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 			@Override
 			public boolean onMenuItemClick(MenuItem item)
 			{
-
 				Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 				startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
-
 				return false;
 			}
 		});

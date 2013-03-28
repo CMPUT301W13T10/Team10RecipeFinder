@@ -93,7 +93,7 @@ public class IngredientAdapter extends ArrayAdapter<String> {
 
         //Setting the tag for the name
         name.setTag(position);
-
+        
         name.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -104,6 +104,7 @@ public class IngredientAdapter extends ArrayAdapter<String> {
                 name.setVisibility(View.GONE);
                 //The EditText is now visible
                 editName.setVisibility(View.VISIBLE);
+                editName.requestFocus();
                 v.setPressed(true);
             }
         });
@@ -121,7 +122,7 @@ public class IngredientAdapter extends ArrayAdapter<String> {
                     String s = name.getText().toString();
                     ingredients.set(position, s);
 
-                } else if (actionId == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN){
+                } else if (actionId == EditorInfo.IME_ACTION_DONE ){
                     //Handling software input of the 'Enter' key
                     editName.setVisibility(View.GONE);
                     name.setText(editName.getText());

@@ -13,6 +13,7 @@
         android:visibility="gone"
         android:inputType="text"
         android:duplicateParentState="true"	
+        android:imeOptions="actionDone"
        >
     </EditText>
 
