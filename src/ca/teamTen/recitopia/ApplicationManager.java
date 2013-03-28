@@ -20,6 +20,7 @@ public class ApplicationManager {
 	private static final String USER_RECIPEBOOK_PATH = "myRecipes.dat";
 	private static final String FAVORITES_RECIPEBOOK_PATH = "myFavoriteRecipes.dat";
 	private static final String CACHE_RECIPEBOOK_PATH = "cachedRecipes.dat";
+	private static final String FRIDGE_PATH = "fridge.dat";
 
 	private static ApplicationManager appMgr;
 
@@ -96,7 +97,7 @@ public class ApplicationManager {
 	
 	public Fridge getFridge() {
 		if (fridge == null) {
-			fridge = new Fridge();
+			fridge = new Fridge(new FileSystemIOFactory(FRIDGE_PATH));
 		}
 		
 		return fridge;

@@ -1,17 +1,15 @@
 package ca.teamTen.recitopia;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import android.content.Context;
 import android.util.Log;
 
 /**
@@ -21,11 +19,17 @@ import android.util.Log;
 public class Fridge{
 
 	private Set<String> ingredients;
+	private IOFactory ioFactory;
+	
+	public Fridge() {
+		this(new IOFactory.NullIOFactory());
+	}
 	
 	/**
 	 * Build an empty fridge.
 	 */
-	public Fridge() {
+	public Fridge(IOFactory ioFactory) {
+		this.ioFactory = ioFactory;
 		ingredients = new HashSet<String>();
 	}
 	
@@ -69,10 +73,10 @@ public class Fridge{
 	 * @param fileName the file to save to
 	 * @param ctx an Android Context used for io
 	 */
-	public void saveFridgeInfo(String fileName, Context ctx) {
+	public void save() {
 		try {  
-			FileOutputStream fos = ctx.openFileOutput(fileName,Context.MODE_PRIVATE);
-			ObjectOutputStream out = new ObjectOutputStream(fos);
+			OutputStream rawOutputStream = ioFactory.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(rawOutputStream);
 			out.writeObject(ingredients);
 			out.close();  
 		} catch (FileNotFoundException e) {  
@@ -86,13 +90,11 @@ public class Fridge{
 	/**
 	 * Load fridge contents from file.
 	 * 
-	 * @param fileName the file to read from
-	 * @param ctx an Android Context used for io
 	 */
-	public void loadFridgeInfo(String fileName, Context ctx) {
+	public void load() {
 		try {  
-			FileInputStream fis = ctx.openFileInput(fileName);
-			ObjectInputStream in = new ObjectInputStream(fis);  
+			InputStream rawInputStream = ioFactory.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(rawInputStream);  
 			this.ingredients = (Set<String>) in.readObject();
 			in.close();
 		} 

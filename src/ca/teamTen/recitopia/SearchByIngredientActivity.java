@@ -38,7 +38,7 @@ public class SearchByIngredientActivity extends Activity {
 	{
 		ApplicationManager appMgr = ApplicationManager.getInstance(getApplication());
 		Fridge fridge = appMgr.getFridge();
-		fridge.loadFridgeInfo(FRIDGE_FILE, this);
+		fridge.load();
 		Collection<String> ingredientsCollection = fridge.getIngredients();
 		ingredients = new String[ingredientsCollection.size()];
 		ingredientsCollection.toArray(ingredients);
