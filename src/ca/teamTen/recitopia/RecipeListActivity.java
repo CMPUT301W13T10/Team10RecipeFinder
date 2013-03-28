@@ -31,13 +31,15 @@ public class RecipeListActivity extends ListActivity {
 		
 		// Refresh list contents, as they may have changed.
 		// TODO: be more sophisticated
-		if(getIntent().getStringExtra("type")=="My Recipes"){
+		if(getIntent().getStringExtra("type").equals("My Recipes")){
 			recipes = ApplicationManager.getInstance(getApplication())
 					.getUserRecipeBook().query("");
+			setTitle("My Recipes");
 		}
-		else if (getIntent().getStringExtra("type")=="My Favorite"){
+		else if (getIntent().getStringExtra("type").equals("My Favorite")){
 			recipes = ApplicationManager.getInstance(getApplication())
 					.getFavoriteRecipesBook().query("");
+			setTitle("My Favorite Recipes");
 		}
 
 		
