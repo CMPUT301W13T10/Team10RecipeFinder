@@ -64,11 +64,13 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
         setContentView(R.layout.activity_fridge);
         
         fridge = new Fridge();
-        fridge.loadFridgeInfo(FRIDGE_FILE, getApplicationContext());
         //initList();
+        fridge.loadFridgeInfo(FRIDGE_FILE, getApplicationContext());
+
 
         ingredientLayout = (LinearLayout) findViewById(R.id.fridgeIngredientList);
         ingredientAdapter = new IngredientAdapter(this, this, fridge.getIngredients());
+        fridge.clearFridge();
         drawIngredients();
 
         Button addIngredient = (Button) findViewById(R.id.fridgeAddIngredient);      
@@ -91,6 +93,12 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
         return true;
     }
 
+    protected void onResume()
+    {
+       super.onResume();
+
+    }
+
     @Override
     public void ingredientDeleted(int location)
     {
@@ -100,10 +108,17 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
     @Override
     protected void onPause() {
         super.onPause();
-        
-        for(int i = 0; i < ingredientAdapter.getCount(); i++)
-        	fridge.addIngredient(ingredientAdapter.getItem(i));
-        fridge.saveFridgeInfo(FRIDGE_FILE, getApplicationContext());
+        saveIngredients();
+    }
+    
+    public void saveIngredients() {
+    	 for(int i = 0; i < ingredientAdapter.getCount(); i++){
+    			 fridge.addIngredient(ingredientAdapter.getItem(i));
+    	 }
+    	
+    	
+         	
+         fridge.saveFridgeInfo(FRIDGE_FILE, getApplicationContext());
     }
     
     public void searchByIngredients(View v){

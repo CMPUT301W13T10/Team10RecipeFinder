@@ -29,6 +29,9 @@ public class Fridge{
 		ingredients = new HashSet<String>();
 	}
 	
+	public void clearFridge() {
+		ingredients = new HashSet<String>();
+	}
 	/**
 	 * Add a new ingredient to the fridge.
 	 * @return true if the ingredient was added (not a duplicate).
