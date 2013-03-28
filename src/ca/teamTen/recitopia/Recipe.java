@@ -19,9 +19,13 @@ import com.google.gson.annotations.Expose;
 public class Recipe implements Serializable
 {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4658750314538117911L;
+	/**
 	 * Serializable version id.
 	 */
-	private static final long serialVersionUID = 1L;
+	
 	
 	private String recipeName;
 	private ArrayList<String> ingredients;
