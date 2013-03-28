@@ -117,7 +117,14 @@ public class Recipe implements Serializable
 	 * @return true if the recipe is published
 	 */
 	public boolean publishRecipe() {
-		return false;
+		return isPublished;
+	}
+	
+	/**
+	 * Sets whether the recipe has been published
+	 */
+	public void setPublished(boolean published) {
+		isPublished = published;
 	}
 	
 	/**

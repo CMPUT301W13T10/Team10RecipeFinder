@@ -1,5 +1,7 @@
 package ca.teamTen.recitopia;
 
+import java.util.ArrayList;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -93,16 +95,54 @@ public class RecipeViewActivity extends Activity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RECIPE_EDITED_RESULT && resultCode == RESULT_OK) {
-            recipe = (Recipe)data.getSerializableExtra("RECIPE");
+            Recipe newRecipe = (Recipe)data.getSerializableExtra("RECIPE");
+            ApplicationManager appMgr = ApplicationManager.getInstance(getApplication());
+            
+            if (!recipeAuthorIsUser(recipe) && !newRecipe.equalData(recipe)) {
+            	recipe = forkRecipe(newRecipe);
+            	Toast toast = Toast.makeText(getApplicationContext(),
+            		R.string.recipeForkedToast, Toast.LENGTH_SHORT);
+            }
+            
+            if (recipeAuthorIsUser(recipe)) {
+            	// save to UserRecipeBook
+            	appMgr.getUserRecipeBook().addRecipe(recipe);
+            }
+            
+            if (recipe.publishRecipe()) {
+            	// save to cloudRecipeBook
+            	appMgr.getCloudRecipeBook().addRecipe(recipe);
+            }
+            
             updateContentView();
-            RecipeBook recipeBook = ApplicationManager.getInstance(getApplication())
-            		.getUserRecipeBook();
-            recipeBook.addRecipe(recipe);
-            recipeBook.save();
         }
     }
 
-    // Call to update the share intent
+    /*
+     * Create a fork of the recipe - a recipe with a different author, but
+     * otherwise all the same data.
+     */
+    private Recipe forkRecipe(Recipe source)
+	{
+    	Recipe newRecipe = new Recipe(
+    		source.getRecipeName(),
+    		source.getIngredients(),
+    		source.getCookingInstructions(),
+    		ApplicationManager.getInstance(getApplication()).getUserID());
+    	for (Photo photo: source.getPhotos()) {
+    		newRecipe.addPhoto(photo);
+    	}
+    	newRecipe.setPublished(false);
+    	return newRecipe;
+	}
+
+	private boolean recipeAuthorIsUser(Recipe recipeToCheck)
+	{
+		String user = ApplicationManager.getInstance(getApplication()).getUserID();
+		return user.equals(recipeToCheck.getAuthor());
+	}
+
+	// Call to update the share intent
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     private void setShareIntent(Intent shareIntent) {
         if (mShareActionProvider != null) {
