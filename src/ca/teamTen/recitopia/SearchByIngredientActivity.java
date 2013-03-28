@@ -15,8 +15,6 @@ public class SearchByIngredientActivity extends Activity {
 	private ListView ingredientList;
 	private String[] GENRES;
 	
-	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,7 +28,6 @@ public class SearchByIngredientActivity extends Activity {
 		ingredientList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
 		ingredientList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, GENRES));
-
 
 	}
 
