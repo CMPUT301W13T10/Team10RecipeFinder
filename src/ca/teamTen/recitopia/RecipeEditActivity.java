@@ -107,11 +107,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 	}
 
 	private void drawPhotos() {
-		/*
-		 * Populating the photoContainer
-		 * As far as Refactoring is concerned this could be turned into a method
-		 */
-		
+	
 		if (recipe.getPhotos().length == 0){
 			//No Photos Means that there is nothing to populate
 		}
@@ -120,6 +116,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 			
 			//Clear the Photo Container
 			photoContainer.removeAllViews();
+		
 			Photo[] photos = recipe.getPhotos();
 			for (int i = 0; i < photos.length; i++){
 				ImageView iv = new ImageView(this);

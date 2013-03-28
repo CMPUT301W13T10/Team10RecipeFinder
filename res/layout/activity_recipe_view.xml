@@ -10,7 +10,27 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        />
+        android:textIsSelectable="false" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_below="@+id/button1">
+
+        <LinearLayout
+            android:id="@+id/photoContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <MediaController
+                android:id="@+id/mediaController1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+            </MediaController>
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <Button
         android:id="@+id/button1"
@@ -18,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/content"
         android:layout_centerHorizontal="true"
-        android:text="@string/editRecipe"
-        android:onClick="editRecipe" />
+        android:onClick="editRecipe"
+        android:text="@string/editRecipe" />
 
 </RelativeLayout>

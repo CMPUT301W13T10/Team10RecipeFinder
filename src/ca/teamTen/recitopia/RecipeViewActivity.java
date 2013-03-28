@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
@@ -21,27 +23,50 @@ public class RecipeViewActivity extends Activity {
 
     private static final int RECIPE_EDITED_RESULT = 1;
     private ShareActionProvider mShareActionProvider;
+	private LinearLayout photoContainer;
     private Recipe recipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_view);
-
+        photoContainer = (LinearLayout) findViewById(R.id.photoContainer);
         if (getIntent().hasExtra("RECIPE")) {
             recipe = (Recipe)getIntent().getSerializableExtra("RECIPE");
-
             updateContentView();
         } else {
             finish();
         }
+        
     }
 
     private void updateContentView()
     {
         TextView contentView = (TextView)findViewById(R.id.content);
         contentView.setText(recipe.toString());
+		drawPhotos();
+
     }
+    
+    private void drawPhotos() {
+    	
+		if (recipe.getPhotos().length == 0){
+			//No Photos Means that there is nothing to populate
+		}
+		else {
+			//There exists at least one photo
+			
+			//Clear the Photo Container
+			photoContainer.removeAllViews();
+		
+			Photo[] photos = recipe.getPhotos();
+			for (int i = 0; i < photos.length; i++){
+				ImageView iv = new ImageView(this);
+				iv.setImageBitmap(photos[i].getBitmap());
+				photoContainer.addView(iv,i);
+			}
+		}
+	}
 
     @SuppressLint("NewApi")
     @Override
