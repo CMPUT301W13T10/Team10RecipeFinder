@@ -56,11 +56,6 @@
         <activity
             android:name="ca.teamTen.recitopia.SearchByIngredientActivity"
             android:label="@string/title_activity_search_by_ingredient" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
