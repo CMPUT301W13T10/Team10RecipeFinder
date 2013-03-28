@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 public class FridgeActivity extends Activity implements IngredientAdapter.Callbacks{
     private LinearLayout ingredientLayout;
     private IngredientAdapter ingredientAdapter;
+    private Fridge fridge;
+    private final String FRIDGE_FILE = "fridge.dat";
     
     /**
      * This method is called to redraw the LinearLayout that contains the list of
@@ -41,7 +43,8 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
     /*
      * Used for Testing Purpose/Porpoises
      */
-    private ArrayList<String> ingredientList = new ArrayList<String>();
+    //private ArrayList<String> ingredientList = new ArrayList<String>();
+    /*
     private void initList(){
         ingredientList.add("Bacon");
         ingredientList.add("Spikey Melon");
@@ -52,15 +55,19 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
         ingredientList.add("Mustard");
 
     }
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fridge);
-        initList();
+        
+        fridge = new Fridge();
+        fridge.loadFridgeInfo(FRIDGE_FILE, getApplicationContext());
+        //initList();
 
         ingredientLayout = (LinearLayout) findViewById(R.id.fridgeIngredientList);
-        ingredientAdapter = new IngredientAdapter(this, this, ingredientList);
+        ingredientAdapter = new IngredientAdapter(this, this, fridge.getIngredients());
         drawIngredients();
 
         Button addIngredient = (Button) findViewById(R.id.fridgeAddIngredient);      

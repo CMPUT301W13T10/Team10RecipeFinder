@@ -48,7 +48,7 @@ public class Fridge{
 	 * Get a collection of all ingredients in the fridge
 	 * @return A new Collection with the ingredients
 	 */
-	public Collection<String> getIngredients()
+	public ArrayList<String> getIngredients()
 	{
 		return new ArrayList<String>(ingredients);
 	}	
