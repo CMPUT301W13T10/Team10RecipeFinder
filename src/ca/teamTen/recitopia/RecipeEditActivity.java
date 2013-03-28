@@ -26,7 +26,6 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 	private IngredientAdapter ingredientAdapter;
 	private EditText editRecipeName;
 	private EditText editInstructions;
-	private ArrayList<String> ingredientList = new ArrayList<String>();
 	private Button addIngredient;
 	private LinearLayout photoContainer;
 
@@ -74,7 +73,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 		} else {
 			//No recipe was sent - therefore create a new one
 			ApplicationManager appMgr = ApplicationManager.getInstance(getApplication());
-			recipe = new Recipe("", ingredientList, "", appMgr.getUserID());
+			recipe = new Recipe("", new ArrayList<String>(), "", appMgr.getUserID());
 		}
 
 		photoContainer = (LinearLayout) findViewById(R.id.photoContainer);
@@ -98,11 +97,15 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 			public void onClick(View v)
 			{
 				addIngredient.requestFocusFromTouch();
-				addIngredient(new String(""));
+				if(ingredientAdapter.hasEmptyIngredient()){
+					//Already has an empty Ingredient
+				}
+				else {
+					addIngredient(new String(""));
+				}
 				drawIngredients();
-//				ingredientLayout.getChildAt(ingredientLayout.getChildCount()-1).requestFocus();
-				
-						}
+
+			}
 		});
 
 		//Drawing the ingredients
@@ -111,16 +114,16 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 	}
 
 	private void drawPhotos() {
-	
+
 		if (recipe.getPhotos().length == 0){
 			//No Photos Means that there is nothing to populate
 		}
 		else {
 			//There exists at least one photo
-			
+
 			//Clear the Photo Container
 			photoContainer.removeAllViews();
-		
+
 			Photo[] photos = recipe.getPhotos();
 			for (int i = 0; i < photos.length; i++){
 				ImageView iv = new ImageView(this);
@@ -200,7 +203,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 		String author = recipe.getAuthor();
 		ArrayList<String> ingredients = ingredientAdapter.getIngredients();
 		Photo[] photos = recipe.getPhotos();
-		
+
 		Recipe currentRecipe = new Recipe(name, ingredients, instructions, author);
 		for (Photo photo: photos){
 			currentRecipe.addPhoto(photo);

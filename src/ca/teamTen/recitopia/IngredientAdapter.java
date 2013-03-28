@@ -20,7 +20,6 @@ import android.widget.TextView.BufferType;
  * within the FridgeActivity and RecipeEditActivity classes.
  * 
  * TODO Modify the Adapter to not save empty ingredients
- * TODO Fix on Delete Press, Camera Button gets focus
  */
 public class IngredientAdapter extends ArrayAdapter<String> {
 
@@ -65,7 +64,13 @@ public class IngredientAdapter extends ArrayAdapter<String> {
         ingredients.remove(location);
         callbacks.ingredientDeleted(location);
     }
-
+    
+    /**
+     * 
+     */
+    public boolean hasEmptyIngredient(){
+    	return ingredients.contains(new String(""));
+    }
 
 
     /**
