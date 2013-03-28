@@ -4,6 +4,7 @@ package ca.teamTen.recitopia;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 
 /**
  * An activity that allows the user to add/edit/remove ingredients from their fridge
+ * TODO Use the Fridge class for saving/loading ingredients
  */
 public class FridgeActivity extends Activity implements IngredientAdapter.Callbacks{
     private LinearLayout ingredientLayout;
@@ -84,5 +86,11 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
     public void ingredientDeleted(int location)
     {
         drawIngredients();        
+    }
+    
+    public void searchByIngredients(View v){
+    	Intent intent = new Intent(this, SearchByIngredientActivity.class);
+        startActivity(intent);
+    	
     }
 }

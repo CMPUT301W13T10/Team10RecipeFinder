@@ -9,12 +9,13 @@
         android:targetSdkVersion="15" />
 
     <uses-feature android:name="android.hardware.camera" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name="ca.teamTen.recitopia.MainActivity"
             android:label="@string/title_activity_main" >
@@ -51,6 +52,15 @@
         <activity
             android:name="ca.teamTen.recitopia.RecipeEditActivity"
             android:label="@string/title_activity_edit_recipe" >
+        </activity>
+        <activity
+            android:name="ca.teamTen.recitopia.SearchByIngredientActivity"
+            android:label="@string/title_activity_search_by_ingredient" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
