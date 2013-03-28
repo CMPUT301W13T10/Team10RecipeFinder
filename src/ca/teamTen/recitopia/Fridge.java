@@ -74,7 +74,6 @@ public class Fridge{
 			FileOutputStream fos = ctx.openFileOutput(fileName,Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
 			out.writeObject(ingredients);
-			Log.v("Write", "Write");
 			out.close();  
 		} catch (FileNotFoundException e) {  
 			e.printStackTrace();  
@@ -95,7 +94,6 @@ public class Fridge{
 			FileInputStream fis = ctx.openFileInput(fileName);
 			ObjectInputStream in = new ObjectInputStream(fis);  
 			this.ingredients = (Set<String>) in.readObject();
-			Log.v("Read", "Read");
 			in.close();
 		} 
 		catch (IOException e) {  

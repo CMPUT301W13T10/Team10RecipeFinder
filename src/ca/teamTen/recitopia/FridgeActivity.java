@@ -113,6 +113,7 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
     
     public void saveIngredients() {
     	 for(int i = 0; i < ingredientAdapter.getCount(); i++){
+    		 if(ingredientAdapter.getItem(i)!="")
     			 fridge.addIngredient(ingredientAdapter.getItem(i));
     	 }
     	
