@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 /**
  * This activity loads or creates an activity when launched. When the activity
  * finishes it returns the modified or created recipe.
+ * TODO Fix Activity Lifecycle - Need to Save Changes on 'Back' Button
  */
 public class RecipeEditActivity extends Activity implements IngredientAdapter.Callbacks{
 
@@ -42,6 +43,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 		for (int i = 0; i < ingredientAdapter.getCount(); i++){
 			ingredientLayout.addView(ingredientAdapter.getView(i, null, null));
 		}
+		ingredientLayout.requestFocus();
 
 	}
 
