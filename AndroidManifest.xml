@@ -65,6 +65,7 @@
         </activity>
         <activity
             android:name="ca.teamTen.recitopia.SearchByIngredientActivity"
+<<<<<<< HEAD
             android:label="@string/title_activity_search_by_ingredient"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -72,6 +73,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+=======
+            android:label="@string/title_activity_search_by_ingredient" >
+>>>>>>> 9b6b4411b2b2e2b4d2b9029bb1af5143b0dc95d6
         </activity>
     </application>
 

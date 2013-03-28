@@ -29,6 +29,9 @@ public class Fridge{
 		ingredients = new HashSet<String>();
 	}
 	
+	public void clearFridge() {
+		ingredients = new HashSet<String>();
+	}
 	/**
 	 * Add a new ingredient to the fridge.
 	 * @return true if the ingredient was added (not a duplicate).
@@ -71,7 +74,6 @@ public class Fridge{
 			FileOutputStream fos = ctx.openFileOutput(fileName,Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
 			out.writeObject(ingredients);
-			Log.v("Write", "Write");
 			out.close();  
 		} catch (FileNotFoundException e) {  
 			e.printStackTrace();  
@@ -92,7 +94,6 @@ public class Fridge{
 			FileInputStream fis = ctx.openFileInput(fileName);
 			ObjectInputStream in = new ObjectInputStream(fis);  
 			this.ingredients = (Set<String>) in.readObject();
-			Log.v("Read", "Read");
 			in.close();
 		} 
 		catch (IOException e) {  

@@ -31,8 +31,10 @@ public class ApplicationManager {
 		// favoriteRecipesBook stores other users' recipes offline
 	private CloudRecipeBook cloudRecipeBook = null;
 	private CacheRecipeBook cacheRecipeBook = null;
+	
+	private Fridge fridge = null;
 
-	public ApplicationManager(Application application) {
+	private ApplicationManager(Application application) {
 		this.userid = "test@test.com";
 		// dummy id thing, to be removed when #24 is closed
 		appContext = application.getApplicationContext();
@@ -90,6 +92,14 @@ public class ApplicationManager {
 			cacheRecipeBook.load();
 		}
 		return cacheRecipeBook;
+	}
+	
+	public Fridge getFridge() {
+		if (fridge == null) {
+			fridge = new Fridge();
+		}
+		
+		return fridge;
 	}
 
 	/**
