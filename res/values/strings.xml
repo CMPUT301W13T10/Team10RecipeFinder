@@ -15,7 +15,7 @@
     <string name="title_activity_take_photo">TakePhotoActivity</string>
     <string name="title_activity_recipe_view">RecipeViewActivity</string>
     <string name="editRecipe">Edit Recipe</string>
-    <string name="search">Search by Ingredients</string>
+    <string name="search">Search</string>
     <string name="no_search_results">no results to display</string>
     <string name="title_activity_search_by_ingredient">SearchByIngredientActivity</string>
     <string name="action_settings">Settings</string>

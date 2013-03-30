@@ -1,6 +1,5 @@
 package ca.teamTen.recitopia;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -18,19 +17,25 @@ import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
+
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.InstanceCreator;
-import com.google.gson.JsonObject;
 
 
 /**
  * RecipeBook interface to ElasticSearch recipe service.
  * Currently not implemented, comments document expected
  * implementation.
+ * 
+ * TODO: Implmenet a custom adapter for Photo objects within a Recipe
+ * I found the following gist:
+ * https://gist.github.com/orip/3635246
+ * 
+ * http://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/TypeAdapter.html
+ * 
+ * http://stackoverflow.com/questions/11271375/gson-custom-seralizer-for-one-variable-of-many-in-an-object-using-typeadapter
  */
 public class CloudRecipeBook implements RecipeBook{
 	
@@ -43,15 +48,19 @@ public class CloudRecipeBook implements RecipeBook{
 	public CloudRecipeBook(RecipeBook cache) {
 		httpClient = new DefaultHttpClient();
 		this.cache = cache;
+		//Creating a GsonBuilder
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Photo.class, new PhotoAdapter());
+		gsonBuilder.registerTypeAdapter(Recipe.class, new InstanceCreator<Recipe>() {
+			public Recipe createInstance(Type type) {
+				return new Recipe(true);
+					// create a new, published recipe.
+			}
+		});
 		
 		// create Gson object that will always build published recipes
-		gson = new GsonBuilder()
-			.registerTypeAdapter(Recipe.class, new InstanceCreator<Recipe>() {
-				public Recipe createInstance(Type type) {
-					return new Recipe(true);
-						// create a new, published recipe.
-				}
-			}).create();
+		gson = gsonBuilder.create();
+		
 	}
 	
 	/**

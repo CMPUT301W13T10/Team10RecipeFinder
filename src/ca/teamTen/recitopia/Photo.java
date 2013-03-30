@@ -17,8 +17,24 @@ public class Photo implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -4043280211171951668L;
-	private byte[] byteImage;
 
+	
+
+
+	private byte[] byteImage;
+	/**
+	 * @return the byteImage
+	 */
+	public byte[] getByteImage() {
+		return byteImage;
+	}
+
+	/**
+	 * @param byteImage the byteImage to set
+	 */
+	public void setByteImage(byte[] byteImage) {
+		this.byteImage = byteImage;
+	}
 	/**
 	 * a constructor that uses a Bitmap to construct a Photo Object
 	 * @param Bitmap picture
