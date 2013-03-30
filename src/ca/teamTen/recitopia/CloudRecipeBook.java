@@ -63,13 +63,21 @@ public class CloudRecipeBook implements RecipeBook{
 		
 	}
 	/**
-	 * Used for Testing Photo Publishing
-	 * @return 
+	 * Used for Testing Photo Serialization
+	 * @return a string representing the Recipe in JSON format
 	 */
 	public String recipeToJson(Recipe recipe){
 		String recipeToJson = gson.toJson(recipe);
 		return recipeToJson;
-	}	
+	}
+	
+	/**
+	 * Used for Testing Photo Deserialization
+	 */
+	public Recipe recipeFromJson(String string){
+		Recipe recipe = gson.fromJson(string, Recipe.class);
+		return recipe;
+	}
 	
 	/**
 	 * Create an ElasticSearch query command object, serialize to
