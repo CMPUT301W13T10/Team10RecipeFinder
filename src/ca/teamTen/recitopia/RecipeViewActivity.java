@@ -13,10 +13,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
- * Displays a simple view of a recipe. (Without pictures, for now).
+ * Displays a simple view of a recipe. 
  * From here, a user can launch the edit activity for the recipe.
  */
 public class RecipeViewActivity extends Activity {
@@ -117,5 +118,13 @@ public class RecipeViewActivity extends Activity {
         sendIntent.setType("text/plain");
         setShareIntent(sendIntent);
 
+    }
+    
+    public void publishRecipe(View view){
+    	ApplicationManager appMgr = ApplicationManager.getInstance(getApplication());
+    	CloudRecipeBook crb = (CloudRecipeBook) appMgr.getCloudRecipeBook();
+    	String recipeAsJSON = crb.recipeToJson(this.recipe);
+    	Toast toast = Toast.makeText(this, recipeAsJSON, Toast.LENGTH_LONG);
+    	toast.show();
     }
 }

@@ -62,6 +62,14 @@ public class CloudRecipeBook implements RecipeBook{
 		gson = gsonBuilder.create();
 		
 	}
+	/**
+	 * Used for Testing Photo Publishing
+	 * @return 
+	 */
+	public String recipeToJson(Recipe recipe){
+		String recipeToJson = gson.toJson(recipe);
+		return recipeToJson;
+	}	
 	
 	/**
 	 * Create an ElasticSearch query command object, serialize to
