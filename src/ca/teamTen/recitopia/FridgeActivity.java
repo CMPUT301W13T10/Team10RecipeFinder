@@ -68,7 +68,7 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
 	}
 
 	@Override
-	public void ingredientDeleted(int location)
+	public void ingredientDeleted()
 	{
 		drawIngredients();        
 	}

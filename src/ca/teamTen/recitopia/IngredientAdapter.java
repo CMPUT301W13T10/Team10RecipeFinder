@@ -21,9 +21,13 @@ import android.widget.TextView.BufferType;
  */
 public class IngredientAdapter extends ArrayAdapter<String> {
 
-
+	/**
+	 * 
+	 * An interface that is used to notify all implementing classes
+	 * about an ingredient being deleted.	 
+	 */
     interface Callbacks{
-        public void ingredientDeleted(int location);
+        public void ingredientDeleted();
     }
 
     private ArrayList<String> ingredients;
@@ -31,6 +35,11 @@ public class IngredientAdapter extends ArrayAdapter<String> {
     private Callbacks callbacks;
 
 
+    /**
+     * @param current context
+     * @param Callbacks interface
+     * @param a collection of ingredients
+     */
     public IngredientAdapter(Context context, Callbacks callbacks, ArrayList<String> objects) {
         super(context, R.layout.ingredient_layout, objects);
         this.ingredients = objects;
@@ -39,6 +48,7 @@ public class IngredientAdapter extends ArrayAdapter<String> {
     }
 
     /**
+     * Get a list of ingredients
      * @return the current list of Ingredients
      */
     public ArrayList<String> getIngredients(){
@@ -46,7 +56,7 @@ public class IngredientAdapter extends ArrayAdapter<String> {
     }
 
     /**
-     * 
+     * Adds an ingredient to the current list of ingredients
      * @param the ingredient you would like to add
      */
     public void addIngredient(String string){
@@ -54,17 +64,19 @@ public class IngredientAdapter extends ArrayAdapter<String> {
     }
 
     /**
-     * 
+     * Removes the ingredient from the model and notifies
+     * any corresponding views to update themselves
      * @param the location of the ingredient within the list
-     * 
      */
     public void removeIngredient(int location){
         ingredients.remove(location);
-        callbacks.ingredientDeleted(location);
+        callbacks.ingredientDeleted();
     }
     
     /**
-     * 
+     * Checks to see if the current list of ingredients contains
+     * any empty string as an ingredient
+     * @return true if there is an empty string ingredient, false otherwise
      */
     public boolean hasEmptyIngredient(){
     	return ingredients.contains(new String(""));
@@ -72,6 +84,9 @@ public class IngredientAdapter extends ArrayAdapter<String> {
 
 
     /**
+     * Returns a view by inflating the layout as defined by ingredient_layout.
+     * It also sets up the appropriate listeners for the components
+     * of the ingredient layout.
      * 
      * @param position representing the ingredient within the list
      * @param convertView 
@@ -108,7 +123,9 @@ public class IngredientAdapter extends ArrayAdapter<String> {
                 name.setVisibility(View.GONE);
                 //The EditText is now visible
                 editName.setVisibility(View.VISIBLE);
+                //EditText requests Focus
                 editName.requestFocus();
+                //Setting the view as being pressed
                 v.setPressed(true);
             }
         });

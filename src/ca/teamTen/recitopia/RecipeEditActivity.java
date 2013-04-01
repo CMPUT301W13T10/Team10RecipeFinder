@@ -15,8 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 /**
- * This activity loads or creates an activity when launched. When the activity
- * finishes it returns the modified or created recipe.
+ * This activity loads or creates a Recipe object when launched. When the activity
+ * finishes it returns the modified or newly created recipe.
  */
 public class RecipeEditActivity extends Activity implements IngredientAdapter.Callbacks{
 
@@ -29,32 +29,9 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 	private LinearLayout photoContainer;
 
 
-	private static final int CAMERA_PIC_REQUEST = 2500; //TODO Put this somewhere else
+	private static final int CAMERA_PIC_REQUEST = 2500;
 
-
-	/**
-	 * This method is called to redraw the LinearLayout that contains the list of Ingredients
-	 * 
-	 */
-	private void drawIngredients(){
-		ingredientLayout.removeAllViews();      
-		for (int i = 0; i < ingredientAdapter.getCount(); i++){
-			ingredientLayout.addView(ingredientAdapter.getView(i, null, null));
-		}
-		ingredientLayout.requestFocus();
-
-	}
-
-	/**
-	 *   
-	 * @param A string representing the Ingredient
-	 * 
-	 * Adds a new ingredient to the list of of ingredients within the adapter.
-	 */
-	public void addIngredient(String ingredient){
-		//Add an ingredient to the ingredientAdapter
-		ingredientAdapter.addIngredient(ingredient);
-	}
+	
 
 	/**
 	 * @param a Bundle from the activity that called this activity
@@ -111,7 +88,29 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 		drawIngredients();
 
 	}
+	/**
+	 * This method is called to redraw the LinearLayout that contains the list of Ingredients
+	 * 
+	 */
+	private void drawIngredients(){
+		ingredientLayout.removeAllViews();      
+		for (int i = 0; i < ingredientAdapter.getCount(); i++){
+			ingredientLayout.addView(ingredientAdapter.getView(i, null, null));
+		}
+		ingredientLayout.requestFocus();
 
+	}
+
+	/**
+	 *   
+	 * @param A string representing the Ingredient
+	 * 
+	 * Adds a new ingredient to the list of of ingredients within the adapter.
+	 */
+	public void addIngredient(String ingredient){
+		//Add an ingredient to the ingredientAdapter
+		ingredientAdapter.addIngredient(ingredient);
+	}
 	private void drawPhotos() {
 
 		if (recipe.getPhotos().length == 0){
@@ -119,10 +118,11 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 		}
 		else {
 			//There exists at least one photo
-
+			
 			//Clear the Photo Container
 			photoContainer.removeAllViews();
 
+			//Adding the Photos to the photoContainer
 			Photo[] photos = recipe.getPhotos();
 			for (int i = 0; i < photos.length; i++){
 				ImageView iv = new ImageView(this);
@@ -175,16 +175,21 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 
 	}
 	/**
-	 * @param redrawing the list of ingredients when a ingredient has been deleted
+	 * redrawing the list of ingredients when a ingredient has been deleted
+	 * 
 	 */
 	@Override
-	public void ingredientDeleted(int location)
+	public void ingredientDeleted()
 	{
 		drawIngredients();
 	}
 
 	/**
-	 * When the user is finished return the Recipe
+	 * When the user is finished return the Recipe to the calling Activity
+	 * 
+	 * This method is only called when the user presses the 'Done' button
+	 * 
+	 * @param The current view
 	 */
 	public void userFinished(View v){
 		Intent intent = new Intent();    
@@ -194,6 +199,9 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 	}
 
 	/**
+	 * This method creates a new Recipe object from the currently modified text fields
+	 * as well as any newly added ingredients and/or photos.
+	 * 
 	 * @return a Recipe object representing the current Recipe
 	 */
 	public Recipe createRecipe(){
