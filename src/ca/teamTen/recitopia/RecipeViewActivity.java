@@ -127,4 +127,13 @@ public class RecipeViewActivity extends Activity {
     	Toast toast = Toast.makeText(this, recipeAsJSON, Toast.LENGTH_LONG);
     	toast.show();
     }
+    
+    public void saveFavorite(View view) {
+        RecipeBook recipeBook = ApplicationManager.getInstance(getApplication())
+        		.getFavoriteRecipesBook();
+        recipeBook.addRecipe(recipe);
+        recipeBook.save();
+        Toast toast = Toast.makeText(this, "Recipe saved as favorite!", Toast.LENGTH_LONG);
+    	toast.show();
+    }
 }
