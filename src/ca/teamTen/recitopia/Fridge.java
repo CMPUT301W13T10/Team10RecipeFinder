@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import android.util.Log;
-
 /**
  * Fridge class stores a set of ingredients, loads/saves
  * from a file. Duplicate ingredients are ignored.

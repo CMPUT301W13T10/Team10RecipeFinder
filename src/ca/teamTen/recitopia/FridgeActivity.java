@@ -29,10 +29,9 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
 		ingredientLayout.requestFocus();
 	}
 
-	public void addIngredient(){
-		ingredientAdapter.addIngredient("");
-		drawIngredients();
-
+	public void addIngredient(String ingredient){
+		//Add an ingredient to the ingredientAdapter
+		ingredientAdapter.addIngredient(ingredient);
 	}
 
 	@Override
@@ -47,14 +46,22 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
 		ingredientAdapter = new IngredientAdapter(this, this, fridge.getIngredients());
 		drawIngredients();
 
-		Button addIngredient = (Button) findViewById(R.id.fridgeAddIngredient);      
+		final Button addIngredient = (Button) findViewById(R.id.fridgeAddIngredient);      
 		addIngredient.setOnClickListener(new View.OnClickListener()
 		{
 
 			@Override
 			public void onClick(View v)
 			{
-				addIngredient();                
+				addIngredient.requestFocusFromTouch();
+				if(ingredientAdapter.hasEmptyIngredient()){
+					//Already has an empty Ingredient
+				}
+				else {
+					addIngredient(new String(""));
+				}
+				drawIngredients();
+
 			}
 		});
 	}
@@ -77,8 +84,15 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
 	protected void onPause() {
 		super.onPause();
 
-		for(int i = 0; i < ingredientAdapter.getCount(); i++)
-			fridge.addIngredient(ingredientAdapter.getItem(i));
+		for(int i = 0; i < ingredientAdapter.getCount(); i++){
+			if (ingredientAdapter.getItem(i).length() == 0){
+				//Empty String - Do not Save!
+			}
+			else {
+				//Not Empty Ingredient - Add it to the fridge!
+				fridge.addIngredient(ingredientAdapter.getItem(i));
+			}
+		}
 		fridge.save();
 	}
 
