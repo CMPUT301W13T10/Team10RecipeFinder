@@ -102,6 +102,7 @@ public class RecipeViewActivity extends Activity {
             	recipe = forkRecipe(newRecipe);
             	Toast toast = Toast.makeText(getApplicationContext(),
             		R.string.recipeForkedToast, Toast.LENGTH_SHORT);
+            	toast.show();
             }
             
             if (recipeAuthorIsUser(recipe)) {
@@ -162,10 +163,18 @@ public class RecipeViewActivity extends Activity {
     
     public void publishRecipe(View view){
     	ApplicationManager appMgr = ApplicationManager.getInstance(getApplication());
-    	CloudRecipeBook crb = (CloudRecipeBook) appMgr.getCloudRecipeBook();
-    	String recipeAsJSON = crb.recipeToJson(this.recipe);
-    	Toast toast = Toast.makeText(this, recipeAsJSON, Toast.LENGTH_LONG);
-    	toast.show();
+    	RecipeBook.AsyncAddRecipeTask addTask = new RecipeBook.AsyncAddRecipeTask();
+    	addTask.addRecipeBook(appMgr.getCloudRecipeBook());
+    	addTask.setCallbacks(new RecipeBook.AsyncAddRecipeTask.Callbacks() {
+			@Override
+			public void recipesAdded()
+			{
+		    	Toast toast = Toast.makeText(getApplicationContext(),
+		    			"Recipe published!", Toast.LENGTH_SHORT);
+		    	toast.show();
+			}
+		});
+    	addTask.execute(recipe);
     }
     
     public void saveFavorite(View view) {

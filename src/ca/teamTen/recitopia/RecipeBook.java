@@ -1,5 +1,11 @@
 package ca.teamTen.recitopia;
 
+import java.util.ArrayList;
+
+import ca.teamTen.recitopia.RecipeBook.AsyncAddRecipeTask.Callbacks;
+
+import android.os.AsyncTask;
+
 /**
  * RecipeBook stores a set of recipes, allowing for persistence and querying.
  * 
@@ -33,4 +39,52 @@ public interface RecipeBook {
 	 * Write RecipeBook to long-term storage.
 	 */
 	public void save();
+	
+	/**
+	 * AsyncTask for adding recipes to one or more recipe books.
+	 */
+	public static class AsyncAddRecipeTask extends AsyncTask<Recipe, Void, Void> {
+		public interface Callbacks {
+			public void recipesAdded();
+		}
+		
+		private ArrayList<RecipeBook> recipeBooks = new ArrayList<RecipeBook>();
+		private Callbacks callbacks = null;
+		
+		/**
+		 * Add a recipe book, which will have the recipes passed to
+		 * execute added to it.
+		 */
+		public void addRecipeBook(RecipeBook recipeBook) {
+			recipeBooks.add(recipeBook);
+		}
+
+		/**
+		 * Add a Callbacks object which will have its recipesAdded() method
+		 * called once this task is complete.
+		 * 
+		 * @param callbacks
+		 */
+		public void setCallbacks(Callbacks callbacks)
+		{
+			this.callbacks = callbacks;
+		}
+
+		@Override
+		protected Void doInBackground(Recipe... recipes) {
+			for (Recipe recipe: recipes) {
+				for (RecipeBook recipeBook: recipeBooks) {
+					recipeBook.addRecipe(recipe);
+				}
+			}
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			if (callbacks != null) {
+				callbacks.recipesAdded();
+			}
+		}
+	}
 }
