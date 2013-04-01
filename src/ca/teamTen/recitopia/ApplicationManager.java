@@ -95,6 +95,14 @@ public class ApplicationManager {
 		return cacheRecipeBook;
 	}
 	
+	/**
+	 * Clears the cache by deleting the cache file
+	 */
+	public void clearCache(){
+		FileSystemIOFactory fsiofactory = new FileSystemIOFactory(CACHE_RECIPEBOOK_PATH);
+		fsiofactory.deleteFile();
+	}
+	
 	public Fridge getFridge() {
 		if (fridge == null) {
 			fridge = new Fridge(new FileSystemIOFactory(FRIDGE_PATH));
@@ -131,5 +139,17 @@ public class ApplicationManager {
 		public OutputStream getOutputStream() throws IOException {
 			return appContext.openFileOutput(filePath, Context.MODE_PRIVATE);
 		}
+		
+		/**
+		 * Deletes the file given at filePath
+		 * 
+		 * Used for Clearing the Cache
+		 */
+		public void deleteFile(){
+			appContext.deleteFile(this.filePath);
+			
+		}
+		
+		
 	}
 }

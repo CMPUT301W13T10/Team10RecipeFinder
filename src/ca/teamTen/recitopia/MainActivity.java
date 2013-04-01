@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * Launch activity, lets the user launch different activities.
@@ -28,7 +30,31 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
+		
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	    case R.id.clearCache:
+	    	onMenuClearCache();
+	        return true;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
+	}
+	
+	/**
+	 * Called when the Clear Cache Button is pressed on the Main Activity Menu
+	 */
+	public void onMenuClearCache(){
+		ApplicationManager appmgr = ApplicationManager.getInstance(getApplication());
+		appmgr.clearCache();
+		Toast toast = Toast.makeText(this, R.string.cacheClearedToast, Toast.LENGTH_SHORT);
+		toast.show();
+	}
+	
 	
 	public void toCreate(View view) {
 		Intent intent = new Intent(this, RecipeEditActivity.class);
