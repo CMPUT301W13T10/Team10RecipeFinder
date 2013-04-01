@@ -97,24 +97,35 @@ public class RecipeViewActivity extends Activity {
         if (requestCode == RECIPE_EDITED_RESULT && resultCode == RESULT_OK) {
             Recipe newRecipe = (Recipe)data.getSerializableExtra("RECIPE");
             ApplicationManager appMgr = ApplicationManager.getInstance(getApplication());
+            RecipeBook.AsyncAddRecipeTask addRecipeTask = new RecipeBook.AsyncAddRecipeTask();
             
             if (!recipeAuthorIsUser(recipe) && !newRecipe.equalData(recipe)) {
             	recipe = forkRecipe(newRecipe);
-            	Toast toast = Toast.makeText(getApplicationContext(),
-            		R.string.recipeForkedToast, Toast.LENGTH_SHORT);
-            	toast.show();
+            	addRecipeTask.setCallbacks(new RecipeBook.AsyncAddRecipeTask.Callbacks() {
+					@Override
+					public void recipesAdded()
+					{
+		            	Toast toast = Toast.makeText(getApplicationContext(),
+		                	R.string.recipeForkedToast, Toast.LENGTH_SHORT);
+		                toast.show();
+					}
+				});
+            } else {
+            	recipe = newRecipe;
             }
             
             if (recipeAuthorIsUser(recipe)) {
             	// save to UserRecipeBook
-            	appMgr.getUserRecipeBook().addRecipe(recipe);
+            	addRecipeTask.addRecipeBook(appMgr.getUserRecipeBook());
+            	
             }
             
             if (recipe.publishRecipe()) {
             	// save to cloudRecipeBook
-            	appMgr.getCloudRecipeBook().addRecipe(recipe);
+            	addRecipeTask.addRecipeBook(appMgr.getCloudRecipeBook());
             }
             
+            addRecipeTask.execute(recipe);
             updateContentView();
         }
     }
