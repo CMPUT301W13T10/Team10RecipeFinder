@@ -19,22 +19,16 @@ import com.google.gson.annotations.Expose;
 public class Recipe implements Serializable
 {
 	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4658750314538117911L;
-	/**
 	 * Serializable version id.
 	 */
+	private static final long serialVersionUID = 4658750314538117911L;
 	
+	@Expose private String recipeName;
+	@Expose private ArrayList<String> ingredients;
+	@Expose private String cookingInstruction;
+	@Expose private String author;
+	@Expose private ArrayList<Photo> photos;
 	
-	private String recipeName;
-	private ArrayList<String> ingredients;
-	private String cookingInstruction;
-	private String author;
-	private ArrayList<Photo> photos;
-	
-	// this field should not be sent to ElasticSearch
-	@Expose(serialize = false, deserialize = false)
 	private boolean isPublished;
 	
 	/**

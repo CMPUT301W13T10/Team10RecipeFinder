@@ -22,6 +22,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.InstanceCreator;
+import com.google.gson.annotations.Expose;
 
 
 /**
@@ -29,7 +30,6 @@ import com.google.gson.InstanceCreator;
  * Currently not implemented, comments document expected
  * implementation.
  * 
- * TODO: Implmenet a custom adapter for Photo objects within a Recipe
  * I found the following gist:
  * https://gist.github.com/orip/3635246
  * 
@@ -57,6 +57,7 @@ public class CloudRecipeBook implements RecipeBook{
 					// create a new, published recipe.
 			}
 		});
+		gsonBuilder.excludeFieldsWithoutExposeAnnotation();
 		
 		// create Gson object that will always build published recipes
 		gson = gsonBuilder.create();
@@ -204,8 +205,8 @@ public class CloudRecipeBook implements RecipeBook{
 	 * record using the upsert member.
 	 */
 	private static class UpdateInsertRequest {
-		public Recipe doc;
-		public Recipe upsert;
+		@Expose public Recipe doc;
+		@Expose public Recipe upsert;
 		
 		UpdateInsertRequest(Recipe recipe) {
 			doc = recipe;
@@ -232,9 +233,10 @@ public class CloudRecipeBook implements RecipeBook{
 	 * 		}
 	 * }
 	 */
+	@SuppressWarnings("unused")
 	private static class QueryRequest {
 		private static class Query {
-			Map<String, String> query_string;
+			@Expose Map<String, String> query_string;
 			
 			Query(String query) {
 				query_string = new HashMap<String, String>();
@@ -242,7 +244,7 @@ public class CloudRecipeBook implements RecipeBook{
 			}
 		}
 		
-		Query query;
+		@Expose Query query;
 		
 		public QueryRequest(String query) {
 			this.query = new Query(query);
@@ -256,18 +258,19 @@ public class CloudRecipeBook implements RecipeBook{
 	/*
 	 * Class for reading query results.
 	 */
+	@SuppressWarnings("unused")
 	private static class QueryResult {
 		public static class QueryHitData {
-			int total;
-			double max_score;
-			QueryHit[] hits;
+			@Expose int total;
+			@Expose double max_score;
+			@Expose QueryHit[] hits;
 		}
 		
 		public static class QueryHit {
-			Recipe _source;
+			@Expose Recipe _source;
 		}
 		
-		public QueryHitData hits;
+		@Expose public QueryHitData hits;
 		
 		public Recipe[] getResults() {
 			if (hits == null) {
