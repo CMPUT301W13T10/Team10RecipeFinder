@@ -1,6 +1,9 @@
 package ca.teamTen.recitopia;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Set;
+import java.util.TreeSet;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -150,7 +153,8 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 	
 	/*
 	 * RecipeBook implementation that combines the search results of
-	 * multiple RecipeBooks.
+	 * multiple RecipeBooks. Because a recipe may be present in multiple
+	 * books, they are deduplicated as well.
 	 */
 	private static class CompositeRecipeBook implements RecipeBook {
 		private RecipeBook books[];
@@ -171,14 +175,37 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 					results.add(recipes);
 				}
 			}
-			Recipe[] allRecipes = new Recipe[totalCount];
-			int recipesAdded = 0;
-			for (Recipe[] singleResult: results) {
-				System.arraycopy(singleResult, 0, allRecipes, recipesAdded, singleResult.length);
-				recipesAdded += singleResult.length;
+			
+			return deduplicate(results);
+		}
+		
+		/*
+		 * Merges a set of query results into a single result with
+		 * no duplicates.
+		 */
+		private Recipe[] deduplicate(ArrayList<Recipe[]> queryResults) {
+			// Make a TreeSet that sorts based on author and title 
+			Set<Recipe> set = new TreeSet<Recipe>(new Comparator<Recipe>() {
+				@Override
+				public int compare(Recipe lhs, Recipe rhs)
+				{
+					int result = lhs.getAuthor().compareTo(rhs.getAuthor());
+					if (result == 0) {
+						result = lhs.getRecipeName().compareTo(rhs.getRecipeName());
+					}
+					return result;
+				}
+			});
+			
+			for (Recipe[] queryResult: queryResults) {
+				for (Recipe recipe: queryResult) {
+					set.add(recipe);
+				}
 			}
 			
-			return allRecipes;
+			Recipe[] dedupedResult = new Recipe[set.size()];
+			set.toArray(dedupedResult);
+			return dedupedResult;
 		}
 
 		@Override
