@@ -55,7 +55,7 @@ public class SearchByIngredientActivity extends Activity {
 	 * This method generates a QUERY string that is then passed in an
 	 * Intent to the SearchActivity class. 
 	 * 
-	 * The format of the QUERY string is a comma-separated list
+	 * The format of the QUERY string is a space-separated list
 	 * of the user selected ingredients.
 	 * 
 	 * @param the View corresponding to the Search button
@@ -67,7 +67,7 @@ public class SearchByIngredientActivity extends Activity {
 		for (int i = 0; i < ingredients.length; i++) {
 			if (positions.get(i)) {
 				query.append(ingredients[i])
-					.append(",");
+					.append(" ");
 			}
 		}
 		
