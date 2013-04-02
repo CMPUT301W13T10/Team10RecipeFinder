@@ -23,6 +23,7 @@ import android.widget.Toast;
 public class RecipeViewActivity extends Activity {
 
     private static final int RECIPE_EDITED_RESULT = 1;
+    private final String SUBJECT_LINE = "[Recitopia Recipe]";
     private ShareActionProvider mShareActionProvider;
 	private LinearLayout photoContainer;
     private Recipe recipe;
@@ -190,9 +191,18 @@ public class RecipeViewActivity extends Activity {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, recipe.toString());
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, generateSubjectLine());
         sendIntent.setType("text/plain");
         setShareIntent(sendIntent);
-
+    }
+    
+    /**
+     * 
+     * @return a subject line formatted in the following way:
+     * [Recitopia Recipe] Recipe Name by Recipe Auther
+     */
+    private String generateSubjectLine(){
+    	return SUBJECT_LINE + " " + recipe.getRecipeName() + " by " + recipe.getAuthor();
     }
     
     /*
