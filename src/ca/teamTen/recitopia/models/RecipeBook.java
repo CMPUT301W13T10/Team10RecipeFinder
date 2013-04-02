@@ -75,6 +75,9 @@ public interface RecipeBook {
 					recipeBook.addRecipe(recipe);
 				}
 			}
+			for (RecipeBook recipeBook: recipeBooks) {
+				recipeBook.save();
+			}
 			return null;
 		}
 		
