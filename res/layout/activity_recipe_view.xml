@@ -75,6 +75,6 @@
 	        android:layout_gravity="bottom"
 	        android:layout_margin="2dip"
 	        android:onClick="saveFavorite"
-	        android:text="Save" />     
+	        android:text="Favorite" />     
     </LinearLayout>
 </RelativeLayout>

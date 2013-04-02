@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:gravity="center"
         android:layout_margin="5dp"
         android:layout_marginTop="16dp"
         android:text="@string/loginViewBlurb" />
@@ -28,11 +29,11 @@
 
     <Button
         android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/emailField"
+        style="@style/ButtonText"
+        android:background="@drawable/btn_green"
+        android:gravity="center"
         android:layout_below="@+id/emailField"
-        android:layout_marginTop="17dp"
+        android:layout_margin="20dp"
         android:text="@string/loginButton"
         android:onClick="onSubmit"/>
 
