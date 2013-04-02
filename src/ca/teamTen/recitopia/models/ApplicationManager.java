@@ -135,6 +135,9 @@ public class ApplicationManager {
 		return fridge;
 	}
 	
+	/**
+	 * Save the user id to a file.
+	 */
 	public void saveUserID() {
 		try {
 			FileOutputStream outStream = appContext.openFileOutput(USERID_PATH, Context.MODE_PRIVATE);
@@ -146,6 +149,9 @@ public class ApplicationManager {
 		}
 	}
 	
+	/**
+	 * load the user id from a file.
+	 */
 	public void loadUserID() {
 		try {
 			FileInputStream inStream = appContext.openFileInput(USERID_PATH);

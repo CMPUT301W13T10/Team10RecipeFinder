@@ -36,6 +36,9 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
+	/**
+	 * Start LoginActivity if we don't have a userid.	
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();
