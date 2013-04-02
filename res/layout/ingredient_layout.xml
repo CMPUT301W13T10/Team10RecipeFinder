@@ -31,13 +31,13 @@
 
     <Button
         android:id="@+id/deleteIngredient"
-        style="@style/MainButton"
+        style="@style/ButtonText"
+        android:background="@drawable/btn_red"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
-  		android:layout_gravity="right"
         android:focusable="true"
         android:text="@string/deleteButton"
         android:textSize="20sp" />

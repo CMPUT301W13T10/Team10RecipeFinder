@@ -6,24 +6,22 @@
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".MainActivity" >
-    <Button
-        android:id="@+id/to_search"
-        style="@style/MainButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginTop="30dp"
-        android:onClick="toSearch"
+	<Button 
+	    android:id="@+id/to_search" 
+	    android:background="@drawable/btn_red" 
+	    style="@style/ButtonText"
+	    android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="10dp" 
+        android:layout_weight="1"
+        android:onClick="toSearch"
         android:text="@string/title_activity_search" />
     
     <Button
         android:id="@+id/to_create"
-        style="@style/MainButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/ButtonText"
+        android:background="@drawable/btn_red" 
         android:layout_weight="1"
         android:onClick="toCreate"
         android:layout_marginLeft="20dp"
@@ -33,9 +31,8 @@
 
     <Button
         android:id="@+id/to_fridge"
-        style="@style/MainButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/ButtonText"
+        android:background="@drawable/btn_red" 
         android:layout_weight="1"
         android:onClick="toFridge"
         android:layout_marginLeft="20dp"
@@ -45,9 +42,8 @@
 
     <Button
         android:id="@+id/to_myRecipes"
-        style="@style/MainButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/ButtonText"
+        android:background="@drawable/btn_red" 
         android:layout_weight="1"
         android:onClick="toMyRecipes"
         android:layout_marginLeft="20dp"
@@ -57,9 +53,8 @@
     
     <Button
         android:id="@+id/to_myFavorite"
-        style="@style/MainButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/ButtonText"
+        android:background="@drawable/btn_red" 
         android:layout_weight="1"
         android:onClick="toMyFavorite"
         android:layout_marginLeft="20dp"

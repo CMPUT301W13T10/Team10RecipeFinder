@@ -17,16 +17,14 @@
 
     <Button
         android:id="@+id/searchButton"
-        style="@style/MainButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        style="@style/ButtonText"
+        android:background="@drawable/btn_blue" 
         android:textStyle="bold"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:textSize="20sp"      
-        android:background="@color/light_blue"
         android:onClick="onSearch"
         
         android:text="@string/search" />

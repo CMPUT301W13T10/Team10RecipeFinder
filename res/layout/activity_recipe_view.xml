@@ -40,7 +40,8 @@
 
         <Button
 	        android:id="@+id/button1"
-	        style="@style/MainButton"
+	        style="@style/ButtonText"
+	        android:background="@drawable/btn_red"
 	        android:layout_width="0dip"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="bottom"
@@ -52,23 +53,25 @@
 	
 	    <Button
 	        android:id="@+id/publishButton"
+	        style="@style/ButtonText"
+	       	android:background="@drawable/btn_blue"
 	        android:layout_width="0dip"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
 	        android:layout_gravity="bottom"
 	       	android:textSize="20sp"
-	        android:background="@color/light_blue"
+
 	        android:layout_margin="2dip"
 	        android:text="Publish"
 	        android:onClick="publishRecipe" />
 	
 	    <Button
-	        android:id="@+id/button3"
+	        style="@style/ButtonText"
+	        android:background="@drawable/btn_green"
 	        android:layout_width="0dip"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
 	      	android:textSize="20sp"
-	        android:background="@color/grass_green"
 	        android:layout_gravity="bottom"
 	        android:layout_margin="2dip"
 	        android:onClick="saveFavorite"
