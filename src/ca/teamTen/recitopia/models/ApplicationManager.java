@@ -1,4 +1,4 @@
-package ca.teamTen.recitopia;
+package ca.teamTen.recitopia.models;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+
 
 import android.app.Application;
 import android.content.Context;

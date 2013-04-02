@@ -1,6 +1,7 @@
-package ca.teamTen.recitopia;
+package ca.teamTen.recitopia.activities;
 
 import java.util.ArrayList;
+
 import android.content.Context;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
+import ca.teamTen.recitopia.R;
 
 
 /**

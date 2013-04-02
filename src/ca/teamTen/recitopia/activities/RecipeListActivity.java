@@ -1,4 +1,4 @@
-package ca.teamTen.recitopia;
+package ca.teamTen.recitopia.activities;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import ca.teamTen.recitopia.R;
+import ca.teamTen.recitopia.models.ApplicationManager;
+import ca.teamTen.recitopia.models.Recipe;
 
 /**
  * Displays a list of recipes. Selecting a recipe

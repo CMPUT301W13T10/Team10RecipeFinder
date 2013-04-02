@@ -1,4 +1,4 @@
-package ca.teamTen.recitopia;
+package ca.teamTen.recitopia.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,9 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import ca.teamTen.recitopia.R;
+import ca.teamTen.recitopia.models.ApplicationManager;
+import ca.teamTen.recitopia.models.Fridge;
 
 /**
  * An activity that allows the user to add/edit/remove ingredients from their fridge

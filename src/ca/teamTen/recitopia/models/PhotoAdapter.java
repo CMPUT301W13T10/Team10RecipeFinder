@@ -1,6 +1,7 @@
-package ca.teamTen.recitopia;
+package ca.teamTen.recitopia.models;
 
-import ca.teamTen.recitopia.Photo;
+import ca.teamTen.recitopia.models.Photo;
+
 import java.io.IOException;
 
 import com.google.gson.TypeAdapter;

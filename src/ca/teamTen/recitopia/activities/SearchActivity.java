@@ -1,4 +1,4 @@
-package ca.teamTen.recitopia;
+package ca.teamTen.recitopia.activities;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,6 +17,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import ca.teamTen.recitopia.R;
+import ca.teamTen.recitopia.models.ApplicationManager;
+import ca.teamTen.recitopia.models.CloudRecipeBook;
+import ca.teamTen.recitopia.models.Recipe;
+import ca.teamTen.recitopia.models.RecipeBook;
 
 /**
  * Basic searching activity. Displays search form and results list.

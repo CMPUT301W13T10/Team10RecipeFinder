@@ -1,4 +1,4 @@
-package ca.teamTen.recitopia;
+package ca.teamTen.recitopia.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;

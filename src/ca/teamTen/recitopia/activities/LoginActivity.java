@@ -1,16 +1,18 @@
-package ca.teamTen.recitopia;
+package ca.teamTen.recitopia.activities;
 
 import java.util.regex.Pattern;
 
-import android.os.Bundle;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.os.Bundle;
 import android.util.Patterns;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import ca.teamTen.recitopia.R;
+import ca.teamTen.recitopia.models.ApplicationManager;
 
 public class LoginActivity extends Activity {
 	EditText emailField;

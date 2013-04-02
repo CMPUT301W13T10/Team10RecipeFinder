@@ -1,4 +1,4 @@
-package ca.teamTen.recitopia;
+package ca.teamTen.recitopia.models;
 
 import android.annotation.SuppressLint;
 import java.io.FileNotFoundException;
@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+
 
 /**
  * RecipeBook class which can be used to store, query recipes
@@ -66,7 +67,7 @@ public class SimpleRecipeBook implements RecipeBook
 	 * Adds a recipe to this recipe book. If a recipe already exists with the
 	 * same title and author, it will be updated.
 	 * 
-	 * @see ca.teamTen.recitopia.RecipeBook#addRecipe(ca.teamTen.recitopia.Recipe)
+	 * @see ca.teamTen.recitopia.models.RecipeBook#addRecipe(ca.teamTen.recitopia.models.Recipe)
 	 */
 	@Override
 	public void addRecipe(Recipe recipe)

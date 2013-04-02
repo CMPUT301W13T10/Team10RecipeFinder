@@ -1,4 +1,4 @@
-package ca.teamTen.recitopia;
+package ca.teamTen.recitopia.models;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;

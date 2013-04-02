@@ -1,4 +1,4 @@
-package ca.teamTen.recitopia;
+package ca.teamTen.recitopia.activities;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -14,6 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
+import ca.teamTen.recitopia.R;
+import ca.teamTen.recitopia.models.ApplicationManager;
+import ca.teamTen.recitopia.models.Photo;
+import ca.teamTen.recitopia.models.Recipe;
+import ca.teamTen.recitopia.models.RecipeBook;
 
 
 /**

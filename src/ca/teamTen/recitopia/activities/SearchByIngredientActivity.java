@@ -1,14 +1,17 @@
-package ca.teamTen.recitopia;
+package ca.teamTen.recitopia.activities;
 
 import java.util.Collection;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import ca.teamTen.recitopia.R;
+import ca.teamTen.recitopia.models.ApplicationManager;
+import ca.teamTen.recitopia.models.Fridge;
 
 /**
  * Multiple item selection courtesy Stack Overflow
