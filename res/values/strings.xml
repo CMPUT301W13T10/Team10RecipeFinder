@@ -22,5 +22,6 @@
     <string name="recipeForkedToast">Recipe Forked</string>
     <string name="menu_clear_cache">Clear Cache</string>
     <string name="cacheClearedToast">Recipe Cache Cleared</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>
