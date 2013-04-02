@@ -9,19 +9,15 @@ import android.graphics.BitmapFactory;
 /**
  * Stores a Photo and handles encoding/scaling/etc.
  * 
- * TODO Saving this class
  */
-public class Photo implements Serializable{
-
+public class Photo implements Serializable {
+	
 	/**
-	 * 
+	 * Serializable version id
 	 */
 	private static final long serialVersionUID = -4043280211171951668L;
-
-	
-
-
 	private byte[] byteImage;
+
 	/**
 	 * @return the byteImage
 	 */
@@ -35,6 +31,7 @@ public class Photo implements Serializable{
 	public void setByteImage(byte[] byteImage) {
 		this.byteImage = byteImage;
 	}
+	
 	/**
 	 * a constructor that uses a Bitmap to construct a Photo Object
 	 * @param Bitmap picture
@@ -54,7 +51,6 @@ public class Photo implements Serializable{
 		this.byteImage = photoByteArray;
 	}
 	
-	
 	/**
 	 * 
 	 * Converts the Photo Byte Array into a Bitmap
@@ -63,8 +59,6 @@ public class Photo implements Serializable{
 	 */
 	public Bitmap getBitmap(){
 		return BitmapFactory.decodeByteArray(this.byteImage , 0, this.byteImage.length);
-
-	}
-	
+	}	
 }
 

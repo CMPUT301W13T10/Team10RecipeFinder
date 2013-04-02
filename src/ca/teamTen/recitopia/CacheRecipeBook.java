@@ -12,12 +12,19 @@ public class CacheRecipeBook extends SimpleRecipeBook {
 	/**
 	 * Create a LocalCache that holds the maxEntries most-
 	 * recently added Recipes.
-	 * @param maxEntries
+	 * @param maxEntries the maximum number of entries to store
+	 * @param ioFactory the ioFactory used for persistence
 	 */
 	public CacheRecipeBook(int maxEntries) {
 		this.maxEntries = maxEntries;
 	}
 	
+	/**
+	 * Create a LocalCache that holds the maxEntries most-
+	 * recently added Recipes.
+	 * @param maxEntries the maximum number of entries to store
+	 * @param ioFactory the ioFactory used for persistence
+	 */
 	public CacheRecipeBook(int maxEntries, IOFactory ioFactory) {
 		super(ioFactory);
 		this.maxEntries = maxEntries;
@@ -32,6 +39,5 @@ public class CacheRecipeBook extends SimpleRecipeBook {
 		if (recipes.size() > maxEntries) {
 			recipes.remove(0);
 		}
-		// TODO save?
 	}
 }

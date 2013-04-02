@@ -20,7 +20,6 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
 	 * This method is called to redraw the LinearLayout that contains the list of
 	 * items in the Fridge
 	 */
-
 	private void drawIngredients(){
 		ingredientLayout.removeAllViews();      
 		for (int i = 0; i < ingredientAdapter.getCount(); i++){
@@ -29,6 +28,10 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
 		ingredientLayout.requestFocus();
 	}
 
+	/**
+	 * Add a new ingredient
+	 * @param ingredient
+	 */
 	public void addIngredient(String ingredient){
 		//Add an ingredient to the ingredientAdapter
 		ingredientAdapter.addIngredient(ingredient);
@@ -47,21 +50,17 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
 		drawIngredients();
 
 		final Button addIngredient = (Button) findViewById(R.id.fridgeAddIngredient);      
-		addIngredient.setOnClickListener(new View.OnClickListener()
-		{
-
+		addIngredient.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v)
 			{
 				addIngredient.requestFocusFromTouch();
-				if(ingredientAdapter.hasEmptyIngredient()){
+				if(ingredientAdapter.hasEmptyIngredient()) {
 					//Already has an empty Ingredient
-				}
-				else {
+				} else {
 					addIngredient(new String(""));
 				}
 				drawIngredients();
-
 			}
 		});
 	}
@@ -70,10 +69,13 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_fridge, menu);
-
 		return true;
 	}
 
+	/**
+	 * Called when an ingredient has been deleted.
+	 * Update display.
+	 */
 	@Override
 	public void ingredientDeleted()
 	{
@@ -84,11 +86,10 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
 	protected void onPause() {
 		super.onPause();
 
-		for(int i = 0; i < ingredientAdapter.getCount(); i++){
-			if (ingredientAdapter.getItem(i).length() == 0){
+		for(int i = 0; i < ingredientAdapter.getCount(); i++) {
+			if (ingredientAdapter.getItem(i).length() == 0) {
 				//Empty String - Do not Save!
-			}
-			else {
+			} else {
 				//Not Empty Ingredient - Add it to the fridge!
 				fridge.addIngredient(ingredientAdapter.getItem(i));
 			}
@@ -96,9 +97,12 @@ public class FridgeActivity extends Activity implements IngredientAdapter.Callba
 		fridge.save();
 	}
 
+	/**
+	 * Launch SearchByIngredientActivity
+	 * @param v
+	 */
 	public void searchByIngredients(View v){
 		Intent intent = new Intent(this, SearchByIngredientActivity.class);
 		startActivity(intent);
-
 	}
 }

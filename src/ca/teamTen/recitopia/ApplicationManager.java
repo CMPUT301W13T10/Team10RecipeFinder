@@ -10,9 +10,8 @@ import android.content.Context;
 /**
  * Singleton class for managing shared/heavy resources.
  * 
- * This class manages user identification. Eventually,
- * all recipe books will be instantiated/managed by this
- * class.
+ * This class manages user identification and all locally
+ * stored data.
  */
 public class ApplicationManager {
 	private final static int CACHE_RECIPEBOOK_SIZE = 40;
@@ -58,9 +57,7 @@ public class ApplicationManager {
 	}
 
 	/**
-	 * Get the UserRecipeBook. Requires a Context due to
-	 * possible file io.
-	 * @param Context an Android Context for file io
+	 * Get (and load) the user's RecipeBook.
 	 * @return user RecipeBook
 	 */
 	public RecipeBook getUserRecipeBook() {
@@ -71,6 +68,10 @@ public class ApplicationManager {
 		return userRecipeBook;
 	}
 
+	/**
+	 * Get (and load) the user's favorites RecipeBook
+	 * @return favorites RecipeBook
+	 */
 	public RecipeBook getFavoriteRecipesBook() {
 		if (favoriteRecipesBook == null) {
 			favoriteRecipesBook = new SimpleRecipeBook(new FileSystemIOFactory(FAVORITES_RECIPEBOOK_PATH));
@@ -79,6 +80,10 @@ public class ApplicationManager {
 		return favoriteRecipesBook;
 	}
 
+	/**
+	 * Get the CloudRecipeBook, attached to the cache RecipeBook.
+	 * @return the CloudRecipeBook.
+	 */
 	public RecipeBook getCloudRecipeBook() {
 		if (cloudRecipeBook == null) {
 			cloudRecipeBook = new CloudRecipeBook(getCacheRecipeBook());
@@ -86,6 +91,12 @@ public class ApplicationManager {
 		return cloudRecipeBook;
 	}
 
+	/**
+	 * Get (and load) the cache recipe book.
+	 * This book is automatically filled with a number of previous
+	 * search results.
+	 * @return the CacheRecipeBook used by the CloudRecipeBook
+	 */
 	public RecipeBook getCacheRecipeBook() {
 		if (cacheRecipeBook == null) {
 			cacheRecipeBook = new CacheRecipeBook(CACHE_RECIPEBOOK_SIZE,
@@ -103,6 +114,10 @@ public class ApplicationManager {
 		fsiofactory.deleteFile();
 	}
 	
+	/**
+	 * Get the user's fridge
+	 * @return the Fridge
+	 */
 	public Fridge getFridge() {
 		if (fridge == null) {
 			fridge = new Fridge(new FileSystemIOFactory(FRIDGE_PATH));
@@ -149,7 +164,5 @@ public class ApplicationManager {
 			appContext.deleteFile(this.filePath);
 			
 		}
-		
-		
 	}
 }

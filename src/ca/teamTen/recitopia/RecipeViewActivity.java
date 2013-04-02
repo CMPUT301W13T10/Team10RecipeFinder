@@ -43,6 +43,9 @@ public class RecipeViewActivity extends Activity {
         
     }
 
+    /*
+     * Updates the content to match what is in the recipe field.
+     */
     private void updateContentView()
     {
         TextView contentView = (TextView)findViewById(R.id.content);
@@ -57,12 +60,13 @@ public class RecipeViewActivity extends Activity {
 
     }
     
+    /*
+     * Add photos to display.
+     */
     private void drawPhotos() {
-    	
-		if (recipe.getPhotos().length == 0){
+		if (recipe.getPhotos().length == 0) {
 			//No Photos Means that there is nothing to populate
-		}
-		else {
+		} else {
 			//There exists at least one photo
 			
 			//Clear the Photo Container
@@ -92,6 +96,9 @@ public class RecipeViewActivity extends Activity {
         return true;
     }
 
+    /*
+     * Open this recipe in the recipe editor.
+     */
     public void editRecipe(View v) {
         Intent viewIntent = new Intent(this, RecipeEditActivity.class);
         viewIntent.putExtra("RECIPE", recipe);
@@ -99,6 +106,11 @@ public class RecipeViewActivity extends Activity {
         startActivityForResult(viewIntent, RECIPE_EDITED_RESULT);
     }
 
+    /*
+     * Handle results from the editor activity.
+     * Basically, save (and possibly fork) the recipe, then update the
+     * display.
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RECIPE_EDITED_RESULT && resultCode == RESULT_OK) {
             Recipe newRecipe = (Recipe)data.getSerializableExtra("RECIPE");
@@ -171,8 +183,10 @@ public class RecipeViewActivity extends Activity {
         }
     }
 
+    /*
+     * Share the recipe text using android's sharing mechanism.
+     */
     public void shareRecipe() {
-
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, recipe.toString());
@@ -181,6 +195,12 @@ public class RecipeViewActivity extends Activity {
 
     }
     
+    /*
+     * Publish the current recipe.
+     * 
+     * This entails saving it to the CloudRecipeBook and also setting isPublished
+     * to true and saving to the user's recipe book.
+     */
     public void publishRecipe(View view){
     	ApplicationManager appMgr = ApplicationManager.getInstance(getApplication());
     	RecipeBook.AsyncAddRecipeTask addTask = new RecipeBook.AsyncAddRecipeTask();
@@ -201,6 +221,9 @@ public class RecipeViewActivity extends Activity {
     	addTask.execute(recipe);
     }
     
+    /*
+     * Add the recipe to the user's favorites book.
+     */
     public void saveFavorite(View view) {
         RecipeBook recipeBook = ApplicationManager.getInstance(getApplication())
         		.getFavoriteRecipesBook();

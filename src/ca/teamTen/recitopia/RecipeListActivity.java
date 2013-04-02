@@ -12,6 +12,10 @@ import android.widget.ListView;
  * Displays a list of recipes. Selecting a recipe
  * will open it in RecipeViewActivity.
  * 
+ * Recipes can come from either the user recipe book or the
+ * favorites book, depending on the Intent used to start
+ * the activity.
+ * 
  * The list is refreshed every time the activity is resumed.
  *
  */
@@ -30,18 +34,15 @@ public class RecipeListActivity extends ListActivity {
 		super.onResume();
 		
 		// Refresh list contents, as they may have changed.
-		// TODO: be more sophisticated
 		if(getIntent().getStringExtra("type").equals("My Recipes")){
 			recipes = ApplicationManager.getInstance(getApplication())
 					.getUserRecipeBook().query("");
 			setTitle("My Recipes");
-		}
-		else if (getIntent().getStringExtra("type").equals("My Favorite")){
+		} else if (getIntent().getStringExtra("type").equals("My Favorite")){
 			recipes = ApplicationManager.getInstance(getApplication())
 					.getFavoriteRecipesBook().query("");
 			setTitle("My Favorite Recipes");
 		}
-
 		
 		ListAdapter adapter = new ArrayAdapter<String>(
 				this,

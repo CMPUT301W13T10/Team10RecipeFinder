@@ -28,9 +28,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 	private Button addIngredient;
 	private LinearLayout photoContainer;
 
-
 	private static final int CAMERA_PIC_REQUEST = 2500;
-
 	
 
 	/**
@@ -43,7 +41,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 
 		//Getting the intent
 		Intent intent = getIntent();
-		if(intent.hasExtra("RECIPE")){
+		if (intent.hasExtra("RECIPE")) {
 			//An existing recipe was sent
 			recipe = (Recipe) intent.getSerializableExtra("RECIPE");
 		} else {
@@ -66,9 +64,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 		//Setting the ingredient adapter
 		ingredientAdapter = new IngredientAdapter(this, this, recipe.getIngredients());
 
-		addIngredient.setOnClickListener(new View.OnClickListener()
-		{
-
+		addIngredient.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v)
 			{
@@ -86,19 +82,18 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 
 		//Drawing the ingredients
 		drawIngredients();
-
 	}
+	
 	/**
 	 * This method is called to redraw the LinearLayout that contains the list of Ingredients
 	 * 
 	 */
-	private void drawIngredients(){
+	private void drawIngredients() {
 		ingredientLayout.removeAllViews();      
 		for (int i = 0; i < ingredientAdapter.getCount(); i++){
 			ingredientLayout.addView(ingredientAdapter.getView(i, null, null));
 		}
 		ingredientLayout.requestFocus();
-
 	}
 
 	/**
@@ -107,24 +102,19 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 	 * 
 	 * Adds a new ingredient to the list of of ingredients within the adapter.
 	 */
-	public void addIngredient(String ingredient){
+	public void addIngredient(String ingredient) {
 		//Add an ingredient to the ingredientAdapter
 		ingredientAdapter.addIngredient(ingredient);
 	}
+	
 	private void drawPhotos() {
-
-		if (recipe.getPhotos().length == 0){
-			//No Photos Means that there is nothing to populate
-		}
-		else {
-			//There exists at least one photo
-			
+		if (recipe.getPhotos().length > 0){		
 			//Clear the Photo Container
 			photoContainer.removeAllViews();
 
 			//Adding the Photos to the photoContainer
 			Photo[] photos = recipe.getPhotos();
-			for (int i = 0; i < photos.length; i++){
+			for (int i = 0; i < photos.length; i++) {
 				ImageView iv = new ImageView(this);
 				iv.setImageBitmap(photos[i].getBitmap());
 				photoContainer.addView(iv,i);
@@ -137,9 +127,7 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 		getMenuInflater().inflate(R.menu.activity_edit_recipe, menu);
 		//Adding a photo button to the menu
 		MenuItem item = menu.findItem(R.id.menu_item_photo);
-		item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener()
-		{
-
+		item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(MenuItem item)
 			{
@@ -148,11 +136,12 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 				return false;
 			}
 		});
-
 		return true;
 	}
 
-
+	/**
+	 * Handle camera results.
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAMERA_PIC_REQUEST) {
 			if(resultCode == RESULT_OK) {
@@ -162,18 +151,14 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 				recipe.addPhoto(photo);
 				//Redrawing ALL the photos
 				drawPhotos();
-
-
-			}
-			else if (resultCode == RESULT_CANCELED) {
+			} else if (resultCode == RESULT_CANCELED) {
 				// User cancelled the image capture
 			} else {
 				// Image capture failed, advise user
 			}
-
 		}
-
 	}
+	
 	/**
 	 * redrawing the list of ingredients when a ingredient has been deleted
 	 * 
@@ -209,13 +194,13 @@ public class RecipeEditActivity extends Activity implements IngredientAdapter.Ca
 		String instructions = editInstructions.getText().toString();
 		String author = recipe.getAuthor();
 		ArrayList<String> ingredients = ingredientAdapter.getIngredients();
-		while(ingredients.remove(new String(""))){
+		while(ingredients.remove(new String(""))) {
 			ingredients.remove(new String(""));
 		}
 		Photo[] photos = recipe.getPhotos();
 
 		Recipe currentRecipe = new Recipe(name, ingredients, instructions, author);
-		for (Photo photo: photos){
+		for (Photo photo: photos) {
 			currentRecipe.addPhoto(photo);
 		}
 		return currentRecipe;

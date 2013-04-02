@@ -27,10 +27,19 @@ public class SimpleRecipeBook implements RecipeBook
 	protected ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 	private IOFactory ioFactory;
 	
+	/**
+	 * Create a recipe book using the given IOFactory for loading
+	 * and saving.
+	 * 
+	 * @param io
+	 */
 	public SimpleRecipeBook(IOFactory io) {
 		ioFactory = io;
 	}
 	
+	/**
+	 * Create a recipe book that doesn't load/save.
+	 */
 	public SimpleRecipeBook() {
 		ioFactory = new IOFactory.NullIOFactory();
 	}

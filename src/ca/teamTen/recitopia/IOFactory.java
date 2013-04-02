@@ -12,7 +12,23 @@ import java.io.OutputStream;
  * executed.
  */
 public interface IOFactory {
+	
+	/**
+	 * Create an InputStream that can be read and closed.
+	 * 
+	 * @return an InputStream that can be used for reading,
+	 * 		or null, if none is available.
+	 * @throws IOException
+	 */
 	InputStream getInputStream() throws IOException;
+	
+	/**
+	 * Create an OutputStream that can be written to and closed.
+	 * 
+	 * @return an OutputStream that can be used for writing,
+	 * 		or null, if none is available.
+	 * @throws IOException
+	 */
 	OutputStream getOutputStream() throws IOException;
 
 	/**

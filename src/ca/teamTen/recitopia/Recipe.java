@@ -30,6 +30,7 @@ public class Recipe implements Serializable
 	@Expose private ArrayList<Photo> photos;
 	
 	private boolean isPublished;
+		// not persisted via GSON
 	
 	/**
 	 * simple constructor for use with GSon
@@ -125,7 +126,7 @@ public class Recipe implements Serializable
 	 * Checks for equality of all members.
 	 * 
 	 * isPublished is not checked, as this is meta-data, not
-	 * data.
+	 * data. Photos are also not checked.
 	 * 
 	 * @return true if all members are equal
 	 */
@@ -145,7 +146,6 @@ public class Recipe implements Serializable
 				&& cookingInstruction.equals(other.cookingInstruction)
 				&& author.equals(other.author)
 				;
-		// TODO: check photos?
 	}
 	
 	/**

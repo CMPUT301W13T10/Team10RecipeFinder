@@ -15,10 +15,12 @@ import java.util.Set;
  * from a file. Duplicate ingredients are ignored.
  */
 public class Fridge{
-
 	private Set<String> ingredients;
 	private IOFactory ioFactory;
-	
+
+	/**
+	 * Create a new Fridge that doesn't save/load.s
+	 */
 	public Fridge() {
 		this(new IOFactory.NullIOFactory());
 	}
@@ -31,9 +33,13 @@ public class Fridge{
 		ingredients = new HashSet<String>();
 	}
 	
+	/**
+	 * Delete all ingredients.
+	 */
 	public void clearFridge() {
 		ingredients = new HashSet<String>();
 	}
+	
 	/**
 	 * Add a new ingredient to the fridge.
 	 * @return true if the ingredient was added (not a duplicate).
@@ -79,7 +85,6 @@ public class Fridge{
 			out.close();  
 		} catch (FileNotFoundException e) {  
 			e.printStackTrace();  
-
 		} catch (IOException e) {  
 			e.printStackTrace();  
 		}  
@@ -95,8 +100,7 @@ public class Fridge{
 			ObjectInputStream in = new ObjectInputStream(rawInputStream);  
 			this.ingredients = (Set<String>) in.readObject();
 			in.close();
-		} 
-		catch (IOException e) {  
+		} catch (IOException e) {  
 			e.printStackTrace();  
 		} catch (ClassNotFoundException e) {  
 			e.printStackTrace();  

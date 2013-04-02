@@ -45,6 +45,10 @@ public class CloudRecipeBook implements RecipeBook{
 	private Gson gson;
 	private RecipeBook cache;
 	
+	/**
+	 * Create a new cache-backed CloudRecipeBook.
+	 * @param cache a Recipe book which will have all search results added to it.
+	 */
 	public CloudRecipeBook(RecipeBook cache) {
 		httpClient = new DefaultHttpClient();
 		this.cache = cache;
@@ -61,8 +65,8 @@ public class CloudRecipeBook implements RecipeBook{
 		
 		// create Gson object that will always build published recipes
 		gson = gsonBuilder.create();
-		
 	}
+	
 	/**
 	 * Used for Testing Photo Serialization
 	 * @return a string representing the Recipe in JSON format
@@ -107,9 +111,7 @@ public class CloudRecipeBook implements RecipeBook{
 		} catch (IOException e) {
 			return null;
 		}
-		
-		// TODO: what if response is not 200 OK?
-		
+			
 		Recipe[] results = gson.fromJson(resultBody, QueryResult.class).getResults();
 		if (results == null) {
 			results = new Recipe[0];
@@ -118,6 +120,9 @@ public class CloudRecipeBook implements RecipeBook{
 		return results;
 	}
 
+	/*
+	 * Add an array of recipes to the cache.
+	 */
 	private void addRecipesToCache(Recipe[] recipes) {
 		for (Recipe recipe: recipes) {
 			this.cache.addRecipe(recipe);
@@ -146,16 +151,14 @@ public class CloudRecipeBook implements RecipeBook{
 			
 			response = httpClient.execute(postRequest);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 			
 		// status 200 = ok
 		if (response != null && response.getStatusLine().getStatusCode() != 200) {
-			// TODO
+			// TODO notify user? cache add request for later?
 		}
 	}
 	
@@ -217,12 +220,6 @@ public class CloudRecipeBook implements RecipeBook{
 	
 	/*
 	 * ElasticSearch query object.
-	 * Creates an ElasticSearch match-type query that queries all
-	 * fields.
-	 * 
-	 * See http://www.elasticsearch.org/guide/reference/query-dsl/match-query.html
-	 * 
-	 * 
 	 * 
 	 * query: {
 	 * 		query_string {
@@ -253,7 +250,9 @@ public class CloudRecipeBook implements RecipeBook{
 	}
 	
 	/*
-	 * Class for reading query results.
+	 * Class for reading query results. The strange structure
+	 * of this class is due to needing to match the structure of
+	 * ElasticSearch query results.
 	 */
 	@SuppressWarnings("unused")
 	private static class QueryResult {

@@ -55,34 +55,59 @@ public class MainActivity extends Activity {
 		toast.show();
 	}
 	
-	
+	/**
+	 * Launch edit activity to create a new recipe
+	 * @param view
+	 */
 	public void toCreate(View view) {
 		Intent intent = new Intent(this, RecipeEditActivity.class);
 		startActivityForResult(intent, RECIPE_CREATED_RESULT);
 	}
 	
+	/**
+	 * Launch search activity
+	 * @param view
+	 */
 	public void toSearch(View view) {
 		Intent intent = new Intent(this, SearchActivity.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Launch fridge activity
+	 * @param view
+	 */
 	public void toFridge(View view) {
 		Intent intent = new Intent(this, FridgeActivity.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Launch RecipeListActivity to view the user's recipes.
+	 * @param view
+	 */
 	public void toMyRecipes(View view) {
 		Intent intent = new Intent(this, RecipeListActivity.class);
 		intent.putExtra("type", "My Recipes");
 		startActivity(intent);
 	}
 	
+	/**
+	 * Launch RecipeListActivity to view the user's favorited
+	 * recipes.
+	 * 
+	 * @param view
+	 */
 	public void toMyFavorite(View view) {
 		Intent intent = new Intent(this, RecipeListActivity.class);
 		intent.putExtra("type", "My Favorite");
 		startActivity(intent);
 	}
 	
+	/**
+	 * Handle newly created recipes from RecipeEditActivity by saving them to
+	 * the UserRecipeBook.
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == RECIPE_CREATED_RESULT && resultCode == RESULT_OK) {

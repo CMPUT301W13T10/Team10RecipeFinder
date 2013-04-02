@@ -34,7 +34,6 @@ public class IngredientAdapter extends ArrayAdapter<String> {
     private Context context;
     private Callbacks callbacks;
 
-
     /**
      * @param current context
      * @param Callbacks interface
@@ -100,7 +99,6 @@ public class IngredientAdapter extends ArrayAdapter<String> {
             convertView = inflater.inflate(R.layout.ingredient_layout, parent, false);
         }
 
-
         final TextView name = (TextView) convertView.findViewById(R.id.enterIngredient);
         final EditText editName = (EditText) convertView.findViewById(R.id.editIngredient);
         final Button deleteIngredient = (Button) convertView.findViewById(R.id.deleteIngredient);
@@ -114,7 +112,6 @@ public class IngredientAdapter extends ArrayAdapter<String> {
         name.setTag(position);
         
         name.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 //Setting the text that the EditText will use
@@ -131,10 +128,8 @@ public class IngredientAdapter extends ArrayAdapter<String> {
         });
 
         editName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-                if(actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN){
+                if(actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN) {
                     //Handling hardware input of the 'Enter' key
                     editName.setVisibility(View.GONE);
                     name.setText(editName.getText());
@@ -142,8 +137,7 @@ public class IngredientAdapter extends ArrayAdapter<String> {
                     Integer position = (Integer) (name.getTag());     
                     String s = name.getText().toString();
                     ingredients.set(position, s);
-
-                } else if (actionId == EditorInfo.IME_ACTION_DONE ){
+                } else if (actionId == EditorInfo.IME_ACTION_DONE ) {
                     //Handling software input of the 'Enter' key
                     editName.setVisibility(View.GONE);
                     name.setText(editName.getText());
@@ -151,17 +145,13 @@ public class IngredientAdapter extends ArrayAdapter<String> {
                     Integer position = (Integer) (name.getTag());     
                     String s = name.getText().toString();
                     ingredients.set(position, s);
-
                 }
                 return true;
             }
         });
 
-        editName.setOnFocusChangeListener(new View.OnFocusChangeListener()
-        {
-
-            public void onFocusChange(View v, boolean hasFocus)
-            {
+        editName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus){
                     //Save the text if the editText has lost focus.
                     editName.setVisibility(View.GONE);
@@ -170,29 +160,23 @@ public class IngredientAdapter extends ArrayAdapter<String> {
                     Integer position = (Integer) (name.getTag());     
                     String s = name.getText().toString();
                     ingredients.set(position, s); 
-                }
-                else {
+                } else {
                     name.setText(editName.getText());
                     Integer position = (Integer) (name.getTag());
                     String s = name.getText().toString();
                     ingredients.set(position, s); 
                 }
-
-
             }
         });
 
         //Setting a tag associated with the position of the ingredient
         deleteIngredient.setTag(position);
         deleteIngredient.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 //Call the removeIngredient method
                 deleteIngredient.requestFocusFromTouch();
                 IngredientAdapter.this.removeIngredient((Integer) deleteIngredient.getTag());
-                
-                
             }
         });
         return convertView;
