@@ -1,5 +1,6 @@
 package ca.teamTen.recitopia;
 
+import android.annotation.SuppressLint;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
  * 
  * @see RecipeBook
  */
+@SuppressLint("DefaultLocale")
 public class SimpleRecipeBook implements RecipeBook
 {
 	protected ArrayList<Recipe> recipes = new ArrayList<Recipe>();

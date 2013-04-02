@@ -1,7 +1,5 @@
 package ca.teamTen.recitopia;
 
-import java.util.ArrayList;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;

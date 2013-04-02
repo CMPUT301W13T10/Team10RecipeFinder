@@ -204,6 +204,7 @@ public class CloudRecipeBook implements RecipeBook{
 	 * the doc member. If it does not exist, it will first create the
 	 * record using the upsert member.
 	 */
+	@SuppressWarnings("unused")
 	private static class UpdateInsertRequest {
 		@Expose public Recipe doc;
 		@Expose public Recipe upsert;
@@ -211,10 +212,6 @@ public class CloudRecipeBook implements RecipeBook{
 		UpdateInsertRequest(Recipe recipe) {
 			doc = recipe;
 			upsert = recipe;
-		}
-		
-		public String toJSON(Gson gson) {
-			return gson.toJson(this);
 		}
 	}
 	

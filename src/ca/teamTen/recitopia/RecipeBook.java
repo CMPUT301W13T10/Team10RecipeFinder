@@ -2,8 +2,6 @@ package ca.teamTen.recitopia;
 
 import java.util.ArrayList;
 
-import ca.teamTen.recitopia.RecipeBook.AsyncAddRecipeTask.Callbacks;
-
 import android.os.AsyncTask;
 
 /**

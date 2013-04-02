@@ -166,12 +166,10 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 		@Override
 		public Recipe[] query(String searchTerms) {
 			ArrayList<Recipe[]> results = new ArrayList<Recipe[]>();
-			int totalCount = 0;
 			
 			for (RecipeBook book: books) {
 				Recipe[] recipes = book.query(searchTerms);
 				if (recipes != null) {
-					totalCount += recipes.length;
 					results.add(recipes);
 				}
 			}
