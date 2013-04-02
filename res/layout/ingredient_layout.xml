@@ -6,7 +6,7 @@
 
     <EditText
         android:id="@+id/editIngredient"
-        android:layout_width="wrap_content"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ems="10"
@@ -21,19 +21,25 @@
         android:id="@+id/enterIngredient"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="1.26"
+        android:layout_weight="1"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
         android:ems="10"
-        android:textIsSelectable="true"
         android:hint="@string/enterIngredient"
-        />
-    
-    
+        android:textIsSelectable="true" />
+
     <Button
         android:id="@+id/deleteIngredient"
+        style="@style/MainButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/deleteButton"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+  		android:layout_gravity="right"
         android:focusable="true"
-         />
+        android:text="@string/deleteButton"
+        android:textSize="20sp" />
 
 </LinearLayout>

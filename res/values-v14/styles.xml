@@ -1,5 +1,31 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar" />
+<color name="white_opaque">#FFFFFFFF</color>
+<color name="pitch_black">#FF000000</color>
+<color name="light_yellow">#FFFFCC</color>
+<color name="sky_blue">#3399FF</color>
+<color name="light_blue">#66CCFF</color>
+<color name="cherry_red">#FF3399</color>
+<color name="grass_green">#66FF99</color>
+<color name="solid_green">#66CC33</color>
+<color name="solid_brown">#996633</color>
+
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar" >
+       	<item name="android:windowBackground">@color/light_yellow</item>
+       	<item name="android:textSize">20sp</item>
+       	<item name="android:actionBarStyle">@style/MyActionBar</item>
+    </style>
+    
+   	<style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+    <item name="android:background">@color/sky_blue</item>
+	</style>
+	
+	<style name="MainButton" parent="@android:style/TextAppearance" >
+	    <item name="android:textSize">25sp</item>
+	    <item name="android:textColor">#FFFFFF</item>    
+	    <item name="android:textStyle">bold</item>
+	    <item name="android:background">@color/cherry_red</item>
+	    <item name="android:typeface">sans</item>
+	</style>
 
 </resources>

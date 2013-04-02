@@ -18,13 +18,25 @@
         </LinearLayout>
 
         <Button
+            style="@style/MainButton"
             android:id="@+id/fridgeAddIngredient"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+        	android:layout_marginRight="10dp"
+        	android:layout_marginBottom="5dp"
+        	android:background="@color/solid_green"
             android:text="@string/addIngredient" />
 
         <Button
             android:id="@+id/button1"
+            style="@style/MainButton"
+            android:textSize="20sp"
+        	android:layout_marginBottom="5dp"
+        	android:layout_marginLeft="10dp"
+        	android:layout_marginRight="10dp"
+        	android:background="@color/solid_brown"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="searchByIngredients"

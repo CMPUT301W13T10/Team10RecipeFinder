@@ -1,58 +1,70 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".MainActivity" >
-
+    <Button
+        android:id="@+id/to_search"
+        style="@style/MainButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="30dp"
+        android:onClick="toSearch"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/title_activity_search" />
+    
     <Button
         android:id="@+id/to_create"
-        android:layout_width="wrap_content"
+        style="@style/MainButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/to_search"
+        android:layout_weight="1"
         android:onClick="toCreate"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/title_activity_create" />
 
     <Button
-        android:id="@+id/to_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="30dp"
-        android:onClick="toSearch"
-        android:text="@string/title_activity_search" />
-
-    <Button
         android:id="@+id/to_fridge"
-        android:layout_width="wrap_content"
+        style="@style/MainButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/to_create"
+        android:layout_weight="1"
         android:onClick="toFridge"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
         android:text="My Fridge" />
 
     <Button
         android:id="@+id/to_myRecipes"
-        android:layout_width="wrap_content"
+        style="@style/MainButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/to_fridge"
+        android:layout_weight="1"
         android:onClick="toMyRecipes"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
         android:text="My Recipes" />
     
     <Button
         android:id="@+id/to_myFavorite"
-        android:layout_width="wrap_content"
+        style="@style/MainButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/to_myRecipes"
+        android:layout_weight="1"
         android:onClick="toMyFavorite"
-        android:text="My Favorite Recipes" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="30dp"
+        android:text="Favorite Recipes" />
 
-</RelativeLayout>
+</LinearLayout>

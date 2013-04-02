@@ -160,9 +160,9 @@ public class Recipe implements Serializable
 				ingredientsString = ingredientsString.concat(ingredients.get(i)).concat(", ");
 		}
 		
-		return "Recipe Name: " + getRecipeName() + "\n" + "\n"
-		+ "Author: " + author + "\n" + "\n"
-		+ "Ingredients: " + ingredientsString + "\n" + "\n"
-		+ "Cooking Instructions: " + cookingInstruction;
+		return "Recipe Name: \n\t\t" + getRecipeName() + "\n" + "\n"
+		+ "Author: \n\t\t" + author + "\n" + "\n"
+		+ "Ingredients: \n\t\t" + ingredientsString + "\n"
+		+ "Cooking Instructions: \n\t\t" + cookingInstruction + "\n\nRecipe Photos:";
 	}
 }

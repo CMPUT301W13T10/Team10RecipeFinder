@@ -22,6 +22,7 @@
             android:id="@+id/photoContainer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="5dp"
             android:orientation="horizontal" >
 
             <MediaController
@@ -31,35 +32,46 @@
             </MediaController>
         </LinearLayout>
     </HorizontalScrollView>
+	
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/horizontalScrollView1"
-        android:onClick="editRecipe"
-        android:text="@string/editRecipe" />
-
-    <Button
-        android:id="@+id/publishButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/button3"
-        android:text="Publish Recipe"
-        android:onClick="publishRecipe" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/button1"
-        android:onClick="saveFavorite"
-        android:text="Save as Favorite" />
-
+        <Button
+	        android:id="@+id/button1"
+	        style="@style/MainButton"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="bottom"
+	        android:textSize="20sp"
+	        android:layout_weight="1"
+	        android:layout_margin="2dip"
+	        android:onClick="editRecipe"
+	        android:text="@string/editRecipe" />
+	
+	    <Button
+	        android:id="@+id/publishButton"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:layout_gravity="bottom"
+	       	android:textSize="20sp"
+	        android:background="@color/light_blue"
+	        android:layout_margin="2dip"
+	        android:text="Publish"
+	        android:onClick="publishRecipe" />
+	
+	    <Button
+	        android:id="@+id/button3"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	      	android:textSize="20sp"
+	        android:background="@color/grass_green"
+	        android:layout_gravity="bottom"
+	        android:layout_margin="2dip"
+	        android:onClick="saveFavorite"
+	        android:text="Save" />     
+    </LinearLayout>
 </RelativeLayout>
