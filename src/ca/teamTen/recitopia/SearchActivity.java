@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -110,6 +111,7 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 	/*
 	 * AsyncTask for running search queries.
 	 */
+	@SuppressLint("NewApi")
 	private class QueryTask extends AsyncTask<String, Void, Recipe[]> {
 		ApplicationManager appMgr;
 		
