@@ -26,12 +26,14 @@ public class RecipeViewActivity extends Activity {
     private ShareActionProvider mShareActionProvider;
 	private LinearLayout photoContainer;
     private Recipe recipe;
+    private View publishButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_view);
         photoContainer = (LinearLayout) findViewById(R.id.photoContainer);
+        publishButton = findViewById(R.id.publishButton);
         if (getIntent().hasExtra("RECIPE")) {
             recipe = (Recipe)getIntent().getSerializableExtra("RECIPE");
             updateContentView();
@@ -46,6 +48,12 @@ public class RecipeViewActivity extends Activity {
         TextView contentView = (TextView)findViewById(R.id.content);
         contentView.setText(recipe.toString());
 		drawPhotos();
+		
+		if (recipe.publishRecipe()) {
+			publishButton.setVisibility(View.GONE);
+		} else {
+			publishButton.setVisibility(View.VISIBLE);
+		}
 
     }
     
@@ -94,6 +102,9 @@ public class RecipeViewActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RECIPE_EDITED_RESULT && resultCode == RESULT_OK) {
             Recipe newRecipe = (Recipe)data.getSerializableExtra("RECIPE");
+            newRecipe.setPublished(recipe.publishRecipe());
+            	// RecipeEdit has trouble keeping track of this
+            
             ApplicationManager appMgr = ApplicationManager.getInstance(getApplication());
             RecipeBook.AsyncAddRecipeTask addRecipeTask = new RecipeBook.AsyncAddRecipeTask();
             
@@ -174,6 +185,9 @@ public class RecipeViewActivity extends Activity {
     	ApplicationManager appMgr = ApplicationManager.getInstance(getApplication());
     	RecipeBook.AsyncAddRecipeTask addTask = new RecipeBook.AsyncAddRecipeTask();
     	addTask.addRecipeBook(appMgr.getCloudRecipeBook());
+    	if (recipeAuthorIsUser(recipe)) {
+    		addTask.addRecipeBook(appMgr.getUserRecipeBook());
+    	}
     	addTask.setCallbacks(new RecipeBook.AsyncAddRecipeTask.Callbacks() {
 			@Override
 			public void recipesAdded()
@@ -183,6 +197,7 @@ public class RecipeViewActivity extends Activity {
 		    	toast.show();
 			}
 		});
+    	recipe.setPublished(true);
     	addTask.execute(recipe);
     }
     
