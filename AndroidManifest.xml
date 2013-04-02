@@ -49,11 +49,6 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="ca.teamTen.recitopia.TakePhotoActivity"
-            android:label="@string/title_activity_take_photo"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name="ca.teamTen.recitopia.RecipeViewActivity"
             android:label="@string/title_activity_recipe_view"
             android:screenOrientation="portrait" >
