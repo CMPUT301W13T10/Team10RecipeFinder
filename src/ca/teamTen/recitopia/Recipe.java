@@ -163,6 +163,6 @@ public class Recipe implements Serializable
 		return "Recipe Name: \n\t\t" + getRecipeName() + "\n" + "\n"
 		+ "Author: \n\t\t" + author + "\n" + "\n"
 		+ "Ingredients: \n\t\t" + ingredientsString + "\n"
-		+ "Cooking Instructions: \n\t\t" + cookingInstruction + "\n\nRecipe Photos:";
+		+ "Cooking Instructions: \n\t\t" + cookingInstruction + "\n";
 	}
 }
