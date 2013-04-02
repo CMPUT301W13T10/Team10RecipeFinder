@@ -23,5 +23,8 @@
     <string name="menu_clear_cache">Clear Cache</string>
     <string name="cacheClearedToast">Recipe Cache Cleared</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="loginViewBlurb">Welcome to Recitopia! Please enter an email below to
+        						get started.</string>
+    <string name="loginButton">login</string>
 
 </resources>

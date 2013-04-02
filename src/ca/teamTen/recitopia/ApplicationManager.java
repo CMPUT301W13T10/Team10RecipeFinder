@@ -1,8 +1,13 @@
 package ca.teamTen.recitopia;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintStream;
 
 import android.app.Application;
 import android.content.Context;
@@ -20,11 +25,12 @@ public class ApplicationManager {
 	private static final String FAVORITES_RECIPEBOOK_PATH = "myFavoriteRecipes.dat";
 	private static final String CACHE_RECIPEBOOK_PATH = "cachedRecipes.dat";
 	private static final String FRIDGE_PATH = "fridge.dat";
+	private static final String USERID_PATH = "userid.txt";
 
 	private static ApplicationManager appMgr;
 
 	private Context appContext;
-	private String userid;	
+	private String userid = null;
 	private SimpleRecipeBook userRecipeBook = null;
 		// userRecipeBook stores the user's recipes
 	private SimpleRecipeBook favoriteRecipesBook = null;
@@ -35,8 +41,6 @@ public class ApplicationManager {
 	private Fridge fridge = null;
 
 	private ApplicationManager(Application application) {
-		this.userid = "test@test.com";
-		// dummy id thing, to be removed when #24 is closed
 		appContext = application.getApplicationContext();
 	}
 
@@ -45,7 +49,8 @@ public class ApplicationManager {
 	 * @param user
 	 */
 	public void setUserID(String user) {
-		this.userid = user;
+		userid = user;
+		saveUserID();
 	}
 
 	/**
@@ -53,7 +58,10 @@ public class ApplicationManager {
 	 * @return the current user's id (email)
 	 */
 	public String getUserID() {
-		return this.userid;
+		if (userid == null) {
+			loadUserID();
+		}
+		return userid;
 	}
 
 	/**
@@ -124,6 +132,28 @@ public class ApplicationManager {
 		}
 		
 		return fridge;
+	}
+	
+	public void saveUserID() {
+		try {
+			FileOutputStream outStream = appContext.openFileOutput(USERID_PATH, Context.MODE_PRIVATE);
+			PrintStream outPrinter = new PrintStream(outStream);
+			outPrinter.print(userid);
+			outPrinter.close();
+		} catch (Exception e) {
+			// we'll just try again next time...
+		}
+	}
+	
+	public void loadUserID() {
+		try {
+			FileInputStream inStream = appContext.openFileInput(USERID_PATH);
+			BufferedReader inReader = new BufferedReader(new InputStreamReader(inStream));
+			userid = inReader.readLine().trim();
+			inReader.close();
+		} catch (Exception e) {
+			userid = null;
+		}
 	}
 
 	/**
